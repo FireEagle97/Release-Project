@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
-//const {commentRouter} = require('./routes/comments.js');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
