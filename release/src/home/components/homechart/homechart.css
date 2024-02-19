@@ -1,0 +1,11 @@
+.homechart {
+    margin-left: 12rem;
+    margin-right: 12rem;
+}
+
+@media screen and (max-width: 960px) {
+    .homechart {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+  }
