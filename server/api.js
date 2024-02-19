@@ -3,6 +3,8 @@ const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
 
+const {releasesRouter} = require('./routes/releases.js');
+
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
 const _dirname = __dirname || path.dirname(_filename);
@@ -23,6 +25,7 @@ app.use(express.json());
 // Middleware to compress data
 app.use(compression());
 
+
 app.use(
     fileUpload({
         createParentPath: true,
@@ -30,15 +33,9 @@ app.use(
 );
   
 
-// get filtered releases - results
-app.get('/view-releases/', (req, res)=>{
-    
-});
+// Use releases router
+app.use('/view-releases/', releasesRouter);
 
-// post releases
-app.post('/release-apply/', (req, res)=>{
-    
-});
 
 // 404 route 
 app.use((req, res) => {
