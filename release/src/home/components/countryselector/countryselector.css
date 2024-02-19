@@ -1,0 +1,9 @@
+.countryselector {
+    width: 350px;
+    opacity: 0.7;
+    transition: ease-in 0.3s;
+}
+
+.countryselector:hover {
+    opacity: 1;
+}
