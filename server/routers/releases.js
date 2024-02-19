@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 //rent, size, furnishing
 
-router.get('/:city?area', async (req, res) => {
+router.get('/:city', async (req, res) => {
     try{
         const city = req.params.city
         const area = req.query.area
