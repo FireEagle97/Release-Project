@@ -76,7 +76,7 @@ class DB{
             if (!city || typeof filters !== 'object') {
                 throw new Error('Invalid input parameters');
             }
-            const query = releaseQuery(city, area, filters);
+            const query = this.releaseQuery(city, area, filters);
             const releases = await Release.find({query}).select('-_id -__v');
             return releases;
         } catch (error) {
@@ -99,7 +99,8 @@ class DB{
         }
 
         // Add rent range query if both minimum and maximum are provided
-        if (filters.rent && filters.rent.minimum !== undefined && filters.rent.maximum !== undefined) {
+        if (filters.rent && filters.rent.minimum !== undefined 
+            && filters.rent.maximum !== undefined) {
             query.rent = {
                 $gte: filters.rent.minimum,
                 $lte: filters.rent.maximum
@@ -107,7 +108,8 @@ class DB{
         }
 
         // Add size range query if both minimum and maximum are provided
-        if (filters.size && filters.size.minimum !== undefined && filters.size.maximum !== undefined) {
+        if (filters.size && filters.size.minimum !== undefined 
+            && filters.size.maximum !== undefined) {
             query.size = {
                 $gte: filters.size.minimum,
                 $lte: filters.size.maximum
