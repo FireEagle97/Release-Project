@@ -32,5 +32,5 @@ router.get('/:city', async (req, res) => {
 
 
 module.exports = {
-    releases: router
+    releasesRouter: router
 };

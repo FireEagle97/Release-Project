@@ -4,7 +4,10 @@
   "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "cd server && node bin/www",
+    "prod": "npm run build && npm run start",
+    "build": "cd release && npm install && npm run build && cd ../server && npm install"
   },
   "repository": {
     "type": "git",
