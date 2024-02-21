@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const {DB} = require('./db.db');
+const db = DB();
 
 router.get('/', async (req, res) => {
     try{
-        const data =  await getAllReleases();
+        const data =  await db.getAllReleases();
         res.json({'response':data});
       
     }catch(err){
