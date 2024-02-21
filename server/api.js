@@ -3,7 +3,7 @@ const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
 
-const {releasesRouter} = require('./routes/releases.js');
+const {releasesRouter} = require('./routers/releases.js');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
