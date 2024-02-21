@@ -18,12 +18,12 @@ router.get('/', async (req, res) => {
 
 router.get('/:city', async (req, res) => {
     try{
-        const city = req.params.city
-        const area = req.query.area
+        const city = req.params.city;
+        const area = req.query.area;
         const rent = req.query.rent;
         const size = req.query.size;
         const furnishing = req.query.furnishing;
-        const data = await getReleasesByCityAndFilters(city, area, { rent, size, furnishing });
+        const data = await db.getReleasesByCityAndFilters(city, area, { rent, size, furnishing });
         res.json({'response':data});
       
     }catch(err){
