@@ -2,7 +2,7 @@
 const mongoose = require('mongoose'); 
 
 // Release Schema
-const releaseSchema = new mongoose.Schema({
+const leaseSchema = new mongoose.Schema({
     posted_on: String, 
     bhk: Number,
     rent: Number,
@@ -15,9 +15,9 @@ const releaseSchema = new mongoose.Schema({
     bathroom: Number
 }); 
 
-const Release = mongoose.model('release', releaseSchema); 
+const lease = mongoose.model('lease', leaseSchema); 
 
 // Exporting our model objects 
 module.exports = { 
-    Release
+    leases : lease
 };

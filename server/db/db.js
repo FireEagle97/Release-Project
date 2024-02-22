@@ -2,7 +2,7 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
-const { Release } = require('./schemas');
+const { leases } = require('./schemas');
 
 let instance;
 
@@ -45,11 +45,11 @@ class DB{
         }
     }
 
-    async saveAllReleases(data) {
+    async createManyLeases(data) {
         try{
             await this.connect();
-            const result = await Release.insertMany(data);
-            console.log('Images inserted successfully:', result);
+            const result = await leases.insertMany(data);
+            console.log('Leases inserted successfully:', result);
             return result;
         } catch (error) {
             console.error('An error occurred while saving releases:', error);
@@ -61,7 +61,7 @@ class DB{
     async getAllReleases() {
         try{
             await this.connect();
-            const releases = await Release.find({}).select('-_id -__v');
+            const releases = await leases.find({}).select('-_id -__v');
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving releases:', error);
@@ -77,7 +77,7 @@ class DB{
                 throw new Error('Invalid input parameters');
             }
             const query = this.releaseQuery(city, area, filters);
-            const releases = await Release.find({query}).select('-_id -__v');
+            const releases = await leases.find({query}).select('-_id -__v');
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving releases:', error);
@@ -121,7 +121,7 @@ class DB{
     async deleteMany() {
         try {
             await this.connect();
-            await Release.deleteMany({});
+            await leases.deleteMany({});
         } catch (error) {
             console.error('An error occurred while deleting:', error);
         } finally{
