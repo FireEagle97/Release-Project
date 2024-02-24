@@ -2,7 +2,7 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
-const { Release } = require('./schemas');
+const { Appartment } = require('./schemas');
 
 let instance;
 
@@ -121,7 +121,7 @@ class DB{
     async deleteMany() {
         try {
             await this.connect();
-            await Release.deleteMany({});
+            await Appartment.deleteMany({});
         } catch (error) {
             console.error('An error occurred while deleting:', error);
         } finally{

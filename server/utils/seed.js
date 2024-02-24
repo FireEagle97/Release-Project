@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const DB = require('../db/db');
+const {DB} = require('../db/db');
 const { readAndParseCSVRents} = require('./dataFetcher');
 
 /**
