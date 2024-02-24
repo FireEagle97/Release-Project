@@ -26,7 +26,8 @@ export default function Home() {
   
   return (
     <>
-      <p>Home Page</p>
+      <p>Home Page helo</p>
+      <p>testing</p>
     </>
   );
   

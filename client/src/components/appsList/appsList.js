@@ -9,7 +9,6 @@ const AppartmentList = ({ data }) => {
   const currentAppartments = data.slice(indexOfFirstCard, indexOfLastCard);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
-
   return (
     <div>
       <div className="card-container">

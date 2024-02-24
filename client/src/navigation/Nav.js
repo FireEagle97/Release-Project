@@ -20,7 +20,7 @@ export default function Navigation() {
         <div className="nav-container">
           {/* Navigation header with a link to the home page. */}
           <a href="/" className="nav-header">
-            <span>Re-lease</span>
+            <span>Release</span>
           </a>
 
           {/* List of navigation items with links to different sections. */}

@@ -45,14 +45,14 @@ class DB{
         }
     }
 
-    async saveAllAppartments(data) {
+    async insertManyAppartments(data) {
         try{
             await this.connect();
-            const result = await Release.insertMany(data);
-            console.log('Images inserted successfully:', result);
+            const result = await Appartment.insertMany(data);
+            console.log('Appartments inserted successfully:', result);
             return result;
         } catch (error) {
-            console.error('An error occurred while saving releases:', error);
+            console.error('An error occurred while saving appartments:', error);
         } finally{
             await this.close();
         }
@@ -61,7 +61,7 @@ class DB{
     async getAllAppartments() {
         try{
             await this.connect();
-            const releases = await Release.find({}).select('-_id -__v');
+            const releases = await Appartment.find({}).select('-_id -__v');
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving appartments:', error);
@@ -76,8 +76,8 @@ class DB{
             if (!city || typeof filters !== 'object') {
                 throw new Error('Invalid input parameters');
             }
-            const query = this.releaseQuery(city, area, filters);
-            const releases = await Release.find({query}).select('-_id -__v');
+            const query = this.appartmentQuery(city, area, filters);
+            const releases = await Appartment.find({query}).select('-_id -__v');
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving appartments:', error);

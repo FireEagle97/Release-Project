@@ -12,10 +12,10 @@ async function seedDatabase(){
         await db.connect('Cluster0');
         await db.deleteMany({});
         console.log('deleted');
-        const dataReleases = 
-                await readAndParseCSVRents('../server/data/house_renting_dataset.csv');
-        const numComments = await db.createManyComments(dataReleases);
-        console.log(`Inserted ${numComments} rows`);
+        // const dataAppartments = 
+        //         await readAndParseCSVRents('../data/house_renting_dataset.csv');
+        // const numAppartments = await db.insertManyAppartments(dataAppartments);
+        // console.log(`Inserted ${numAppartments} rows`);
         console.error('MongoDB successfully seeded');
     } catch (e) {
         console.error('could not seed');
