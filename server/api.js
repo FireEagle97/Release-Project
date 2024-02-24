@@ -17,7 +17,7 @@ const app = express();
 
 // Add middleware to serve static files
 app.use(express.static(path.join(path.dirname(_filename), '..', 
-    'release', 'build')));
+    'client', 'build')));
 
 // Middleware to parse JSON requests
 app.use(express.json()); 
