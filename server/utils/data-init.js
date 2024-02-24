@@ -1,12 +1,72 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
+const azureConnection = process.env.AZURE_CONNECTION;
+const azureContainerName = process.env.AZURE_CONTAINER_NAME;
+const { BlobServiceClient} = require('@azure/storage-blob');
 
 // for images, every lease gets 2 from interior and 3 from extras
 
-async function getAllLeases(filePath = 'data/House_Rent_Dataset_2.csv') {
-    const data = await readCsvFile(filePath);
-    return data;
+async function getImageUrls() {
+    const blobService = BlobServiceClient.fromConnectionString(azureConnection);
+    const containerClient = blobService.getContainerClient(azureContainerName);
+
+    const interiorUrls = [];
+    const interiorFolderPath = 'data/images/interior';
+    
+    return new Promise((resolve, reject) => {
+        fs.readdir(interiorFolderPath, async (err, files) => {
+            if (err) {
+                console.error('Error reading folder:', err);
+                reject(err);
+                return;
+            }
+
+            const uploadPromises = [];
+
+            for (const file of files) {
+                // Skip .DS_Store files
+                if (file === '.DS_Store') {
+                    continue;
+                }
+
+                const filePath = `${interiorFolderPath}/${file}`;
+
+                const blobClient = containerClient.getBlockBlobClient(file);
+
+                // Wrap the asynchronous operation inside a function and push it to uploadPromises
+                const uploadPromise = (async () => {
+                    try {
+                        const fileData = fs.readFileSync(filePath);
+                        const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
+                        await blobClient.uploadData(fileData, options);
+                        const url = blobClient.url;
+                        console.log('inserted file:', url);
+                        interiorUrls.push(url);
+                    } catch (error) {
+                        console.error('Error uploading file:', error.message);
+                    }
+                })();
+
+                uploadPromises.push(uploadPromise);
+            }
+
+            await Promise.all(uploadPromises);
+            resolve(interiorUrls);
+        });
+    });
 }
+
+async function getAllLeases(filePath = 'data/House_Rent_Dataset_2.csv') {
+    try {
+        const urls = await getImageUrls();
+        console.log(urls);
+    } catch (error) {
+        console.error('Error getting image URLs:', error);
+    }
+    // const data = await readCsvFile(filePath);
+    // return data;
+}
+
 async function readCsvFile(filePath) {
     return new Promise((resolve, reject) => {
         const results = [];
