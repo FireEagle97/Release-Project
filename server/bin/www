@@ -1,8 +1,9 @@
 const {app} = require('../api');
 const path = require('path');
-process.env.DEBUG = 'server';
+
+require('dotenv').config();
 const debug = require('debug');
-const logger = debug('server');
+const logger = debug('server:startup');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
