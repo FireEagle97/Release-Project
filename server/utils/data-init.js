@@ -11,7 +11,9 @@ async function getImageUrls() {
     const containerClient = blobService.getContainerClient(azureContainerName);
 
     const interiorUrls = [];
+    const extrasUrls = []; 
     const interiorFolderPath = 'data/images/interior';
+    const extrasFolderPath = 'data/images/extras';
     
     return new Promise((resolve, reject) => {
         fs.readdir(interiorFolderPath, async (err, files) => {
@@ -40,7 +42,6 @@ async function getImageUrls() {
                         const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
                         await blobClient.uploadData(fileData, options);
                         const url = blobClient.url;
-                        console.log('inserted file:', url);
                         interiorUrls.push(url);
                     } catch (error) {
                         console.error('Error uploading file:', error.message);
@@ -49,17 +50,52 @@ async function getImageUrls() {
 
                 uploadPromises.push(uploadPromise);
             }
-
             await Promise.all(uploadPromises);
-            resolve(interiorUrls);
         });
+
+        fs.readdir(extrasFolderPath, async (err, files) => {
+            if (err) {
+                console.error('Error reading extras folder:', err);
+                reject(err);
+                return;
+            }
+
+            const uploadPromises = [];
+
+            for (const file of files) {
+                if (file === '.DS_Store') {
+                    continue;
+                }
+
+                const filePath = `${extrasFolderPath}/${file}`;
+                const blobClient = containerClient.getBlockBlobClient(file);
+
+                const uploadPromise = (async () => {
+                    try {
+                        const fileData = fs.readFileSync(filePath);
+                        const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
+                        await blobClient.uploadData(fileData, options);
+                        const url = blobClient.url;
+                        extrasUrls.push(url);
+                    } catch (error) {
+                        console.error('Error uploading file (extras):', error.message);
+                    }
+                })();
+
+                uploadPromises.push(uploadPromise);
+            }
+            await Promise.all(uploadPromises);
+            resolve({ interior: interiorUrls, extras: extrasUrls });
+        });
+
     });
 }
 
 async function getAllLeases(filePath = 'data/House_Rent_Dataset_2.csv') {
     try {
-        const urls = await getImageUrls();
-        console.log(urls);
+        const {interior, extras} = await getImageUrls();
+        console.log('interior: ', interior);
+        console.log('extras: ', extras);
     } catch (error) {
         console.error('Error getting image URLs:', error);
     }
