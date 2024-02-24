@@ -3,7 +3,7 @@ const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
 
-const {releasesRouter} = require('./routes/releases');
+const {releasesRouter} = require('./routes/appartments.js');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
@@ -34,7 +34,7 @@ app.use(
   
 
 // Use releases router
-app.use('/view-releases/', releasesRouter);
+app.use('/view-appartments/', releasesRouter);
 
 
 // 404 route 
