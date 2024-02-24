@@ -49,7 +49,7 @@ class DB{
         try{
             await this.connect();
             const result = await leases.insertMany(data);
-            console.log('Leases inserted successfully:', result);
+            // console.log('Leases inserted successfully:', result);
             return result;
         } catch (error) {
             console.error('An error occurred while saving releases:', error);

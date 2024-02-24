@@ -14,7 +14,8 @@ const leaseSchema = new mongoose.Schema({
     furnishing: String,
     preferredTentant: String,
     bathroom: Number,
-    pointOfContact: String
+    pointOfContact: String,
+    images: Array
 }); 
 
 const lease = mongoose.model('lease', leaseSchema); 

@@ -1,9 +1,9 @@
 const { DB } = require('../db/db.js');
 const {getAllLeases} = require('./data-init.js');
 
-process.env.DEBUG = 'server';
+require('dotenv').config();
 const debug = require('debug');
-const logger = debug('server');
+const logger = debug('server:seeded database');
 
 
 (async () => {
@@ -12,6 +12,7 @@ const logger = debug('server');
 
         const data = await getAllLeases();
         await db.createManyLeases(data);
+        logger('data seede', data);
         logger('seeded database');
 
 
