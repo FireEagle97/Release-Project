@@ -45,7 +45,7 @@ class DB{
         }
     }
 
-    async saveAllReleases(data) {
+    async saveAllAppartments(data) {
         try{
             await this.connect();
             const result = await Release.insertMany(data);
@@ -58,19 +58,19 @@ class DB{
         }
     }
     
-    async getAllReleases() {
+    async getAllAppartments() {
         try{
             await this.connect();
             const releases = await Release.find({}).select('-_id -__v');
             return releases;
         } catch (error) {
-            console.error('An error occurred while retrieving releases:', error);
+            console.error('An error occurred while retrieving appartments:', error);
         } finally{
             await this.close();
         }
     }
 
-    async getReleasesByCityAndFilters(city, area, filters) {
+    async getAppartmentsByCityAndFilters(city, area, filters) {
         try{
             await this.connect();
             if (!city || typeof filters !== 'object') {
@@ -80,13 +80,13 @@ class DB{
             const releases = await Release.find({query}).select('-_id -__v');
             return releases;
         } catch (error) {
-            console.error('An error occurred while retrieving releases:', error);
+            console.error('An error occurred while retrieving appartments:', error);
         } finally{
             await this.close();
         }
     }
 
-    releaseQuery(city, area, filters){
+    appartmentQuery(city, area, filters){
 
         const query = { city: city};
 
