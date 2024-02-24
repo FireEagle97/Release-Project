@@ -11,7 +11,7 @@ const _dirname = __dirname || path.dirname(_filename);
 const { config } = require('dotenv');
 const envPath = path.resolve(_dirname, '../.env');
 config({ path: envPath });
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 
 const server = app.listen(port, () => {
     logger('started listening on port ' + port);

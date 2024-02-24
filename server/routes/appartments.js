@@ -5,7 +5,7 @@ const db = new DB();
 
 router.get('/', async (req, res) => {
     try{
-        const data =  await db.getAllReleases();
+        const data =  await db.getAllAppartments();
         res.json({'response':data});
       
     }catch(err){
@@ -23,7 +23,8 @@ router.get('/:city', async (req, res) => {
         const rent = req.query.rent;
         const size = req.query.size;
         const furnishing = req.query.furnishing;
-        const data = await db.getReleasesByCityAndFilters(city, area, { rent, size, furnishing });
+        // eslint-disable-next-line max-len
+        const data = await db.getAppartmentsByCityAndFilters(city, area, { rent, size, furnishing });
         res.json({'response':data});
       
     }catch(err){
@@ -34,5 +35,5 @@ router.get('/:city', async (req, res) => {
 
 
 module.exports = {
-    releasesRouter: router
+    appartmentsRouter: router
 };
