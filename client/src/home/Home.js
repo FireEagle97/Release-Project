@@ -26,8 +26,16 @@ export default function Home() {
   
   return (
     <>
-      <p>Home Page helo</p>
-      <p>testing</p>
+      <h2>Welcome to ReLease!</h2>
+      <p>Our platform serves as a bridge between tenants looking to vacate their current rental
+        properties and people searching for the perfect place to call home. Whether you want to relocate
+        for a job, upgrade to a larger space, or downsize to a cozier home, ReLease is here to make the
+        transition smooth and hassle-free.
+      </p>
+      <br></br>
+      <h3>Contact Information</h3>
+      <p>You can reach out to us at the following email:</p>
+      <p>release@info.com</p>
     </>
   );
   

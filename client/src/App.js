@@ -31,7 +31,9 @@ function App() {
         <AppartmentList data={data}/>
       </div>
       <footer>
-          
+          <p>fooooter</p>
+          <p>Elissar Fadel, Monica Dimitrova, Anastasia Bondarenko, Dany Makhoul</p>
+          <p>ReLease 2024</p>
       </footer>
     </>
   );
