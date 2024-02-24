@@ -52,25 +52,25 @@ class DB{
             // console.log('Leases inserted successfully:', result);
             return result;
         } catch (error) {
-            console.error('An error occurred while saving releases:', error);
+            console.error('An error occurred while saving appartments:', error);
         } finally{
             await this.close();
         }
     }
     
-    async getAllReleases() {
+    async getAllAppartments() {
         try{
             await this.connect();
             const releases = await leases.find({}).select('-_id -__v');
             return releases;
         } catch (error) {
-            console.error('An error occurred while retrieving releases:', error);
+            console.error('An error occurred while retrieving appartments:', error);
         } finally{
             await this.close();
         }
     }
 
-    async getReleasesByCityAndFilters(city, area, filters) {
+    async getAppartmentsByCityAndFilters(city, area, filters) {
         try{
             await this.connect();
             if (!city || typeof filters !== 'object') {
@@ -80,13 +80,13 @@ class DB{
             const releases = await leases.find({query}).select('-_id -__v');
             return releases;
         } catch (error) {
-            console.error('An error occurred while retrieving releases:', error);
+            console.error('An error occurred while retrieving appartments:', error);
         } finally{
             await this.close();
         }
     }
 
-    releaseQuery(city, area, filters){
+    appartmentQuery(city, area, filters){
 
         const query = { city: city};
 

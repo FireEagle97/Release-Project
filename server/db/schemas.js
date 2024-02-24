@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // Requiring module 
 const mongoose = require('mongoose'); 
 

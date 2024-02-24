@@ -3,7 +3,7 @@ const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
 
-const {releasesRouter} = require('./routes/releases');
+const {appartmentsRouter} = require('./routes/appartments.js');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
@@ -17,7 +17,7 @@ const app = express();
 
 // Add middleware to serve static files
 app.use(express.static(path.join(path.dirname(_filename), '..', 
-    'release', 'build')));
+    'client', 'build')));
 
 // Middleware to parse JSON requests
 app.use(express.json()); 
@@ -34,7 +34,7 @@ app.use(
   
 
 // Use releases router
-app.use('/view-releases/', releasesRouter);
+app.use('/view-appartments/', appartmentsRouter);
 
 
 // 404 route 
