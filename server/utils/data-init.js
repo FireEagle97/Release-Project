@@ -1,8 +1,9 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
 
+// for images, every lease gets 2 from interior and 3 from extras
 
-async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
+async function getAllLeases(filePath = 'data/House_Rent_Dataset_2.csv') {
     const data = await readCsvFile(filePath);
     return data;
 }
