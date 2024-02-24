@@ -1,31 +1,29 @@
-/* eslint-disable no-console */
-const {DB} = require('../db/db');
-const { readAndParseCSVRents} = require('./dataFetcher');
+const { DB } = require('../db/db.js');
+const {getAllLeases} = require('./data-init.js');
 
-/**
- * Seed the database with data from a CSV file.
- */
-async function seedDatabase(){
-    let db;
+require('dotenv').config();
+const debug = require('debug');
+const logger = debug('server:seeded database');
+
+
+(async () => {
     try {
         const db = new DB();
-        await db.connect('Cluster0');
-        await db.deleteMany({});
-        console.log('deleted');
-        // const dataAppartments = 
-        //         await readAndParseCSVRents('../data/house_renting_dataset.csv');
-        // const numAppartments = await db.insertManyAppartments(dataAppartments);
-        // console.log(`Inserted ${numAppartments} rows`);
-        console.error('MongoDB successfully seeded');
+
+        const data = await getAllLeases();
+        await db.createManyLeases(data);
+        logger('data seede', data);
+        logger('seeded database');
+
+
+        // Close the database connection (if your DB class supports this)
+        await db.close();
+
+        // Exit the program with a success code (0)
+        process.exit(0);
     } catch (e) {
-        console.error('could not seed');
-        console.dir(e);
-    } finally {
-        if (db) {
-            db.close();
-        }
-        process.exit();
+        console.error('Could not connect or insert data:', e);
+        // Exit the program with an error code (1)
+        process.exit(1);
     }
-}
-  
-seedDatabase();
+})();

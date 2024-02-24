@@ -3,22 +3,25 @@
 const mongoose = require('mongoose'); 
 
 // Release Schema
-const appartmentSchema = new mongoose.Schema({
-    posted_on: String, 
+const leaseSchema = new mongoose.Schema({
+    postedDate: String, 
     bhk: Number,
-    rent: Number,
+    rentPrice: Number,
     size: Number,
     floor: String,
-    area_type: String,
-    area_local: String,
+    areaType: String,
+    areaLocality: String,
     city: String,
     furnishing: String,
-    bathroom: Number
+    preferredTentant: String,
+    bathroom: Number,
+    pointOfContact: String,
+    images: Array
 }); 
 
-const Appartment = mongoose.model('appartment', appartmentSchema); 
+const lease = mongoose.model('lease', leaseSchema); 
 
 // Exporting our model objects 
 module.exports = { 
-    Appartment
+    leases : lease
 };
