@@ -12,7 +12,7 @@ const logger = debug('server:seeded database');
 
         const data = await getAllLeases();
         await db.createManyLeases(data);
-        logger('data seede', data);
+        logger('data seeded', data);
         logger('seeded database');
 
 
