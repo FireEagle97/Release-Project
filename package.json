@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "cd server && node bin/www",
     "prod": "npm run build && npm run start",
-    "build": "cd release && npm install && npm run build && cd ../server && npm install",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
     "seed": "cd server && node utils/seed.js"
   },
   "repository": {
