@@ -77,9 +77,9 @@ class DB{
             if (!city || typeof filters !== 'object') {
                 throw new Error('Invalid input parameters');
             }
-            const query = this.leaseQuery(city, area, filters);
-            const appartments = await leases.find({query}).select('-_id -__v');
-            return appartments;
+            const query = this.appartmentQuery(city, area, filters);
+            const releases = await leases.find(query).select('-_id -__v');
+            return releases;
         } catch (error) {
             console.error('An error occurred while retrieving leasess:', error);
         } finally{
@@ -91,8 +91,8 @@ class DB{
 
         const query = { city: city};
 
-        if (area !== 'all') {
-            query.area = area;
+        if (area) {
+            query.areaType = area;
         }
 
         if (filters.furnishing) {
@@ -102,7 +102,7 @@ class DB{
         // Add rent range query if both minimum and maximum are provided
         if (filters.rent && filters.rent.minimum !== undefined 
             && filters.rent.maximum !== undefined) {
-            query.rent = {
+            query.rentPrice = {
                 $gte: filters.rent.minimum,
                 $lte: filters.rent.maximum
             };
