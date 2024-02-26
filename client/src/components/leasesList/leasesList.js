@@ -1,41 +1,15 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState, useMemo } from 'react';
+import Pagination from "../pagination/pagination";
 const LeasesList = () => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 9;
-    const totalPages = leases.length;
-    const nPages = Math.ceil(totalPages / cardsPerPage);
-    const indexOfLastCard = currentPage * cardsPerPage;
-    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentLeases = leases.slice(indexOfFirstCard, indexOfLastCard);
-
-    const paginate = currentPage => setCurrentPage(currentPage);
-    const onNext = () => {
-        if(currentPage !== nPages)
-            setCurrentPage(currentPage + 1);
-    }
-
-    const onPrevious = () => {
-        if(currentPage !== nPages)
-            setCurrentPage(currentPage - 1);
-    }
-
-    // // Calculate pagination buttons
-    // const maxVisibleButtons = 5;
-    // let startPage = Math.max(currentPage - Math.floor(maxVisibleButtons / 2), 1);
-    // let endPage = Math.min(startPage + maxVisibleButtons - 1, totalPages);
-
-    // // Adjust startPage and endPage if total pages are less than maxVisibleButtons
-    // if (totalPages <= maxVisibleButtons) {
-    //     startPage = 1;
-    //     endPage = totalPages;
-    // } else {
-    //     if (endPage - startPage + 1 < maxVisibleButtons) {
-    //         startPage = endPage - maxVisibleButtons + 1;
-    //     }
-    // }
-
+    const currentLeases = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * cardsPerPage;
+        const lastPageIndex = firstPageIndex + cardsPerPage;
+        return leases.slice(firstPageIndex, lastPageIndex);
+      }, [currentPage, leases]);
+   
     useEffect(() => {
         async function fetchLeases()
         {
@@ -78,21 +52,15 @@ const LeasesList = () => {
             </div>
         ))}
         </div>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
-            <div class="pagination">
-                <button class="btn btn-outline-primary" onClick={onPrevious} disabled={currentPage === 1}>
-                       Previous
-                </button>
-                {Array.from({ length: Math.ceil(leases.length / cardsPerPage) }).map((_,index) => (
-                <button class="btn btn-outline-primary" key={index} onClick={() => paginate(index + 1)}>
-                    {index + 1}
-                </button>
-                ))}
-                <button class="btn btn-outline-primary" onClick={onNext} disabled={currentPage === totalPages}>
-                    Next
-                </button>
-            </div>
-        </div>
+         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+         <Pagination
+            className="pagination-bar"
+            currentPage={currentPage}
+            totalCount={leases.length}
+            pageSize={cardsPerPage}
+            onPageChange={page => setCurrentPage(page)}
+        />
+        </div> 
 
     </div>   
 
