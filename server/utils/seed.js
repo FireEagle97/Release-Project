@@ -1,4 +1,4 @@
-const { DB } = require('../db/db.js');
+const {DB}  = require('../db/db.js');
 const {getAllLeases} = require('./data-init.js');
 
 require('dotenv').config();
@@ -11,6 +11,7 @@ const logger = debug('server:seeded database');
         const db = new DB();
 
         const data = await getAllLeases();
+        await db.deleteMany();
         await db.createManyLeases(data);
         logger('data seeded', data);
         logger('seeded database');
