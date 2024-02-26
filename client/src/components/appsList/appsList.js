@@ -4,12 +4,14 @@ const AppartmentList = () => {
     const [appartments, setAppartments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 9;
-
+    const totalPages = appartments.length;
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentAppartments = appartments.slice(indexOfFirstCard, indexOfLastCard);
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
+    const onNext = pageNumber => setCurrentPage(pageNumber + 1);
+    const onPrevious = pageNumber => setCurrentPage(pageNumber - 1);
     useEffect(() => {
         async function fetchAppartments()
         {
@@ -54,7 +56,7 @@ const AppartmentList = () => {
         </div>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
             <div class="pagination">
-                <button onClick={onPrevious} disabled={currentPage === 1}>
+                <button class="btn btn-outline-primary" onClick={onPrevious} disabled={currentPage === 1}>
                        Previous
                 </button>
                 {Array.from({ length: Math.ceil(appartments.length / cardsPerPage) }).map((_, index) => (
@@ -62,7 +64,7 @@ const AppartmentList = () => {
                     {index + 1}
                 </button>
                 ))}
-                <button onClick={onNext} disabled={currentPage === totalPages}>
+                <button class="btn btn-outline-primary" onClick={onNext} disabled={currentPage === totalPages}>
                     Next
                 </button>
             </div>

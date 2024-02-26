@@ -3,6 +3,7 @@ require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
 const { leases } = require('./schemas');
+// const appartments = require('../routes/leases');
 
 let instance;
 
@@ -52,41 +53,41 @@ class DB{
             // console.log('Leases inserted successfully:', result);
             return result;
         } catch (error) {
-            console.error('An error occurred while saving appartments:', error);
+            console.error('An error occurred while saving leases:', error);
         } finally{
             await this.close();
         }
     }
     
-    async getAllAppartments() {
+    async getAllLeases() {
         try{
             await this.connect();
-            const releases = await leases.find({}).select('-_id -__v');
-            return releases;
+            const appartmentList = await leases.find({}).select('-_id -__v');
+            return appartmentList;
         } catch (error) {
-            console.error('An error occurred while retrieving appartments:', error);
+            console.error('An error occurred while retrieving leases:', error);
         } finally{
             await this.close();
         }
     }
 
-    async getAppartmentsByCityAndFilters(city, area, filters) {
+    async getLeasesByCityAndFilters(city, area, filters) {
         try{
             await this.connect();
             if (!city || typeof filters !== 'object') {
                 throw new Error('Invalid input parameters');
             }
-            const query = this.releaseQuery(city, area, filters);
-            const releases = await leases.find({query}).select('-_id -__v');
-            return releases;
+            const query = this.leaseQuery(city, area, filters);
+            const appartments = await leases.find({query}).select('-_id -__v');
+            return appartments;
         } catch (error) {
-            console.error('An error occurred while retrieving appartments:', error);
+            console.error('An error occurred while retrieving leasess:', error);
         } finally{
             await this.close();
         }
     }
 
-    appartmentQuery(city, area, filters){
+    leaseQuery(city, area, filters){
 
         const query = { city: city};
 
