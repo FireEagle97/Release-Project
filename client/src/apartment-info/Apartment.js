@@ -2,10 +2,10 @@ import { useState } from 'react';
 import './Appartment.css';
 
 /**
- * Home component for displaying data related to a selected country.
+ * ApartmentPage component for displaying information on a single apartment.
  *
  * @component
- * @returns {JSX.Element} Rendered Home component.
+ * @returns {JSX.Element} Rendered ApartmentPage component.
  */
 export default function ApartmentPage(apartment) {
 
