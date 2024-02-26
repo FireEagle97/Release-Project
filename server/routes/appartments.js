@@ -3,7 +3,7 @@ const router = express.Router();
 const {DB} = require('./../db/db');
 const db = new DB();
 
-router.get('/', async (req, res) => {
+router.get('/appartments', async (req, res) => {
     try{
         const data =  await db.getAllAppartments();
         res.json({'response':data});

@@ -33,8 +33,8 @@ app.use(
 );
   
 
-// Use releases router
-app.use('/view-appartments/', appartmentsRouter);
+// Use appartments router
+app.use(appartmentsRouter);
 
 
 // 404 route 
