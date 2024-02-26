@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import Navigation from './navigation/Nav';
 import Home from './home/Home';
 import AppartmentList from './components/appsList/appsList';
+import React from 'react';
+
 const data = [
   {
     id: 1,
@@ -22,6 +24,7 @@ function App() {
   return ( 
     <>
       <Navigation />
+
       <div className="App">
         <Routes>
           <Route path="/" element={
@@ -29,6 +32,7 @@ function App() {
           } />
         </Routes>
         <AppartmentList data={data}/>
+        
       </div>
       <footer>
           <p>fooooter</p>
@@ -40,3 +44,9 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+

@@ -24,9 +24,19 @@ export default function Navigation() {
             <span><img src="/logo1.png" alt="Logo" className="logo-image" /></span>
           </a>
 
+
           {/* List of navigation items with links to different sections. */}
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
             <li className="nav-item">
+            <a href="/about" className="nav-link" onClick={handleClick}>
+                About
+              </a>
+              <a href="/contact" className="nav-link" onClick={handleClick}>
+                Contact
+              </a>
+              <a href="/post-listing" className="nav-link" onClick={handleClick}>
+                Post Listing
+              </a>
               <a href="/" className="nav-link" onClick={handleClick}>
                 Home
               </a>

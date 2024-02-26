@@ -114,7 +114,9 @@
     opacity: 1;
     transition: all 0.3s ease; /* Faster transition */
     z-index: 1;
-    background: white;
+    /* background: rgb(0, 0, 0); */
+    background: #272c28;
+
   }
 
   .nav-link {
