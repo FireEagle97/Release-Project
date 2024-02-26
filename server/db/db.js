@@ -3,7 +3,6 @@ require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
 const { leases } = require('./schemas');
-// const appartments = require('../routes/leases');
 
 let instance;
 
@@ -77,7 +76,7 @@ class DB{
             if (!city || typeof filters !== 'object') {
                 throw new Error('Invalid input parameters');
             }
-            const query = this.appartmentQuery(city, area, filters);
+            const query = this.leaseQuery(city, area, filters);
             const releases = await leases.find(query).select('-_id -__v');
             return releases;
         } catch (error) {
@@ -87,7 +86,7 @@ class DB{
         }
     }
 
-    leaseQuery(city, area, filters){
+    async leaseQuery(city, area, filters){
 
         const query = { city: city};
 

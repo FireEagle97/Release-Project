@@ -1,38 +1,54 @@
 import React, { useEffect, useState } from 'react';
 
-const AppartmentList = () => {
-    const [appartments, setAppartments] = useState([]);
+const LeasesList = () => {
+    const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 9;
-    const totalPages = appartments.length;
+    const totalPages = leases.length;
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentAppartments = appartments.slice(indexOfFirstCard, indexOfLastCard);
+    const currentLeases = leases.slice(indexOfFirstCard, indexOfLastCard);
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
     const onNext = pageNumber => setCurrentPage(pageNumber + 1);
     const onPrevious = pageNumber => setCurrentPage(pageNumber - 1);
+
+    // // Calculate pagination buttons
+    // const maxVisibleButtons = 5;
+    // let startPage = Math.max(currentPage - Math.floor(maxVisibleButtons / 2), 1);
+    // let endPage = Math.min(startPage + maxVisibleButtons - 1, totalPages);
+
+    // // Adjust startPage and endPage if total pages are less than maxVisibleButtons
+    // if (totalPages <= maxVisibleButtons) {
+    //     startPage = 1;
+    //     endPage = totalPages;
+    // } else {
+    //     if (endPage - startPage + 1 < maxVisibleButtons) {
+    //         startPage = endPage - maxVisibleButtons + 1;
+    //     }
+    // }
+
     useEffect(() => {
-        async function fetchAppartments()
+        async function fetchLeases()
         {
             try{
-                const response = await fetch('/appartments');
+                const response = await fetch('/leases');
                 if(!response.ok){
-                    throw new Error('Failed to fetch appartments');
+                    throw new Error('Failed to fetch leases');
                 }
                 const data = await response.json();
-                setAppartments(data.response);
+                setLeases(data.response);
             }catch (error) {
-                console.error('Error fetching appartments:', error);
+                console.error('Error fetching leases:', error);
             }
         }
-        fetchAppartments();    
+        fetchLeases();    
 }, []);
   return (
     <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
-        {currentAppartments.map(appartment => (
+        {currentLeases.map(appartment => (
             <div key={appartment.id} class="col mb-5">
                 <div class="card h-100">
                     {/* Appartment image */}
@@ -59,7 +75,7 @@ const AppartmentList = () => {
                 <button class="btn btn-outline-primary" onClick={onPrevious} disabled={currentPage === 1}>
                        Previous
                 </button>
-                {Array.from({ length: Math.ceil(appartments.length / cardsPerPage) }).map((_, index) => (
+                {Array.from({ length: Math.ceil(leases.length / cardsPerPage) }).map((index) => (
                 <button class="btn btn-outline-primary" key={index} onClick={() => paginate(index + 1)}>
                     {index + 1}
                 </button>
@@ -76,4 +92,4 @@ const AppartmentList = () => {
   );
 };
 
-export default AppartmentList;
+export default LeasesList;

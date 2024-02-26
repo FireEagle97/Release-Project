@@ -33,7 +33,7 @@ app.use(
 );
   
 
-// Use appartments router
+// Use leases router
 app.use(leasesRouter);
 
 
