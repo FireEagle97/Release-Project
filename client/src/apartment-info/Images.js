@@ -11,7 +11,7 @@ const divStyle = {
 }
 
 /**
- * Home component for displaying data related to a selected country.
+ * ApartmentImages component for displaying apartment images.
  *
  * @component
  * @returns {JSX.Element} Rendered Home component.
