@@ -2,20 +2,13 @@ import './Appartment.css';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
-
-const spanStyle = {
-    padding: '20px',
-    background: '#efefef',
-    color: '#000000'
-  }
-  
-  const divStyle = {
+const divStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundSize: 'cover',
     height: '400px'
-  }
+}
 
 /**
  * Home component for displaying data related to a selected country.
