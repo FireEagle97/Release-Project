@@ -5,13 +5,21 @@ const LeasesList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 9;
     const totalPages = leases.length;
+    const nPages = Math.ceil(totalPages / cardsPerPage);
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentLeases = leases.slice(indexOfFirstCard, indexOfLastCard);
 
-    const paginate = pageNumber => setCurrentPage(pageNumber);
-    const onNext = pageNumber => setCurrentPage(pageNumber + 1);
-    const onPrevious = pageNumber => setCurrentPage(pageNumber - 1);
+    const paginate = currentPage => setCurrentPage(currentPage);
+    const onNext = () => {
+        if(currentPage !== nPages)
+            setCurrentPage(currentPage + 1);
+    }
+
+    const onPrevious = () => {
+        if(currentPage !== nPages)
+            setCurrentPage(currentPage - 1);
+    }
 
     // // Calculate pagination buttons
     // const maxVisibleButtons = 5;
@@ -75,7 +83,7 @@ const LeasesList = () => {
                 <button class="btn btn-outline-primary" onClick={onPrevious} disabled={currentPage === 1}>
                        Previous
                 </button>
-                {Array.from({ length: Math.ceil(leases.length / cardsPerPage) }).map((index) => (
+                {Array.from({ length: Math.ceil(leases.length / cardsPerPage) }).map((_,index) => (
                 <button class="btn btn-outline-primary" key={index} onClick={() => paginate(index + 1)}>
                     {index + 1}
                 </button>
