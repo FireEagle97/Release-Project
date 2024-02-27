@@ -2,22 +2,8 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './navigation/Nav';
 import Home from './home/Home';
-import AppartmentList from './components/appsList/appsList';
-const data = [
-  {
-    id: 1,
-    image: 'https://example.com/image1.jpg',
-    title: 'Card 1',
-    description: 'Description for Card 1',
-  },
-  {
-    id: 2,
-    image: 'https://example.com/image2.jpg',
-    title: 'Card 2',
-    description: 'Description for Card 2',
-  },
-  // Add more card objects as needed
-];
+import LeasesList from './components/leasesList/leasesList';
+
 function App() {
   return ( 
     <>
@@ -28,7 +14,7 @@ function App() {
             <Home />
           } />
         </Routes>
-        <AppartmentList data={data}/>
+        <LeasesList/>
       </div>
       <footer>
           <p>fooooter</p>
