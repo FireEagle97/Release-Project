@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import PostListing from './forms/post_listing';
-import Home from './home/Home';
+
 
 const router = createBrowserRouter(
   [      
@@ -22,7 +22,6 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  
     {/* <BrowserRouter>
       <App/>
     </BrowserRouter> */}

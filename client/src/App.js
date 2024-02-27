@@ -11,15 +11,12 @@ function App() {
     <>
       <Navigation />
       <div className="App">
-
-        {/* <Routes>
-          <Route path="/post-listing" element={<PostListing />} />
-          <Route path="/" element={<Home />} />
-        </Routes> */}
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/post-listing" element={<PostListing />} />
         </Routes>
+
         <LeasesList/>
       </div>
       <footer>
