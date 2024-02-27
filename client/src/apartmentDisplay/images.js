@@ -21,7 +21,7 @@ const images = ["https://azure2134398.blob.core.windows.net/test/920347264527603
  * @component
  * @returns {JSX.Element} Rendered Home component.
  */
-export default function ApartmentImages() {
+function ApartmentImages() {
 
     return (
         <div id="apartment-images-slider">
@@ -36,5 +36,7 @@ export default function ApartmentImages() {
         </div>
     )
 }
+
+export default ApartmentImages;
 
 // https://www.npmjs.com/package/react-slideshow-image

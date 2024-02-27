@@ -2,8 +2,8 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './navigation/Nav';
 import Home from './home/Home';
-import AppartmentList from './components/appsList/appsList';
-import ApartmentImages from './components/apartment-info/Images';
+import LeasesList from './components/leasesList/leasesList';
+import ApartmentImages from './apartmentDisplay/Images';
 
 const data = [
   {
@@ -31,9 +31,9 @@ function App() {
             <Home />
           } />
         </Routes>
-        <AppartmentList data={data}/>
+        <LeasesList data={data}/>
         <h3>Ana made this</h3>
-        {/* <ApartmentImages/> */}
+        <ApartmentImages/>
       </div>
       <footer>
           <p>fooooter</p>

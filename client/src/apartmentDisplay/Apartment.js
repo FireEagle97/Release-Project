@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Appartment.css';
+import './Apartment.css';
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
