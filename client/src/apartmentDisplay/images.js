@@ -1,4 +1,3 @@
-import './Appartment.css';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
@@ -7,7 +6,7 @@ const divStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundSize: 'cover',
-    height: '400px'
+    height: '500px'
 }
 
 const images = ["https://azure2134398.blob.core.windows.net/test/920347264527603043.jpg",
@@ -24,14 +23,14 @@ const images = ["https://azure2134398.blob.core.windows.net/test/920347264527603
 function ApartmentImages() {
 
     return (
-        <div id="apartment-images-slider">
+        <div id="apartment-images-slider" style={{ width: '50%', margin: '0'}}>
             <Slide>
                 {images.map((slideImage, index)=> (
-                <div key={index}>
-                    <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage})` }}>
+                <div key={index} style={{ display: 'flex', justifyContent: 'center'}}>
+                    <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage})`, width: '80%', margin: '0' }}>
                     </div>
                 </div>
-            ))} 
+                ))} 
             </Slide>
         </div>
     )
