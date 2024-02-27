@@ -1,6 +1,7 @@
 const CsvReadableStream = require('csv-reader');
 const {getImageUrls} = require('./image-store');
 const fs = require('fs');
+const {getRandomCityLocalityPair, getRandomPrice, getRandomDate} = require('./utils');
 // for images, every lease gets 2 from interior and 3 from extras
 
 async function getAllLeases(filePath = '../data/House_Rent_Dataset.csv') {
@@ -67,8 +68,6 @@ async function reArrangeData(data, interior, extras) {
     return data;
 }
 
-
-
 async function readCsvFile(filePath) {
     return new Promise((resolve, reject) => {
         const results = [];
@@ -81,15 +80,18 @@ async function readCsvFile(filePath) {
                 if (isFirstRow) {
                     isFirstRow = false;
                 } else {
+                    // posted date is randomized from 2024 dates till now
+                    const randomPostedDate = getRandomDate();
+                    const randomCityLocalityPair = getRandomCityLocalityPair();
+                    const randomPrice = getRandomPrice(row[1]);
                     const customizedObject = {
-                        'postedDate': row[0], 
+                        'postedDate': randomPostedDate, 
                         'bhk': row[1],
-                        'rentPrice': row[2],
+                        'rentPrice': randomPrice,
                         'size': row[3],
                         'floor': row[4],
-                        'areaType': row[5],
-                        'areaLocality': row[6],
-                        'city': row[7],
+                        'areaLocality': randomCityLocalityPair.areaLocality,
+                        'city': randomCityLocalityPair.city,
                         'furnishing': row[8],
                         'preferredTentant': row[9],
                         'bathroom': row[10],
@@ -107,5 +109,6 @@ async function readCsvFile(filePath) {
             });
     });
 }
+
 
 module.exports = {getAllLeases};
