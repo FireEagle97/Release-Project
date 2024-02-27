@@ -9,7 +9,6 @@ const leaseSchema = new mongoose.Schema({
     rentPrice: Number,
     size: Number,
     floor: String,
-    areaType: String,
     areaLocality: String,
     city: String,
     furnishing: String,

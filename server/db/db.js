@@ -53,9 +53,7 @@ class DB{
             return result;
         } catch (error) {
             console.error('An error occurred while saving leases:', error);
-        } finally{
-            await this.close();
-        }
+        } 
     }
     
     async getAllLeases() {
@@ -65,9 +63,7 @@ class DB{
             return appartmentList;
         } catch (error) {
             console.error('An error occurred while retrieving leases:', error);
-        } finally{
-            await this.close();
-        }
+        } 
     }
 
     async getLeasesByCityAndFilters(city, area, filters) {
@@ -81,8 +77,6 @@ class DB{
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving leasess:', error);
-        } finally{
-            await this.close();
         }
     }
 
@@ -124,8 +118,6 @@ class DB{
             await leases.deleteMany({});
         } catch (error) {
             console.error('An error occurred while deleting:', error);
-        } finally{
-            await this.close();
         }
     }
 }
