@@ -20,6 +20,7 @@ const data = [
   },
   // Add more card objects as needed
 ];
+
 function App() {
   return ( 
     <>
