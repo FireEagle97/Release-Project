@@ -3,7 +3,7 @@ const {getImageUrls} = require('./image-store');
 const fs = require('fs');
 // for images, every lease gets 2 from interior and 3 from extras
 
-async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
+async function getAllLeases(filePath = '../server/data/House_Rent_Dataset.csv') {
     try {
         // retrived images' url from blob storage
         // images from interior and extras, each lease has 2 interior and 2 extras
