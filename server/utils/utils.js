@@ -51,9 +51,38 @@ function getRandomDate() {
     return `${year}-${month}-${day}`;
 }
 
-function getConvertedPrice(indianPrice){
-    const exchangeRateINRtoCAD = 0.018;
-    return indianPrice * exchangeRateINRtoCAD;
+function getRandomPrice(bhk) {
+    let minPrice; let maxPrice;
+
+    // Set min and max prices based on bhk
+    switch (bhk) {
+    case 1:
+        minPrice = 800;
+        maxPrice = 1500;
+        break;
+    case 2:
+        minPrice = 1500;
+        maxPrice = 2500;
+        break;
+    case 3:
+        minPrice = 2300;
+        maxPrice = 4000;
+        break;
+    case 4:
+        minPrice = 3200;
+        maxPrice = 6000;
+        break;
+    default:
+        return null; 
+    }
+
+    // Generate a random price within the specified range
+    let randomPrice = Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
+
+    // Ensure that the price ends with 0
+    randomPrice = Math.round(randomPrice / 10) * 10;
+
+    return randomPrice;
 }
 
-module.exports = { getRandomCityLocalityPair, getConvertedPrice, getRandomDate};
+module.exports = { getRandomCityLocalityPair, getRandomPrice, getRandomDate};
