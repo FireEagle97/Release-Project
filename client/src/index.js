@@ -3,14 +3,30 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import PostListing from './forms/post_listing';
+import Home from './home/Home';
+
+const router = createBrowserRouter(
+  [      
+    {
+      path: "/post-listing", element: <PostListing />
+
+    },
+    {
+      path: "/", element: <App />
+    }
+  ]
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App></App>
-    </BrowserRouter>
+  
+    {/* <BrowserRouter>
+      <App/>
+    </BrowserRouter> */}
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

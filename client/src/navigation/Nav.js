@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './nav.css';
+import { Link } from 'react-router-dom';
 
 /**
  * Navigation component for displaying a responsive navigation bar.
@@ -15,6 +16,7 @@ export default function Navigation() {
   const handleClick = () => setClick(!click);
 
   return (
+    
     <>
       <nav className="navbar">
         <div className="nav-container">
@@ -34,9 +36,14 @@ export default function Navigation() {
               <a href="/contact" className="nav-link" onClick={handleClick}>
                 Contact
               </a>
-              <a href="/post-listing" className="nav-link" onClick={handleClick}>
+              
+              {/* <a href="/post-listing" className="nav-link" onClick={handleClick}>
                 Post Listing
-              </a>
+              </a> */}
+              <Link to="/post-listing" className="nav-link" onClick={handleClick}>
+                Post Listing
+              </Link>
+
               <a href="/" className="nav-link" onClick={handleClick}>
                 Home
               </a>
@@ -57,6 +64,7 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
-    </>
+  </>
+    
   );
 }

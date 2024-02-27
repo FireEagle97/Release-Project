@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PostListing = () => {
+export default function PostListing() {
   return (
     <div>
       <h2>Post Listing Page</h2>
@@ -9,4 +9,4 @@ const PostListing = () => {
   );
 };
 
-export default PostListing;
+
