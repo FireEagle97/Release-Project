@@ -34,7 +34,7 @@ app.use(
   
 
 // Use releases router
-app.use('/view-appartments/', appartmentsRouter);
+app.use('/view-apartments/', appartmentsRouter);
 
 
 // 404 route 

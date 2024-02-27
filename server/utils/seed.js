@@ -10,8 +10,8 @@ const logger = debug('server:seeded database');
     try {
         const db = new DB();
 
+        //await db.deleteMany();
         const data = await getAllLeases();
-        await db.deleteMany();
         await db.createManyLeases(data);
         logger('data seeded', data);
         logger('seeded database');
