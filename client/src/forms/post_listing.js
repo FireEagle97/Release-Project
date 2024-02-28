@@ -10,9 +10,9 @@ export default function PostListing() {
   const [files, setFiles] = useState([]);
 
   const handleChange = (event) => {
-    const { title, value } = event.target;
+    const { name, value } = event.target;
 
-    switch (title) {
+    switch (name) {
       case 'title':
         setTitle(value);
         break;
@@ -29,9 +29,7 @@ export default function PostListing() {
         setContactInfo(value);
         break;
       case 'image':
-        // setFiles(Array.from(event.target.files));
         setFiles((prevFiles) => [...prevFiles, ...Array.from(event.target.files)]);
-
         break;
       default:
         break;
@@ -57,7 +55,7 @@ export default function PostListing() {
     formData.append('address', address);
     formData.append('description', description);
     formData.append('contactInfo', contactInfo);
-    //append multiple files
+
     files.forEach((file, index) => {
       formData.append(`file${index + 1}`, file);
     });
@@ -69,49 +67,72 @@ export default function PostListing() {
         body: formData,
       });
 
-      // eslint-disable-next-line no-alert
       alert('Submitted successfully');
+      resetForm();
     } catch (error) {
       console.error('Error:', error);
-      // eslint-disable-next-line no-alert
       alert('Error submitting the form');
     }
   };
 
+  const resetForm = () => {
+    setTitle('');
+    setRentPrice('');
+    setAddress('');
+    setDescription('');
+    setContactInfo('');
+    setFiles([]);
+  };
+
   return (
-    <>
+    <div className="post-listing-container">
       <h1>Create Your Listing</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Listing Title</label>
-        <input type="text" id="title" title="title" value={title} onChange={handleChange} />
+        <div className="float-container">
+        <div className="float-child">
+          <label htmlFor="title">Listing Title</label>
+          <input type="text" id="title" name="title" value={title} onChange={handleChange} />
 
-        <label htmlFor="rentPrice">Rent Price</label>
-        <input type="number" id="rentPrice" title="rentPrice" value={rentPrice} onChange={handleChange} min="0" />
+          <label htmlFor="rentPrice">Rent Price</label>
+          <input type="number" id="rentPrice" name="rentPrice" value={rentPrice} onChange={handleChange} min="0" />
 
-        <label htmlFor="address">Address</label>
-        <input type="text" id="address" title="address" value={address} onChange={handleChange} />
+          <label htmlFor="address">Address</label>
+          <input type="text" id="address" name="address" value={address} onChange={handleChange} />
+          <label htmlFor="description">Description</label>
+          <textarea id="description" name="description" value={description} onChange={handleChange} />
 
-        <label htmlFor="description">Description</label>
-        <textarea id="description" title="description" value={description} onChange={handleChange} />
+          <label htmlFor="contactInfo">Contact Information</label>
+          <input type="text" id="contactInfo" name="contactInfo" value={contactInfo} onChange={handleChange} />
+        </div>
 
-        <label htmlFor="contactInfo">Contact Information</label>
-        <input type="text" id="contactInfo" title="contactInfo" value={contactInfo} onChange={handleChange} />
-
-        <label htmlFor="images">Add images:</label>
-        <input type="file" title="image" onChange={handleChange} multiple />
-        <div className="image-preview">
-          {files.map((file, index) => (
-            <div key={index} className="image-container">
-              <img alt={`Image Preview ${index + 1}`} src={URL.createObjectURL(file)} />
-              <button type="button" onClick={() => handleRemoveImage(index)}>
-                X
-              </button>
+        <div className="float-child">
+          <div className="image-column">
+            <label htmlFor="images">Add images</label>
+            <input type="file" id="images" name="image" onChange={handleChange} multiple />
+            <div className="image-preview">
+              {files.map((file, index) => (
+                <div key={index} className="image-container">
+                  <img alt={`Image Preview ${index + 1}`} src={URL.createObjectURL(file)} />
+                  <button type="button" onClick={() => handleRemoveImage(index)}>
+                    X
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          </div>
+
+          {/* <div className="float-child">
+            <label htmlFor="description">Description</label>
+            <textarea id="description" name="description" value={description} onChange={handleChange} />
+
+            <label htmlFor="contactInfo">Contact Information</label>
+            <input type="text" id="contactInfo" name="contactInfo" value={contactInfo} onChange={handleChange} />
+          </div> */}
         </div>
 
         <button type="submit" disabled={!isFormValid()}>Submit</button>
       </form>
-    </>
+    </div>
   );
 }
