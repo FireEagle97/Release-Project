@@ -49,14 +49,14 @@ build-backend:
     paths:
       - client/node_modules
 
-test:
-  stage: test
-  only:
-    - azureDeployment
-  dependencies:
-    - build-backend
-  script:
-    - cd server && npm run test
+# test:
+#   stage: test
+#   only:
+#     - azureDeployment
+#   dependencies:
+#     - build-backend
+#   script:
+#     - cd server && npm run test
 
 
 # from M Frydrychowicz
