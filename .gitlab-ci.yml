@@ -19,6 +19,7 @@ build-frontend:
       - 'client/node_modules/'
   before_script:
     - echo ${DEVELOPMENT_ENV_FILE} >> .env
+    - echo .env
   script:
     - cd client && npm install && CI=false npm run build
   only:
