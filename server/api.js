@@ -33,8 +33,8 @@ app.use(
 );
   
 
-// Use leases router
-app.use(leasesRouter);
+// Use releases router
+app.use('/leases/', leasesRouter);
 
 
 // 404 route 
