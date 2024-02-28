@@ -50,10 +50,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                         </div>
                     </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"  
-                            // eslint-disable-next-line no-unused-expressions
-                            onClick={() => {console.log('ap', apartment); handleApartmentClick(apartment)}
-                        }>
+                        <div class="text-center" onClick={() => handleApartmentClick(apartment)}>
                             <a class="btn btn-outline-dark mt-auto">View listing</a>
                         </div>
                     </div>

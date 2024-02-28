@@ -12,7 +12,6 @@ import './Apartment.css';
 export default function ApartmentPage() {
     const location = useLocation();
     const apartment = location.state?.apartment;
-    console.log('imgs', apartment, apartment.images)
     return (
         <div>
             <ApartmentImages imagesLinks={apartment.images}/>
