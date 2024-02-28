@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navigation from './navigation/Nav';
 import Home from './home/Home';
 import LeasesList from './components/leasesList/leasesList';
+import ApartmentPage from './apartmentDisplay/Apartment';
 
 const data = [
   {
@@ -28,6 +29,9 @@ function App() {
         <Routes>
           <Route path="/" element={
             <Home />
+          } />
+          <Route path="/apartment" element={
+            <ApartmentPage />
           } />
         </Routes>
         <LeasesList data={data}/>
