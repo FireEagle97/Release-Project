@@ -18,7 +18,7 @@ build-frontend:
     paths:
       - 'client/node_modules/'
   script:
-    - echo AZ_SP_ID=$AZ_SP_ID
+    - echo DEVELOPMENT_ENV_FILE=$DEVELOPMENT_ENV_FILE
     - cd client && npm install && CI=false npm run build
   only:
     - azureDeployment
