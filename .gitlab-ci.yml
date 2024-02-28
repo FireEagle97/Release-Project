@@ -77,7 +77,7 @@ deploy_to_azure_dev:
   only:
     - azureDeployment
   before_script:
-    - cp ${DEVELOPMENT_ENV_FILE} .env
+    - cp $DEVELOPMENT_ENV_FILE .env
     - cat .env
     - apk update
     - apk add zip
