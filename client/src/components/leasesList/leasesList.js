@@ -11,7 +11,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       }, [currentPage, leases]);
 
     const handleApartmentClick = (apartment) => {
-    navigateToApartmentPage(apartment);
+        navigateToApartmentPage(apartment);
     };
    
     useEffect(() => {
@@ -35,7 +35,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
         {currentLeases.map(apartment => (
-            <div key={apartment.id} onClick={() => handleApartmentClick(apartment)} class="col mb-5">
+            <div key={apartment.id} class="col mb-5">
                 <div class="card h-100">
                     {/* apartment image */}
                     <img src={apartment.images[0]} alt={apartment.bhk} />
@@ -50,8 +50,11 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                         </div>
                     </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" href="#">View listing</a>
+                        <div class="text-center"  
+                            // eslint-disable-next-line no-unused-expressions
+                            onClick={() => {console.log('ap', apartment); handleApartmentClick(apartment)}
+                        }>
+                            <a class="btn btn-outline-dark mt-auto">View listing</a>
                         </div>
                     </div>
                 </div>

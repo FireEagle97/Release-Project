@@ -27,7 +27,7 @@ function App() {
 
   // Function to navigate to the ApartmentPage with apartment data
   const navigateToApartmentPage = (apartment) => {
-    navigate(`/apartment/${apartment.id}`, { state: { apartment } });
+    navigate(`/apartment/${apartment._id}`, { state: { apartment } });
   };
 
   return ( 
@@ -42,7 +42,7 @@ function App() {
             <ApartmentPage/>
           } />
         </Routes>
-        <LeasesList data={data} navigateToApartmentPage={navigateToApartmentPage}/>
+        <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
       </div>
       <footer>
           <p>fooooter</p>
