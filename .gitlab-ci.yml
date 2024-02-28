@@ -1,0 +1,89 @@
+#inspiration: https://gist.github.com/rishitells/3c4536131819cff4eba2c8ab5bbb4570
+# package.json jest path discovered in https://stackoverflow.com/questions/60671752/deploying-via-google-cloud-build-trigger-sh-1-jest-permission-denied
+image: node:latest
+
+stages:
+  - build
+  - test
+  - deployprod
+  - deploydev
+
+build-frontend:
+  stage: build
+  cache:
+    key:
+      prefix: 'frontend'
+      files:
+        - 'client/package-lock.json'
+    paths:
+      - 'client/node_modules/'
+  script:
+    - cd client && npm install && CI=false npm run build
+  only:
+    - azureDeployment
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - client/build
+      - client/node_modules
+
+build-backend:
+  stage: build
+  cache:
+    key:
+      prefix: 'backend'
+      files:
+        - 'client/package-lock.json'
+    paths:
+      - 'client/node_modules/'
+  script:
+    - cd client && npm install
+  only: 
+    - azureDeployment
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - client/node_modules
+ - release/node_modules/
+
+test:
+  stage: test
+  only:
+    - azureDeployment
+  dependencies:
+    - build-backend
+  script:
+    - cd server && npm run test
+
+
+# from M Frydrychowicz
+# lint:
+#   stage: test
+#   only:
+#     - NodeDev
+#     - main
+#   before_script:
+#     - npm install -g eslint
+#   script:
+#     - eslint --ext .js .
+
+deploy_to_azure_dev:
+  stage: deploydev
+  image:  mcr.microsoft.com/azure-cli
+  dependencies:
+    - build-frontend
+    - build-backend
+  only:
+    - azureDeployment
+  before_script:
+    - apk update
+    - apk add zip
+    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
+  script:
+    - zip -r deploy.zip client/build server ./package.json
+  #  - "az webapp config appsettings set --resource-group app-service-release --name release-your-app --settings WEBSITE_RUN_FROM_PACKAGE='1'"
+    - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --src deploy.zip"
+
+  
