@@ -61,7 +61,7 @@ export default function PostListing() {
     });
 
     try {
-      await fetch('/fileUpload', {
+      await fetch('/leaseUpload', {
         method: 'POST',
         headers: {},
         body: formData,
