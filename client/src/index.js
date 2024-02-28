@@ -10,11 +10,11 @@ import PostListing from './forms/post_listing';
 const router = createBrowserRouter(
   [      
     {
-      path: "/post-listing", element: <PostListing />
+      path: "/", element: <App />
 
     },
     {
-      path: "/", element: <App />
+      path: "post-listing", element: <PostListing />
     }
   ]
 )

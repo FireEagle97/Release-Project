@@ -44,9 +44,12 @@ export default function Navigation() {
                 Post Listing
               </Link>
 
-              <a href="/" className="nav-link" onClick={handleClick}>
+              {/* <a href="/" className="nav-link" onClick={handleClick}>
                 Home
-              </a>
+              </a> */}
+              <Link to="/" className="nav-link" onClick={handleClick}>
+                Home
+              </Link>
             </li>
           </ul>
 
