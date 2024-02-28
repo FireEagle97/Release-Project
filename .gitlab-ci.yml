@@ -48,7 +48,6 @@ build-backend:
     when: on_success
     paths:
       - client/node_modules
- - release/node_modules/
 
 test:
   stage: test
