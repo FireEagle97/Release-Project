@@ -86,7 +86,7 @@ export default function PostListing() {
 
   return (
     <div className="post-listing-container">
-      <h1>Create Your Listing</h1>
+      <h1 className="create-listing">Create Your Listing</h1>
       <form onSubmit={handleSubmit}>
         <div className="float-container">
         <div className="float-child">
@@ -121,14 +121,6 @@ export default function PostListing() {
             </div>
           </div>
           </div>
-
-          {/* <div className="float-child">
-            <label htmlFor="description">Description</label>
-            <textarea id="description" name="description" value={description} onChange={handleChange} />
-
-            <label htmlFor="contactInfo">Contact Information</label>
-            <input type="text" id="contactInfo" name="contactInfo" value={contactInfo} onChange={handleChange} />
-          </div> */}
         </div>
 
         <button type="submit" disabled={!isFormValid()}>Submit</button>
