@@ -18,6 +18,7 @@ build-frontend:
     paths:
       - 'client/node_modules/'
   script:
+    - echo AZ_SP_ID=$AZ_SP_ID
     - cd client && npm install && CI=false npm run build
   only:
     - azureDeployment
