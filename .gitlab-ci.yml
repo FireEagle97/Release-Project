@@ -17,9 +17,6 @@ build-frontend:
         - 'client/package-lock.json'
     paths:
       - 'client/node_modules/'
-  before_script:
-    - echo ${DEVELOPMENT_ENV_FILE} >> .env
-    - cat .env
   script:
     - cd client && npm install && CI=false npm run build
   only:
@@ -80,6 +77,8 @@ deploy_to_azure_dev:
   only:
     - azureDeployment
   before_script:
+    - cp ${DEVELOPMENT_ENV_FILE} .env
+    - cat .env
     - apk update
     - apk add zip
     - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
