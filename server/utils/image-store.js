@@ -10,8 +10,8 @@ async function getImageUrls() {
 
     const interiorUrls = [];
     const extrasUrls = []; 
-    const interiorFolderPath = '../data/images/interior';
-    const extrasFolderPath = '../data/images/extras';
+    const interiorFolderPath = 'data/images/interior';
+    const extrasFolderPath = 'data/images/extras';
     
     return new Promise((resolve, reject) => {
         fs.readdir(interiorFolderPath, async (err, files) => {

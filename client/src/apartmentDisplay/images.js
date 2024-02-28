@@ -14,7 +14,7 @@ const divStyle = {
  * ApartmentImages component for displaying apartment images.
  *
  * @component
- * @returns {JSX.Element} Rendered Home component.
+ * @returns {JSX.Element} Rendered ApartmentImages component.
  */
 function ApartmentImages(imagesLinks) {
 
