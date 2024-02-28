@@ -7,7 +7,7 @@ export default function PostListing() {
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');
   const [contactInfo, setContactInfo] = useState('');
-  const [file, setFile] = useState();
+  const [files, setFiles] = useState([]);
 
   const handleChange = (event) => {
     const { title, value } = event.target;
@@ -29,11 +29,23 @@ export default function PostListing() {
         setContactInfo(value);
         break;
       case 'image':
-        setFile(event.target.files[0]);
+        // setFiles(Array.from(event.target.files));
+        setFiles((prevFiles) => [...prevFiles, ...Array.from(event.target.files)]);
+
         break;
       default:
         break;
     }
+  };
+
+  const handleRemoveImage = (index) => {
+    const updatedFiles = [...files];
+    updatedFiles.splice(index, 1);
+    setFiles(updatedFiles);
+  };
+
+  const isFormValid = () => {
+    return [title, rentPrice, address, description, contactInfo].every((field) => field.trim() !== '') && files.length > 0;
   };
 
   const handleSubmit = async (event) => {
@@ -45,7 +57,10 @@ export default function PostListing() {
     formData.append('address', address);
     formData.append('description', description);
     formData.append('contactInfo', contactInfo);
-    formData.append('file', file);
+    //append multiple files
+    files.forEach((file, index) => {
+      formData.append(`file${index + 1}`, file);
+    });
 
     try {
       await fetch('/fileUpload', {
@@ -82,11 +97,20 @@ export default function PostListing() {
         <label htmlFor="contactInfo">Contact Information</label>
         <input type="text" id="contactInfo" title="contactInfo" value={contactInfo} onChange={handleChange} />
 
-        <label htmlFor="image">Add image:</label>
-        <input type="file" title="image" onChange={handleChange} />
-        <img alt="Image Preview" src={file ? URL.createObjectURL(file) : ''} />
+        <label htmlFor="images">Add images:</label>
+        <input type="file" title="image" onChange={handleChange} multiple />
+        <div className="image-preview">
+          {files.map((file, index) => (
+            <div key={index} className="image-container">
+              <img alt={`Image Preview ${index + 1}`} src={URL.createObjectURL(file)} />
+              <button type="button" onClick={() => handleRemoveImage(index)}>
+                X
+              </button>
+            </div>
+          ))}
+        </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!isFormValid()}>Submit</button>
       </form>
     </>
   );
