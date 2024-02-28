@@ -4,7 +4,7 @@
  * @component
  * @returns {JSX.Element} Rendered ContactSection component.
  */
-function ContactSection(contact) {
+function ContactSection() {
 
     return (
         <div id="apartment-owner-contact">
