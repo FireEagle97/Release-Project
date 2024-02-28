@@ -17,6 +17,8 @@ build-frontend:
         - 'client/package-lock.json'
     paths:
       - 'client/node_modules/'
+  before_script:
+    - cp ${DEVELOPMENT_ENV_FILE} .env.development
   script:
     - cd client && npm install && CI=false npm run build
   only:
