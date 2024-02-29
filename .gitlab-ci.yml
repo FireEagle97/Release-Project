@@ -79,8 +79,8 @@ deploy_to_azure_dev:
   before_script:
     - apk update
     - apk add zip
-    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
-    # - "az login --allow-no-subscriptions --service-principal -u 355e7e3f-2a61-4062-8292-7e1b9c45d730 -p 6ni8Q~d8JHsGXNo2Nj2Hxpo0JBtOj~G3K2hAib6C --tenant b6b66a7a-fbbb-42b8-a7c5-712342094eef"
+    # - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
+    - "az login --allow-no-subscriptions --service-principal -u 355e7e3f-2a61-4062-8292-7e1b9c45d730 -p 6ni8Q~d8JHsGXNo2Nj2Hxpo0JBtOj~G3K2hAib6C --tenant b6b66a7a-fbbb-42b8-a7c5-712342094eef"
   script:
     - zip -r deploy.zip client/build server ./package.json
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE='1'"
