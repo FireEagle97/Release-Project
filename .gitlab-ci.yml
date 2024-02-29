@@ -18,7 +18,6 @@ build-frontend:
     paths:
       - 'client/node_modules/'
   script:
-    - echo DEVELOPMENT_ENV_FILE=$DEVELOPMENT_ENV_FILE
     - cd client && npm install && CI=false npm run build
   only:
     - azureDeployment
@@ -78,14 +77,17 @@ deploy_to_azure_dev:
   only:
     - azureDeployment
   before_script:
-    - cp $DEVELOPMENT_ENV_FILE .env
-    - cat .env
     - apk update
     - apk add zip
-    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
+    # - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
+    - "az login --allow-no-subscriptions --service-principal -u a5bdf1c3-862e-4a0f-95a8-25874a59d584 -p 5CZ8Q~-zMVb~gJdHnT4CMF8fj-l3.h~dIWMApbT5 --tenant b6b66a7a-fbbb-42b8-a7c5-712342094eef"
   script:
     - zip -r deploy.zip client/build server ./package.json
-  #  - "az webapp config appsettings set --resource-group app-service-release --name release-your-app --settings WEBSITE_RUN_FROM_PACKAGE='1'"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-app --settings WEBSITE_RUN_FROM_PACKAGE='1'"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings ATLAS_URI=$ATLAS_URI"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings AZURE_CONNECTION=$AZURE_CONNECTION"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings AZURE_CONTAINER_NAME=$AZURE_CONTAINER_NAME"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings PORT=3002"
     - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --src deploy.zip"
 
   
