@@ -90,4 +90,11 @@ deploy_to_azure_dev:
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings PORT=3002"
     - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --src deploy.zip"
 
-  
+variables:
+  ATLAS_URI: "$ATLAS_URI"
+  APP_NAME: "$APP_NAME"
+  AZ_SP_ID: "$AZ_SP_ID"
+  AZ_SP_SECRET: "$AZ_SP_SECRET"
+  AZ_TENANT: "$AZ_TENANT"
+  RESOURCE_GROUP_NAME: "$RESOURCE_GROUP_NAME"
+  AZURE_SAS: "$AZURE_SAS"
