@@ -32,7 +32,7 @@ function App() {
 
   // Function to navigate to the Leases page
   const navigateToLeases = () => {
-    navigate(`/apartments/}`, {});
+    navigate(`/apartments/`, {});
   };
 
   return ( 
