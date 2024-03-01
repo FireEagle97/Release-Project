@@ -59,8 +59,8 @@ class DB{
     async getAllLeases() {
         try{
             await this.connect();
-            const appartmentList = await leases.find({}).select('-_id -__v');
-            return appartmentList;
+            const apartmentList = await leases.find({}).select('-__v');
+            return apartmentList;
         } catch (error) {
             console.error('An error occurred while retrieving leases:', error);
         } 
@@ -73,7 +73,7 @@ class DB{
                 throw new Error('Invalid input parameters');
             }
             const query = this.leaseQuery(city, area, filters);
-            const releases = await leases.find(query).select('-_id -__v');
+            const releases = await leases.find(query).select('-__v');
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving leasess:', error);

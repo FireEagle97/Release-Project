@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Navigation from './navigation/Nav';
 import Home from './home/Home';
 import LeasesList from './components/leasesList/leasesList';
@@ -22,6 +22,14 @@ const data = [
 ];
 
 function App() {
+
+  const navigate = useNavigate();
+
+  // Function to navigate to the ApartmentPage with apartment data
+  const navigateToApartmentPage = (apartment) => {
+    navigate(`/apartment/${apartment._id}`, { state: { apartment } });
+  };
+
   return ( 
     <>
       <Navigation />
@@ -30,11 +38,11 @@ function App() {
           <Route path="/" element={
             <Home />
           } />
-          <Route path="/apartment" element={
-            <ApartmentPage />
+          <Route path="/apartment/:id" element={
+            <ApartmentPage/>
           } />
         </Routes>
-        <LeasesList data={data}/>
+        <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
       </div>
       <footer>
           <p>fooooter</p>
