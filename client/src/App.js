@@ -30,22 +30,28 @@ function App() {
     navigate(`/apartment/${apartment._id}`, { state: { apartment } });
   };
 
+  // Function to navigate to the Leases page
+  const navigateToLeases = () => {
+    navigate(`/apartments/}`, {});
+  };
+
   return ( 
     <>
       <Navigation />
       <div className="App">
         <Routes>
           <Route path="/" element={
-            <Home />
+            <Home navigateToApartments={navigateToLeases}/>
           } />
           <Route path="/apartment/:id" element={
             <ApartmentPage/>
           } />
+          <Route path="/apartments" element={
+            <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
+          } />
         </Routes>
-        <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
       </div>
       <footer>
-          <p>fooooter</p>
           <p>Elissar Fadel, Monica Dimitrova, Anastasia Bondarenko, Dany Makhoul</p>
           <p>ReLease 2024</p>
       </footer>

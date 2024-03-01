@@ -7,7 +7,7 @@ import './home.css';
  * @component
  * @returns {JSX.Element} Rendered Home component.
  */
-export default function Home() {
+export default function Home({navigateToApartments}) {
   
   /**
    * useEffect hook to fetch data when there are changes in page or country.
@@ -36,6 +36,9 @@ export default function Home() {
       <h3>Contact Information</h3>
       <p>You can reach out to us at the following email:</p>
       <p>release@info.com</p>
+      <button id='view-apartments-btn' type='button' onClick={navigateToApartments}>
+        Start Searching
+      </button>
     </>
   );
   
