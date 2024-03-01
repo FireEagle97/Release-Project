@@ -3,12 +3,19 @@ import Pagination from "../pagination/pagination";
 const LeasesList = () => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [filterOption, setFilterOption] = useState(null);
     const cardsPerPage = 9;
     const currentLeases = useMemo(() => {
+        let filteredLeases = leases;
+        if (filterOption === 'lowestPrice') {
+            filteredLeases = filteredLeases.sort((a, b) => a.rentPrice - b.rentPrice);
+        } else if (filterOption === 'highestPrice') {
+            filteredLeases = filteredLeases.sort((a, b) => b.rentPrice - a.rentPrice);
+        }
         const firstPageIndex = (currentPage - 1) * cardsPerPage;
         const lastPageIndex = firstPageIndex + cardsPerPage;
-        return leases.slice(firstPageIndex, lastPageIndex);
-      }, [currentPage, leases]);
+        return filteredLeases.slice(firstPageIndex, lastPageIndex);
+      }, [currentPage, leases, filterOption]);
    
     useEffect(() => {
         async function fetchLeases()
@@ -29,6 +36,28 @@ const LeasesList = () => {
   return (
     <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
+        <div className="row mb-3">
+            <div className='col-1'>Filter by:</div>
+            <div className="col-2"> 
+                <select
+                    id="filterOptions"
+                    className="form-select"
+                    value={filterOption}
+                    onChange={(e) => setFilterOption(e.target.value)}
+                >
+                    <option value="">Select</option>
+                    <option value="lowestPrice">Lowest Price</option>
+                    <option value="highestPrice">Highest Price</option>
+                </select>
+            </div>
+            <div className='col-3'>
+                <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary" type="button" id="search-btn">search</button>
+                    <input type="text" class="form-control" placeholder=""/>
+                </div>
+            </div>
+        </div>
+    
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
         {currentLeases.map(appartment => (
             <div key={appartment.id} class="col mb-5">
