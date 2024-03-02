@@ -33,7 +33,7 @@ function App() {
 
   // Function to navigate to the Leases page
   const navigateToLeases = () => {
-    navigate(`/apartments/`, {});
+    navigate(`/apartments`, {});
   };
 
   return ( 
@@ -48,9 +48,11 @@ function App() {
               <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
             </>
           } />
+
           <Route path="/apartment/:id" element={
             <ApartmentPage/>
           } />
+
           <Route path="/apartments" element={
             <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
           } />
@@ -58,6 +60,7 @@ function App() {
           <Route path="/post-listing" element={
             <PostListing />
           } />
+
         </Routes>
       </div>
       <footer>
