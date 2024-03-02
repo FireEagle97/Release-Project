@@ -62,19 +62,16 @@ export default function PostListing() {
     setFiles(updatedFiles);
   };
 
-  // const isFormValid = () => {
-  //   return [title, rentPrice, address, description, contactInfo].every((field) => field.trim() !== '') && files.length > 0;
-  // };
-  
   const isFormValid = () => {
-    const nonEmptyFields = [title, rentPrice, address, description, contactInfo, size, bedrooms, bathrooms, floorNumber, furnishing];
-    const nonEmptyCheck = nonEmptyFields.every((field) => field.trim() !== '');
-  
-    const positiveNum = [rentPrice, size, bedrooms, bathrooms, floorNumber].every((field) => parseFloat(field) >= 0);
-  
-    return nonEmptyCheck && positiveNum && files.length > 0;
+
+    const validTextFields = [title, address, description, contactInfo].every((field) => field.trim() !== '')
+    const validNumFields = [rentPrice, size, bedrooms, bathrooms, floorNumber].every((field) => field.length > 0);
+    const validFurnishing = ['Unfurnished', 'Semi-Furnished', 'Furnished'].includes(furnishing);
+
+
+    return validTextFields && validNumFields && validFurnishing;
+
   };
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -159,12 +156,7 @@ export default function PostListing() {
 
           <label htmlFor="furnishing">Furnishing</label>
           <br></br>
-          {/* <select id="furnishing" name="furnishing" value={furnishing} onChange={handleChange}>
-            <option value="">Select Furnishing</option>
-            <option value="Unfurnished">Unfurnished</option>
-            <option value="Semi-Furnished">Semi-Furnished</option>
-            <option value="Furnished">Furnished</option>
-          </select> */}
+
           <div className="furnishing-options">
             <label>
               <input type="radio" id="unfurnished" name="furnishing" value="Unfurnished" checked={furnishing === 'Unfurnished'} onChange={handleChange}/>
