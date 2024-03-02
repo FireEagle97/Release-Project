@@ -41,7 +41,10 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={
-            <Home navigateToApartments={navigateToLeases}/>
+            <>
+              <Home navigateToApartments={navigateToLeases}/>
+              <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
+            </>
           } />
           <Route path="/apartment/:id" element={
             <ApartmentPage/>
