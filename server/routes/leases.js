@@ -16,22 +16,26 @@ router.get('/', async (req, res) => {
 
 //rent, size, furnishing
 
-// router.get('/:city', async (req, res) => {
-//     try{
-//         const db = new DB();
-//         const city = req.params.city;
-//         const area = req.query.area;
-//         const rent = req.query.rent;
-//         const size = req.query.size;
-//         const furnishing = req.query.furnishing;
-//         const data = await db.getLeasesByCityAndFilters(city, area, { rent, size, furnishing });
-//         res.json({'response':data});
+router.get('/:city', async (req, res) => {
+    try{
+        const db = new DB();
+        const city = req.params.city;
+        const area = req.query.area;
+        const minRent = req.query['rent.minimum'];
+        const maxRent = req.query['rent.maximum']; 
+        const rent = {'minimum': minRent, 'maximum': maxRent}; 
+        const minSize = req.query['size.minimum'];
+        const maxSize = req.query['size.maximum']; 
+        const size = {'minimum': minSize, 'maximum': maxSize}; 
+        const furnishing = req.query.furnishing;
+        const data = await db.getLeasesByCityAndFilters(city, area, { rent, size, furnishing });
+        res.json({'response':data});
       
-//     }catch(err){
-//         res.status(400).send({'error':'not supported in api ' + err});
+    }catch(err){
+        res.status(400).send({'error':'not supported in api ' + err});
       
-//     }
-// });
+    }
+});
 
 
 module.exports = {
