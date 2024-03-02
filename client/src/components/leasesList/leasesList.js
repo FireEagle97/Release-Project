@@ -4,19 +4,19 @@ import Filters from '../filters/filters';
 const LeasesList = () => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [filterOption, setFilterOption] = useState(null);
+    const [sortOption, setSortOption] = useState(null);
     const cardsPerPage = 9;
     const currentLeases = useMemo(() => {
-        let filteredLeases = leases;
-        if (filterOption === 'lowestPrice') {
-            filteredLeases = filteredLeases.sort((a, b) => a.rentPrice - b.rentPrice);
-        } else if (filterOption === 'highestPrice') {
-            filteredLeases = filteredLeases.sort((a, b) => b.rentPrice - a.rentPrice);
+        let sortedLeases = leases;
+        if (sortOption === 'lowestPrice') {
+            sortedLeases = sortedLeases.sort((a, b) => a.rentPrice - b.rentPrice);
+        } else if (sortOption === 'highestPrice') {
+            sortedLeases = sortedLeases.sort((a, b) => b.rentPrice - a.rentPrice);
         }
         const firstPageIndex = (currentPage - 1) * cardsPerPage;
         const lastPageIndex = firstPageIndex + cardsPerPage;
-        return filteredLeases.slice(firstPageIndex, lastPageIndex);
-      }, [currentPage, leases, filterOption]);
+        return sortedLeases.slice(firstPageIndex, lastPageIndex);
+      }, [currentPage, leases, sortOption]);
    
     useEffect(() => {
         async function fetchLeases()
@@ -38,8 +38,8 @@ const LeasesList = () => {
     <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <Filters
-            filterOption={filterOption}
-            setFilterOption={setFilterOption}
+            sortOption={sortOption}
+            setSortOption={setSortOption}
             // handleSearch={handleSearch}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">

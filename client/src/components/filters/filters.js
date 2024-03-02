@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Filters = ({filterOption, setFilterOption}) => {
+const Filters = ({sortOption, setSortOption}) => {
     
 
     return (
@@ -10,8 +10,8 @@ const Filters = ({filterOption, setFilterOption}) => {
             <select
                 id="filterOptions"
                 className="form-select"
-                value={filterOption}
-                onChange={(e) => setFilterOption(e.target.value)}
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
             >
                 <option value="">Select</option>
                 <option value="lowestPrice">Lowest Price</option>
