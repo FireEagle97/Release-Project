@@ -43,10 +43,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                     <div class="card-body p-4">
                         <div class="text-center">
                             {/* apartment title */}
-                            <h5 class="fw-bolder">{apartment.furnishing} apartment located in {apartment.areaLocality},
-                             {apartment.city}</h5>
+                            <h5 class="fw-bolder">{apartment.furnishing} apartment located in {apartment.areaLocality}, {apartment.city}</h5>
                             {/* apartment rent */}
-                            {apartment.rentPrice}/ month
+                            ${apartment.rentPrice}/month
                         </div>
                     </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
