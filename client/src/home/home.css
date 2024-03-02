@@ -1,0 +1,13 @@
+#view-apartments-btn{
+    padding: 2%;
+    margin-top: 3%;
+    background-color: rgb(15, 15, 59);
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    border-radius: 25px;
+}
+
+#view-apartments-btn:hover{
+    background-color: rgb(17, 43, 149);
+}

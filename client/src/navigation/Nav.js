@@ -21,7 +21,7 @@ export default function Navigation() {
           {/* Navigation header with a link to the home page. */}
           <a href="/" className="nav-header">
             {/* <span>Re-lease</span> */}
-            <span><img src="/logo1.png" alt="Logo" className="logo-image" /></span>
+            <picture><img src="/logo1.png" alt="Logo" className="logo-image" /></picture>
           </a>
 
           {/* List of navigation items with links to different sections. */}

@@ -80,7 +80,7 @@ class DB{
         }
     }
 
-    async leaseQuery(city, area, filters){
+    leaseQuery(city, area, filters){
 
         const query = { city: city};
 
