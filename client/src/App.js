@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, Router } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Navigation from './navigation/Nav';
 import Home from './home/Home';
 import LeasesList from './components/leasesList/leasesList';
@@ -23,6 +23,19 @@ const data = [
 ];
 
 function App() {
+
+  const navigate = useNavigate();
+
+  // Function to navigate to the ApartmentPage with apartment data
+  const navigateToApartmentPage = (apartment) => {
+    navigate(`/apartment/${apartment._id}`, { state: { apartment } });
+  };
+
+  // Function to navigate to the Leases page
+  const navigateToLeases = () => {
+    navigate(`/apartments/`, {});
+  };
+
   return ( 
     <>
       <Navigation />
@@ -30,20 +43,24 @@ function App() {
         
         <Routes>
           <Route path="/" element={
-            <Home />
+            <>
+              <Home navigateToApartments={navigateToLeases}/>
+              <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
+            </>
           } />
-          <Route path="/apartment" element={
-            <ApartmentPage />
+          <Route path="/apartment/:id" element={
+            <ApartmentPage/>
+          } />
+          <Route path="/apartments" element={
+            <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
           } />
 
           <Route path="/post-listing" element={
             <PostListing />
           } />
         </Routes>
-        <LeasesList data={data}/>
       </div>
       <footer>
-          <p>fooooter</p>
           <p>Elissar Fadel, Monica Dimitrova, Anastasia Bondarenko, Dany Makhoul</p>
           <p>ReLease 2024</p>
       </footer>

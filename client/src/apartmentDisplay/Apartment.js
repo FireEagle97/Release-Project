@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import ApartmentImages from './Images.js';
 import ContactSection from './ContactSection.js';
+import { useLocation } from 'react-router-dom';
 import './Apartment.css';
 
 /**
@@ -9,8 +9,9 @@ import './Apartment.css';
  * @component
  * @returns {JSX.Element} Rendered ApartmentPage component.
  */
-export default function ApartmentPage(apartment) {
-
+export default function ApartmentPage() {
+    const location = useLocation();
+    const apartment = location.state?.apartment;
     return (
         <div>
             <ApartmentImages imagesLinks={apartment.images}/>
