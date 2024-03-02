@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Pagination from "../pagination/pagination";
+import Filters from '../filters/filters';
 const LeasesList = () => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,33 +32,16 @@ const LeasesList = () => {
                 console.error('Error fetching leases:', error);
             }
         }
-        fetchLeases();    
-}, [filterOption]);
+        fetchLeases();
+    }, []);
   return (
     <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-        <div className="row mb-3">
-            <div className='col-1'>Filter by:</div>
-            <div className="col-2"> 
-                <select
-                    id="filterOptions"
-                    className="form-select"
-                    value={filterOption}
-                    onChange={(e) => setFilterOption(e.target.value)}
-                >
-                    <option value="">Select</option>
-                    <option value="lowestPrice">Lowest Price</option>
-                    <option value="highestPrice">Highest Price</option>
-                </select>
-            </div>
-            <div className='col-3'>
-                <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary" type="button" id="search-btn">search</button>
-                    <input type="text" class="form-control" placeholder=""/>
-                </div>
-            </div>
-        </div>
-    
+        <Filters
+            filterOption={filterOption}
+            setFilterOption={setFilterOption}
+            // handleSearch={handleSearch}
+        />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
         {currentLeases.map(appartment => (
             <div key={appartment.id} class="col mb-5">
