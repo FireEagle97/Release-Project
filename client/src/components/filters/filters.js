@@ -1,11 +1,13 @@
 import React from 'react';
 
-const Filters = ({sortOption, setSortOption}) => {
+const Filters = ({sortOption, setSortOption,searchQuery,setSearchQuery, handleSearch}) => {
     
-
+    const handleSearchChange= (event) => {
+        setSearchQuery(event.target.value);
+    }
     return (
         <div className="row mb-3">
-        <div className='col-1'>Filter by:</div>
+        <div className='col-1'>Sort by:</div>
         <div className="col-2"> 
             <select
                 id="filterOptions"
@@ -20,8 +22,15 @@ const Filters = ({sortOption, setSortOption}) => {
         </div>
         <div className='col-3'>
             <div class="input-group mb-3">
-                <button class="btn btn-outline-secondary" type="button" id="search-btn">search</button>
-                <input type="text" class="form-control" placeholder=""/>
+                <button
+                 class="btn btn-outline-secondary"
+                  type="button"
+                   id="search-btn"
+                   onClick={handleSearch}
+                   >search</button>
+                <input type="text" class="form-control" placeholder="Search Leases..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}/>
             </div>
         </div>
     </div>

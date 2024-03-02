@@ -5,19 +5,36 @@ const LeasesList = () => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOption, setSortOption] = useState(null);
+    const [searchQuery, setSearchQuery] = useState(null);
     const cardsPerPage = 9;
     const currentLeases = useMemo(() => {
-        let sortedLeases = leases;
+        let filteredLeases = leases;
         if (sortOption === 'lowestPrice') {
-            sortedLeases = sortedLeases.sort((a, b) => a.rentPrice - b.rentPrice);
+            filteredLeases = filteredLeases.sort((a, b) => a.rentPrice - b.rentPrice);
         } else if (sortOption === 'highestPrice') {
-            sortedLeases = sortedLeases.sort((a, b) => b.rentPrice - a.rentPrice);
+            filteredLeases = filteredLeases.sort((a, b) => b.rentPrice - a.rentPrice);
         }
         const firstPageIndex = (currentPage - 1) * cardsPerPage;
         const lastPageIndex = firstPageIndex + cardsPerPage;
-        return sortedLeases.slice(firstPageIndex, lastPageIndex);
-      }, [currentPage, leases, sortOption]);
-   
+        return filteredLeases.slice(firstPageIndex, lastPageIndex);
+      }, [leases, sortOption, currentPage]);
+
+      const handleSearch = () =>{
+        if(searchQuery != null || searchQuery.trim() !== ""){
+            const searchTerms = searchQuery.trim().toLowerCase().split(" ");
+
+            const filteredLeases = leases.filter(lease =>{
+                return searchTerms.some(term =>
+                    lease.city.toLowerCase().includes(term.toLowerCase()) ||
+                    lease.furnishing.toLowerCase().includes(term.toLowerCase())
+                    )}  
+                );
+                // lease.bathroom.toLowerCase().includes(searchQuery.toLowerCase())
+                
+            setLeases(filteredLeases);
+        }
+
+      }
     useEffect(() => {
         async function fetchLeases()
         {
@@ -34,13 +51,31 @@ const LeasesList = () => {
         }
         fetchLeases();
     }, []);
+    // useEffect(() => {
+    //     async function fetchLeasesWithQuery()
+    //     {
+    //         try{
+    //             const response = await fetch(`/leases/city=${searchQuery}`);
+    //             if(!response.ok){
+    //                 throw new Error('Failed to fetch leases');
+    //             }
+    //             const data = await response.json();
+    //             setLeases(data.response);
+    //         }catch (error) {
+    //             console.error('Error fetching leases:', error);
+    //         }
+    //     }
+    //     fetchLeasesWithQuery();
+    // }, [searchQuery]);
   return (
     <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <Filters
             sortOption={sortOption}
             setSortOption={setSortOption}
-            // handleSearch={handleSearch}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            handleSearch={handleSearch}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
         {currentLeases.map(appartment => (
