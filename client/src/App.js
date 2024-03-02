@@ -3,8 +3,24 @@ import { Routes, Route, Router } from 'react-router-dom';
 import Navigation from './navigation/Nav';
 import Home from './home/Home';
 import LeasesList from './components/leasesList/leasesList';
+import ApartmentPage from './apartmentDisplay/Apartment';
 import PostListing from './forms/post_listing';
-import { Switch } from '@mui/material';
+
+const data = [
+  {
+    id: 1,
+    image: 'https://example.com/image1.jpg',
+    title: 'Card 1',
+    description: 'Description for Card 1',
+  },
+  {
+    id: 2,
+    image: 'https://example.com/image2.jpg',
+    title: 'Card 2',
+    description: 'Description for Card 2',
+  },
+  // Add more card objects as needed
+];
 
 function App() {
   return ( 
@@ -13,11 +29,18 @@ function App() {
       <div className="App">
         
         <Routes>
-          <Route path="/post-listing" element={<PostListing />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
+          <Route path="/" element={
+            <Home />
+          } />
+          <Route path="/apartment" element={
+            <ApartmentPage />
+          } />
 
-        <LeasesList/>
+          <Route path="/post-listing" element={
+            <PostListing />
+          } />
+        </Routes>
+        <LeasesList data={data}/>
       </div>
       <footer>
           <p>fooooter</p>
@@ -29,9 +52,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-

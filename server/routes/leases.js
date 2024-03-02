@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {DB} = require('../db/db');
 
-router.get('/leases', async (req, res) => {
+router.get('/', async (req, res) => {
     try{
         const db = new DB();
         const data =  await db.getAllLeases();

@@ -7,6 +7,11 @@ export default function PostListing() {
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');
   const [contactInfo, setContactInfo] = useState('');
+  const [size, setSize] = useState('');
+  const [bedrooms, setBedrooms] = useState('');
+  const [bathrooms, setBathrooms] = useState('');
+  const [floorNumber, setFloorNumber] = useState('');
+  const [furnishing, setFurnishing] = useState('');
   const [files, setFiles] = useState([]);
 
   const handleChange = (event) => {
@@ -28,7 +33,22 @@ export default function PostListing() {
       case 'contactInfo':
         setContactInfo(value);
         break;
-      case 'image':
+      case 'size':
+        setSize(value);
+        break;
+      case 'bedrooms':
+        setBedrooms(value);
+        break;
+      case 'bathrooms':
+        setBathrooms(value);
+        break;
+      case 'floorNumber':
+        setFloorNumber(value);
+        break;
+      case 'furnishing':
+        setFurnishing(value);
+        break;
+      case 'images':
         setFiles((prevFiles) => [...prevFiles, ...Array.from(event.target.files)]);
         break;
       default:
@@ -42,9 +62,19 @@ export default function PostListing() {
     setFiles(updatedFiles);
   };
 
+  // const isFormValid = () => {
+  //   return [title, rentPrice, address, description, contactInfo].every((field) => field.trim() !== '') && files.length > 0;
+  // };
+  
   const isFormValid = () => {
-    return [title, rentPrice, address, description, contactInfo].every((field) => field.trim() !== '') && files.length > 0;
+    const nonEmptyFields = [title, rentPrice, address, description, contactInfo, size, bedrooms, bathrooms, floorNumber, furnishing];
+    const nonEmptyCheck = nonEmptyFields.every((field) => field.trim() !== '');
+  
+    const positiveNum = [rentPrice, size, bedrooms, bathrooms, floorNumber].every((field) => parseFloat(field) >= 0);
+  
+    return nonEmptyCheck && positiveNum && files.length > 0;
   };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,10 +85,21 @@ export default function PostListing() {
     formData.append('address', address);
     formData.append('description', description);
     formData.append('contactInfo', contactInfo);
+    formData.append('size', size);
+    formData.append('bedrooms', bedrooms);
+    formData.append('bathrooms', bathrooms);
+    formData.append('floorNumber', floorNumber);
+    formData.append('furnishing', furnishing);
 
     files.forEach((file, index) => {
       formData.append(`file${index + 1}`, file);
     });
+
+
+    //formdata
+    for (const pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
 
     try {
       await fetch('/fileUpload', {
@@ -81,6 +122,11 @@ export default function PostListing() {
     setAddress('');
     setDescription('');
     setContactInfo('');
+    setSize('');
+    setBedrooms('');
+    setBathrooms('');
+    setFloorNumber('');
+    setFurnishing('');
     setFiles([]);
   };
 
@@ -98,6 +144,48 @@ export default function PostListing() {
 
           <label htmlFor="address">Address</label>
           <input type="text" id="address" name="address" value={address} onChange={handleChange} />
+
+          <label htmlFor="size">Size (sq ft)</label>
+          <input type="number" id="size" name="size" value={size} onChange={handleChange} />
+
+          <label htmlFor="bedrooms">Number of Bedrooms</label>
+          <input type="number" id="bedrooms" name="bedrooms" value={bedrooms} onChange={handleChange} min="0" />
+
+          <label htmlFor="bathrooms">Number of Bathrooms</label>
+          <input type="number" id="bathrooms" name="bathrooms" value={bathrooms} onChange={handleChange} min="0" />
+
+          <label htmlFor="floorNumber">Floor Number</label>
+          <input type="number" id="floorNumber" name="floorNumber" value={floorNumber} onChange={handleChange} min="0" />
+
+          <label htmlFor="furnishing">Furnishing</label>
+          <br></br>
+          {/* <select id="furnishing" name="furnishing" value={furnishing} onChange={handleChange}>
+            <option value="">Select Furnishing</option>
+            <option value="Unfurnished">Unfurnished</option>
+            <option value="Semi-Furnished">Semi-Furnished</option>
+            <option value="Furnished">Furnished</option>
+          </select> */}
+          <div className="furnishing-options">
+            <label>
+              <input type="radio" id="unfurnished" name="furnishing" value="Unfurnished" checked={furnishing === 'Unfurnished'} onChange={handleChange}/>
+              <span className="radio-circle"></span> Unfurnished
+            </label>
+
+            <label>
+              <input
+                type="radio" id="semiFurnished" name="furnishing" value="Semi-Furnished" checked={furnishing === 'Semi-Furnished'} onChange={handleChange}/>
+              <span className="radio-circle"></span> Semi-Furnished
+            </label>
+
+            <label>
+              <input
+                type="radio" id="furnished" name="furnishing" value="Furnished" checked={furnishing === 'Furnished'} onChange={handleChange}/>
+              <span className="radio-circle"></span> Furnished
+            </label>
+          </div>
+
+          <br></br>
+
           <label htmlFor="description">Description</label>
           <textarea id="description" name="description" value={description} onChange={handleChange} />
 
@@ -112,9 +200,9 @@ export default function PostListing() {
             <div className="image-preview">
               {files.map((file, index) => (
                 <div key={index} className="image-container">
-                  <img alt={`Image Preview ${index + 1}`} src={URL.createObjectURL(file)} />
+                  <img alt="Preview" src={URL.createObjectURL(file)} />
                   <button type="button" onClick={() => handleRemoveImage(index)}>
-                    X
+                    x
                   </button>
                 </div>
               ))}
