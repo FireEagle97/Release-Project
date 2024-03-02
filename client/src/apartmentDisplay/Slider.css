@@ -1,0 +1,26 @@
+.slide-container {
+    width: 50%;
+    margin: 0;
+  }
+  
+  .slide-image {
+    display: flex;
+    justify-content: center;
+    background-color: grey;
+  }
+  
+  .slide-image-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 500px;
+    width: 80%;
+    margin: 0;
+  }
+  
+  #apartment-images-slider {
+    width: 50%;
+    }
+    
+  
