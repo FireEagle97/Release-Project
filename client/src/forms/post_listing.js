@@ -86,7 +86,7 @@ export default function PostListing() {
     formData.append('bathrooms', bathrooms);
     formData.append('floorNumber', floorNumber);
     formData.append('furnishing', furnishing);
-
+    console.log(files);
     files.forEach((file, index) => {
       formData.append(`file${index + 1}`, file);
     });
@@ -98,7 +98,7 @@ export default function PostListing() {
     }
 
     try {
-      await fetch('/leaseUpload', {
+      await fetch('/leas', {
         method: 'POST',
         headers: {},
         body: formData,
@@ -187,7 +187,7 @@ export default function PostListing() {
         <div className="float-child">
           <div className="image-column">
             <label htmlFor="images">Add images</label>
-            <input type="file" id="images" name="image" onChange={handleChange} multiple />
+            <input type="file" id="images" name="images" onChange={handleChange} multiple />
             
             <div className="image-preview">
               {files.map((file, index) => (
