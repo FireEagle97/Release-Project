@@ -1,9 +1,11 @@
 const {app} = require('../api');
 const path = require('path');
+const {DB} = require('../db/db');
 
 require('dotenv').config();
 const debug = require('debug');
 const logger = debug('server:startup');
+const db = new DB();
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
@@ -21,6 +23,7 @@ const server = app.listen(port, () => {
 process.on('SIGINT', () => {
     logger('SIGINT signal received: closing HTTP server');
     server.close(() => {
+        db.close();
         logger('db closed');
     
         logger('HTTP server closed');

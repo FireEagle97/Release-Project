@@ -24,6 +24,7 @@ export default function Navigation() {
           <a href="/" className="nav-header">
             {/* <span>Re-lease</span> */}
             <picture><img src="/logo1.png" alt="Logo" className="logo-image" /></picture>
+            <p>RE-LEASE</p>
           </a>
 
 
@@ -34,13 +35,18 @@ export default function Navigation() {
               <Link to="/about" className="nav-link" onClick={handleClick}>
                 About
               </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/contact" className="nav-link" onClick={handleClick}>
                 Contact
               </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/post-listing" className="nav-link" onClick={handleClick}>
                 Post Listing
               </Link>
-
+            </li>
+            <li className="nav-item">
               <Link to="/" className="nav-link" onClick={handleClick}>
                 Home
               </Link>
