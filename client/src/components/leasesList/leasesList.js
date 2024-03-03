@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Pagination from "../pagination/pagination";
 import Filters from '../filters/filters';
-const LeasesList = () => {
+const LeasesList = ({ navigateToApartmentPage }) => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOption, setSortOption] = useState(null);
@@ -18,6 +18,10 @@ const LeasesList = () => {
         const lastPageIndex = firstPageIndex + cardsPerPage;
         return filteredLeases.slice(firstPageIndex, lastPageIndex);
       }, [leases, sortOption, currentPage]);
+      const handleApartmentClick = (apartment) => {
+        navigateToApartmentPage(apartment);
+    };
+
 
       const handleSearch = () =>{
         if(searchQuery != null || searchQuery.trim() !== ""){
