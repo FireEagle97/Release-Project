@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Pagination from "../pagination/pagination";
-const LeasesList = () => {
+const LeasesList = ({ navigateToApartmentPage }) => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 9;
@@ -9,6 +9,10 @@ const LeasesList = () => {
         const lastPageIndex = firstPageIndex + cardsPerPage;
         return leases.slice(firstPageIndex, lastPageIndex);
       }, [currentPage, leases]);
+
+    const handleApartmentClick = (apartment) => {
+        navigateToApartmentPage(apartment);
+    };
    
     useEffect(() => {
         async function fetchLeases()
@@ -30,23 +34,24 @@ const LeasesList = () => {
     <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
-        {currentLeases.map(appartment => (
-            <div key={appartment.id} class="col mb-5">
+        {currentLeases.map(apartment => (
+            <div key={apartment.id} class="col mb-5">
                 <div class="card h-100">
-                    {/* Appartment image */}
-                    <img src={appartment.images[0]} alt={appartment.bhk} />
-                    {/* Appartment detail */}
+                    {/* apartment image */}
+                    <img src={apartment.images[0]} alt={apartment.bhk} />
+                    {/* apartment detail */}
                     <div class="card-body p-4">
                         <div class="text-center">
-                            {/* Appartment title */}
-                            <h5 class="fw-bolder">{appartment.furnishing} appartment located in {appartment.areaLocality},
-                             {appartment.city}</h5>
-                            {/* Appartment rent */}
-                            {appartment.rentPrice}/ month
+                            {/* apartment title */}
+                            <h5 class="fw-bolder">{apartment.furnishing} apartment located in {apartment.areaLocality}, {apartment.city}</h5>
+                            {/* apartment rent */}
+                            ${apartment.rentPrice}/month
                         </div>
                     </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View listing</a></div>
+                        <div class="text-center" onClick={() => handleApartmentClick(apartment)}>
+                            <a class="btn btn-outline-dark mt-auto">View listing</a>
+                        </div>
                     </div>
                 </div>
             </div>
