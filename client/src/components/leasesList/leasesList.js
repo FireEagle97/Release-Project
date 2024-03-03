@@ -41,7 +41,7 @@ const LeasesList = () => {
             try{
                 let response = await fetch('/leases');
                 if(searchQuery != null){
-                    response = await fetch(`/leases/city=${searchQuery}`);
+                    response = await fetch(`/leases/${searchQuery}`);
                 }
                 if(!response.ok){
                     throw new Error('Failed to fetch leases');
@@ -53,7 +53,7 @@ const LeasesList = () => {
             }
         }
         fetchLeases();
-    }, [searchQuery]);
+    }, []);
     
   return (
     <section class="py-5">
