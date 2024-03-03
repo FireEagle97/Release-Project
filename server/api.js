@@ -4,6 +4,7 @@ const compression = require('compression');
 const fileUpload = require('express-fileupload');
 
 const {leasesRouter} = require('./routes/leases.js');
+const {leaseUploadRouter} = require('./routes/lease-upload.js');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
@@ -35,6 +36,8 @@ app.use(
 
 // Use releases router
 app.use('/leases/', leasesRouter);
+app.use('/leaseUpload/', leaseUploadRouter);
+
 
 
 // 404 route 

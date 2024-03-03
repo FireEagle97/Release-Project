@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const {DB} = require('../db/db');
-const {postLease} = require('../controllers/leases');
 
 router.get('/', async (req, res) => {
     try{
@@ -37,9 +36,6 @@ router.get('/:city', async (req, res) => {
       
     }
 });
-
-
-router.post('/leaseUpload', postLease);
 
 
 module.exports = {
