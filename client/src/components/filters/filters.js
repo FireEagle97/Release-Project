@@ -26,7 +26,7 @@ const Filters = ({sortOption, setSortOption,searchQuery,setSearchQuery, handleSe
                  class="btn btn-outline-secondary"
                   type="button"
                    id="search-btn"
-                   onClick={handleSearch}
+                //    onClick={handleSearch}
                    >search</button>
                 <input type="text" class="form-control" placeholder="Search Leases..."
                     value={searchQuery}

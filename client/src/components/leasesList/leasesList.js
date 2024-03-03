@@ -39,7 +39,10 @@ const LeasesList = () => {
         async function fetchLeases()
         {
             try{
-                const response = await fetch('/leases');
+                let response = await fetch('/leases');
+                if(searchQuery != null){
+                    response = await fetch(`/leases/city=${searchQuery}`);
+                }
                 if(!response.ok){
                     throw new Error('Failed to fetch leases');
                 }
@@ -50,23 +53,8 @@ const LeasesList = () => {
             }
         }
         fetchLeases();
-    }, []);
-    // useEffect(() => {
-    //     async function fetchLeasesWithQuery()
-    //     {
-    //         try{
-    //             const response = await fetch(`/leases/city=${searchQuery}`);
-    //             if(!response.ok){
-    //                 throw new Error('Failed to fetch leases');
-    //             }
-    //             const data = await response.json();
-    //             setLeases(data.response);
-    //         }catch (error) {
-    //             console.error('Error fetching leases:', error);
-    //         }
-    //     }
-    //     fetchLeasesWithQuery();
-    // }, [searchQuery]);
+    }, [searchQuery]);
+    
   return (
     <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
