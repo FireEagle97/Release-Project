@@ -97,7 +97,6 @@ async function readCsvFile(filePath) {
                         'bathroom': row[10],
                         'pointOfContact': row[11],
                         'description': null,
-                        'address': null,
                         'images': null,
                     };
                     results.push(customizedObject);
