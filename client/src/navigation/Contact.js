@@ -4,6 +4,7 @@ export default function Contact() {
     return(
         <div className="contact">
             <h1>Contact Information</h1>
+            <br></br>
             <p>
                 Thank you for your interest! Feel free to reach out to us if you have any questions
                 or would like more information.
