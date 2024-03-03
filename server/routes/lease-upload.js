@@ -1,17 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const {DB} = require('../db/db');
+const debug = require('debug');
+const logger = debug('server:posting listing');
+const azureConnection = process.env.AZURE_CONNECTION;
+const azureContainerName = process.env.AZURE_CONTAINER_NAME;
+const { BlobServiceClient} = require('@azure/storage-blob');
 
 // erase title, make city and arealocality and preferredtentant,
 router.post('/', async (req, res) => {
     const property = req.body;
-    console.log(property);
 
     // validate property
     if (!validateProperty(property)) {
         return res.status(400).json({ error: 
             'Validation failed. Please provide valid property details.' });
     }
+
+    const imageUrls = await getImageUrls(req.files);
+
     const postedDate = getCurrentDate();
     const leaseObject = {
         'postedDate': postedDate, 
@@ -26,11 +33,41 @@ router.post('/', async (req, res) => {
         'bathroom': property.bathrooms,
         'pointOfContact': property.contactInfo,
         'description': property.description,
-        'address': property.address
+        'address': property.address,
+        'images': imageUrls
     };
+
+    const db = new DB();
+    await db.createManyLeases([leaseObject]);
+    logger('data seeded', leaseObject);
     res.status(200).send({'respose':'ok'});
 
 });
+
+async function getImageUrls(files){
+    const blobService = BlobServiceClient.fromConnectionString(azureConnection);
+    const containerClient = blobService.getContainerClient(azureContainerName);
+
+    const uploadPromises = [];
+    // store file names in blobclient and retrieve urls
+    for (const [file] of Object.entries(files)) {
+        if (file) {
+            const blobClient = containerClient.getBlockBlobClient(file.name);
+            const options = { blobHTTPHeaders: { blobContentType: file.mimetype } };
+            const uploadPromise = blobClient.uploadData(file.data, options);
+            uploadPromises.push(uploadPromise);
+        }
+    }
+    // for avoiding await in loop
+    await Promise.all(uploadPromises);
+
+    const imageUrls = Object.values(files).filter(file => file).map(file => {
+        const blobClient = containerClient.getBlockBlobClient(file.name);
+        return blobClient.url;
+    });
+
+    return imageUrls;
+}
 
 function getCurrentDate() {
     const currentDate = new Date();
