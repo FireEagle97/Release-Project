@@ -24,6 +24,7 @@ export default function Navigation() {
           <a href="/" className="nav-header">
             {/* <span>Re-lease</span> */}
             <picture><img src="/logo1.png" alt="Logo" className="logo-image" /></picture>
+            <p>RE-LEASE</p>
           </a>
 
 
