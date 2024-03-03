@@ -29,14 +29,13 @@ router.post('/', async (req, res) => {
         'rentPrice': property.rentPrice,
         'size': property.size,
         'floor': property.floorNumber,
-        'areaLocality': 'nothing yet',
-        'city': 'nothing yet',
+        'areaLocality': property.address,
+        'city': property.city,
         'furnishing': property.furnishing,
-        'preferredTentant': 'nothing yet',
+        'preferredTentant': property.preferredTentant,
         'bathroom': property.bathrooms,
         'pointOfContact': property.contactInfo,
         'description': property.description,
-        'address': property.address,
         'images': imageUrls
     };
 
