@@ -2,9 +2,9 @@ import { useState } from 'react';
 import './post_listing.css';
 
 export default function PostListing() {
-  const [title, setTitle] = useState('');
   const [rentPrice, setRentPrice] = useState('');
   const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
   const [description, setDescription] = useState('');
   const [contactInfo, setContactInfo] = useState('');
   const [size, setSize] = useState('');
@@ -12,14 +12,15 @@ export default function PostListing() {
   const [bathrooms, setBathrooms] = useState('');
   const [floorNumber, setFloorNumber] = useState('');
   const [furnishing, setFurnishing] = useState('');
+  const [preferredTentant, setpreferredTentant] = useState('');
   const [files, setFiles] = useState([]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     switch (name) {
-      case 'title':
-        setTitle(value);
+      case 'city':
+        setCity(value);
         break;
       case 'rentPrice':
         setRentPrice(value);
@@ -48,6 +49,9 @@ export default function PostListing() {
       case 'furnishing':
         setFurnishing(value);
         break;
+      case 'preferredTentant':
+        setpreferredTentant(value);
+      break;
       case 'images':
         setFiles((prevFiles) => [...prevFiles, ...Array.from(event.target.files)]);
         break;
@@ -64,7 +68,7 @@ export default function PostListing() {
 
   const isFormValid = () => {
 
-    const validTextFields = [title, address, description, contactInfo].every((field) => field.trim() !== '')
+    const validTextFields = [city, address, description, contactInfo, preferredTentant].every((field) => field.trim() !== '')
     const validNumFields = [rentPrice, size, bedrooms, bathrooms, floorNumber].every((field) => field.length > 0);
     const validFurnishing = ['Unfurnished', 'Semi-Furnished', 'Furnished'].includes(furnishing);
 
@@ -76,7 +80,7 @@ export default function PostListing() {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', title);
+    formData.append('city', city);
     formData.append('rentPrice', rentPrice);
     formData.append('address', address);
     formData.append('description', description);
@@ -86,6 +90,7 @@ export default function PostListing() {
     formData.append('bathrooms', bathrooms);
     formData.append('floorNumber', floorNumber);
     formData.append('furnishing', furnishing);
+    formData.append('preferredTentant', preferredTentant);
     files.forEach((file, index) => {
       formData.append(`file${index + 1}`, file);
     });
@@ -112,7 +117,7 @@ export default function PostListing() {
   };
 
   const resetForm = () => {
-    setTitle('');
+    setCity('');
     setRentPrice('');
     setAddress('');
     setDescription('');
@@ -122,6 +127,7 @@ export default function PostListing() {
     setBathrooms('');
     setFloorNumber('');
     setFurnishing('');
+    setpreferredTentant('');
     setFiles([]);
   };
 
@@ -131,14 +137,15 @@ export default function PostListing() {
       <form onSubmit={handleSubmit}>
         <div className="float-container">
         <div className="float-child">
-          <label htmlFor="title">Listing Title</label>
-          <input type="text" id="title" name="title" value={title} onChange={handleChange} />
 
           <label htmlFor="rentPrice">Rent Price</label>
           <input type="number" id="rentPrice" name="rentPrice" value={rentPrice} onChange={handleChange} min="0" />
 
           <label htmlFor="address">Address</label>
           <input type="text" id="address" name="address" value={address} onChange={handleChange} />
+
+          <label htmlFor="city">City</label>
+          <input type="text" id="city" name="city" value={city} onChange={handleChange} />
 
           <label htmlFor="size">Size (sq ft)</label>
           <input type="number" id="size" name="size" value={size} onChange={handleChange} />
@@ -175,6 +182,9 @@ export default function PostListing() {
           </div>
 
           <br></br>
+
+          <label htmlFor="preferredTentant">Preffered Tenants</label>
+          <input type="text" id="preferredTentant" name="preferredTentant" value={preferredTentant} onChange={handleChange} />
 
           <label htmlFor="description">Description</label>
           <textarea id="description" name="description" value={description} onChange={handleChange} />
