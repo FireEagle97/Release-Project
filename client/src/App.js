@@ -5,6 +5,8 @@ import Home from './home/Home';
 import LeasesList from './components/leasesList/leasesList';
 import ApartmentPage from './apartmentDisplay/Apartment';
 import PostListing from './forms/post_listing';
+import Contact from './navigation/Contact';
+import About from './navigation/About';
 
 const data = [
   {
@@ -59,6 +61,14 @@ function App() {
 
           <Route path="/post-listing" element={
             <PostListing />
+          } />
+
+          <Route path='/contact' element={
+            <Contact />
+          } />
+
+          <Route path='/about' element={
+            <About />
           } />
 
         </Routes>
