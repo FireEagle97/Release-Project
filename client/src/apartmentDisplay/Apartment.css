@@ -1,0 +1,57 @@
+/* Apartment.css */
+
+#apartment-information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .apt-info {
+    width: 45%;
+  }
+  
+  #apartment-images-slider {
+    width: 50%;
+  }
+  
+  .apt-info {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h3 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    color: #555;
+    font-size: 1.2em;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  h6 {
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  button {
+    background-color: #272c28;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: rgb(100, 107, 101);
+  }
+  

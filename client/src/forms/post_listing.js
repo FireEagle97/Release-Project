@@ -70,7 +70,6 @@ export default function PostListing() {
 
 
     return validTextFields && validNumFields && validFurnishing;
-
   };
 
   const handleSubmit = async (event) => {
@@ -189,8 +188,10 @@ export default function PostListing() {
           <div className="image-column">
             <label htmlFor="images">Add images</label>
             <input type="file" id="images" name="image" onChange={handleChange} multiple />
+            
             <div className="image-preview">
               {files.map((file, index) => (
+                
                 <div key={index} className="image-container">
                   <img alt="Preview" src={URL.createObjectURL(file)} />
                   <button type="button" onClick={() => handleRemoveImage(index)}>
@@ -199,6 +200,7 @@ export default function PostListing() {
                 </div>
               ))}
             </div>
+
           </div>
           </div>
         </div>

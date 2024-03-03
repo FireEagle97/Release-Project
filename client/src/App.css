@@ -1,9 +1,8 @@
 .App {
   text-align: center;
-    background-color: #f0f0f0;  /* Set your desired background color */
-    min-height: 100vh;  /* Ensure the container takes at least the full height of the viewport */
+  background-color: #f0f0f0;
+  min-height: 100vh;
 
-  
 }
 
 .App-logo {
