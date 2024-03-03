@@ -34,13 +34,18 @@ export default function Navigation() {
               <Link to="/about" className="nav-link" onClick={handleClick}>
                 About
               </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/contact" className="nav-link" onClick={handleClick}>
                 Contact
               </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/post-listing" className="nav-link" onClick={handleClick}>
                 Post Listing
               </Link>
-
+            </li>
+            <li className="nav-item">
               <Link to="/" className="nav-link" onClick={handleClick}>
                 Home
               </Link>
