@@ -86,7 +86,6 @@ export default function PostListing() {
     formData.append('bathrooms', bathrooms);
     formData.append('floorNumber', floorNumber);
     formData.append('furnishing', furnishing);
-    console.log(files);
     files.forEach((file, index) => {
       formData.append(`file${index + 1}`, file);
     });
@@ -98,7 +97,7 @@ export default function PostListing() {
     }
 
     try {
-      await fetch('/leas', {
+      await fetch('/leaseUpload', {
         method: 'POST',
         headers: {},
         body: formData,

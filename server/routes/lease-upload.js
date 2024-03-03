@@ -7,7 +7,8 @@ const azureConnection = process.env.AZURE_CONNECTION;
 const azureContainerName = process.env.AZURE_CONTAINER_NAME;
 const { BlobServiceClient} = require('@azure/storage-blob');
 
-// erase title, make city and arealocality and preferredtentant,
+// to do
+// erase title, make city and arealocality and preferredtentant, in client
 router.post('/', async (req, res) => {
     const property = req.body;
 
@@ -17,6 +18,8 @@ router.post('/', async (req, res) => {
             'Validation failed. Please provide valid property details.' });
     }
 
+    // to do
+    // not validated the req.files has files
     const imageUrls = await getImageUrls(req.files);
 
     const postedDate = getCurrentDate();
@@ -50,7 +53,7 @@ async function getImageUrls(files){
 
     const uploadPromises = [];
     // store file names in blobclient and retrieve urls
-    for (const [file] of Object.entries(files)) {
+    for (const [, file] of Object.entries(files)) {
         if (file) {
             const blobClient = containerClient.getBlockBlobClient(file.name);
             const options = { blobHTTPHeaders: { blobContentType: file.mimetype } };
