@@ -30,23 +30,17 @@ export default function Navigation() {
           {/* List of navigation items with links to different sections. */}
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
             <li className="nav-item">
-            <a href="/about" className="nav-link" onClick={handleClick}>
+
+              <Link to="/about" className="nav-link" onClick={handleClick}>
                 About
-              </a>
-              <a href="/contact" className="nav-link" onClick={handleClick}>
+              </Link>
+              <Link to="/contact" className="nav-link" onClick={handleClick}>
                 Contact
-              </a>
-              
-              {/* <a href="/post-listing" className="nav-link" onClick={handleClick}>
-                Post Listing
-              </a> */}
+              </Link>
               <Link to="/post-listing" className="nav-link" onClick={handleClick}>
                 Post Listing
               </Link>
 
-              {/* <a href="/" className="nav-link" onClick={handleClick}>
-                Home
-              </a> */}
               <Link to="/" className="nav-link" onClick={handleClick}>
                 Home
               </Link>
