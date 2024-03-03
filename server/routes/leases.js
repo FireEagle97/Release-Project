@@ -21,8 +21,12 @@ router.get('/:city', async (req, res) => {
         const db = new DB();
         const city = req.params.city;
         const area = req.query.area;
-        const rent = req.query.rent;
-        const size = req.query.size;
+        const minRent = req.query['rentMinimum'];
+        const maxRent = req.query['rentMaximum']; 
+        const rent = {'minimum': minRent, 'maximum': maxRent}; 
+        const minSize = req.query['sizeMinimum'];
+        const maxSize = req.query['sizeMaximum']; 
+        const size = {'minimum': minSize, 'maximum': maxSize}; 
         const furnishing = req.query.furnishing;
         const data = await db.getLeasesByCityAndFilters(city, area, { rent, size, furnishing });
         res.json({'response':data});

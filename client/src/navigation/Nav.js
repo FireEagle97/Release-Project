@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './nav.css';
+import { Link } from 'react-router-dom';
 
 /**
  * Navigation component for displaying a responsive navigation bar.
@@ -15,21 +16,40 @@ export default function Navigation() {
   const handleClick = () => setClick(!click);
 
   return (
+    
     <>
       <nav className="navbar">
         <div className="nav-container">
           {/* Navigation header with a link to the home page. */}
           <a href="/" className="nav-header">
             {/* <span>Re-lease</span> */}
-            <span><img src="/logo1.png" alt="Logo" className="logo-image" /></span>
+            <picture><img src="/logo1.png" alt="Logo" className="logo-image" /></picture>
+            <p>RE-LEASE</p>
           </a>
+
 
           {/* List of navigation items with links to different sections. */}
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
             <li className="nav-item">
-              <a href="/" className="nav-link" onClick={handleClick}>
+
+              <Link to="/about" className="nav-link" onClick={handleClick}>
+                About
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/contact" className="nav-link" onClick={handleClick}>
+                Contact
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/post-listing" className="nav-link" onClick={handleClick}>
+                Post Listing
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/" className="nav-link" onClick={handleClick}>
                 Home
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -47,6 +67,7 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
-    </>
+  </>
+    
   );
 }
