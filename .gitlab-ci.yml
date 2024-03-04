@@ -34,18 +34,18 @@ build-backend:
     key:
       prefix: 'backend'
       files:
-        - 'client/package-lock.json'
+        - 'server/package-lock.json'
     paths:
-      - 'client/node_modules/'
+      - 'server/node_modules/'
   script:
-    - cd client && npm install
+    - cd server && npm install
   only: 
     - azureDeployment
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
-      - client/node_modules
+      - server/node_modules
 
 # test:
 #   stage: test
