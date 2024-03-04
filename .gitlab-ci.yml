@@ -7,6 +7,12 @@ stages:
   - test
   - deployprod
   - deploydev
+  
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH 
 
 build-frontend:
   stage: build
@@ -80,21 +86,11 @@ deploy_to_azure_dev:
     - apk update
     - apk add zip
     - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
-    # - "az login --allow-no-subscriptions --service-principal -u 355e7e3f-2a61-4062-8292-7e1b9c45d730 -p 6ni8Q~d8JHsGXNo2Nj2Hxpo0JBtOj~G3K2hAib6C --tenant b6b66a7a-fbbb-42b8-a7c5-712342094eef"
   script:
     - zip -r deploy.zip client/build server ./package.json
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings WEBSITE_RUN_FROM_PACKAGE='1'"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE='1'"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings ATLAS_URI=$ATLAS_URI"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings AZURE_SAS=$AZURE_SAS"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings AZURE_CONTAINER_NAME=$AZURE_CONTAINER_NAME"
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings PORT=3002"
+    # - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings PORT=3002"
     - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --src deploy.zip"
-
-variables:
-  ATLAS_URI: "$ATLAS_URI"
-  APP_NAME: "$APP_NAME"
-  AZ_SP_ID: "$AZ_SP_ID"
-  AZ_SP_SECRET: "$AZ_SP_SECRET"
-  AZ_TENANT: "$AZ_TENANT"
-  RESOURCE_GROUP_NAME: "$RESOURCE_GROUP_NAME"
-  AZURE_SAS: "$AZURE_SAS"
