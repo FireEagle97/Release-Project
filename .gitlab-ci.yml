@@ -85,8 +85,16 @@ deploy_to_azure_dev:
     - zip -r deploy.zip client/build server ./package.json
     # - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE='1'"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings ATLAS_URI=$ATLAS_URI"
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings AZURE_CONNECTION=$AZURE_CONNECTION"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings AZURE_SAS=$AZURE_SAS"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings AZURE_CONTAINER_NAME=$AZURE_CONTAINER_NAME"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --settings PORT=3002"
     - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name $APP_NAME --src deploy.zip"
 
+variables:
+  ATLAS_URI: "$ATLAS_URI"
+  APP_NAME: "$APP_NAME"
+  AZ_SP_ID: "$AZ_SP_ID"
+  AZ_SP_SECRET: "$AZ_SP_SECRET"
+  AZ_TENANT: "$AZ_TENANT"
+  RESOURCE_GROUP_NAME: "$RESOURCE_GROUP_NAME"
+  AZURE_SAS: "$AZURE_SAS"
