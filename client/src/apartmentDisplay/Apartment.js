@@ -1,4 +1,4 @@
-import ApartmentImages from './Images.js';
+import ApartmentImages from './images.js';
 import ContactSection from './ContactSection.js';
 import { useLocation } from 'react-router-dom';
 import './Apartment.css';
