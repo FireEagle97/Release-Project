@@ -14,39 +14,50 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         } else if (sortOption === 'highestPrice') {
             filteredLeases = filteredLeases.sort((a, b) => b.rentPrice - a.rentPrice);
         }
+        if(searchQuery != null){
+            if(searchQuery.trim() !== ""){
+                const searchTerms = searchQuery.trim().toLowerCase().split(" ");
+                filteredLeases = leases.filter(lease =>{
+                    return searchTerms.some(term =>
+                        lease.city.toLowerCase().includes(term.toLowerCase()) ||
+                        lease.furnishing.toLowerCase().includes(term.toLowerCase())
+                    )}  
+                );
+            }   
+        }
         const firstPageIndex = (currentPage - 1) * cardsPerPage;
         const lastPageIndex = firstPageIndex + cardsPerPage;
         return filteredLeases.slice(firstPageIndex, lastPageIndex);
-      }, [leases, sortOption, currentPage]);
+      }, [leases, sortOption, currentPage, searchQuery]);
       const handleApartmentClick = (apartment) => {
         navigateToApartmentPage(apartment);
     };
 
 
-      const handleSearch = () =>{
-        if(searchQuery != null || searchQuery.trim() !== ""){
-            const searchTerms = searchQuery.trim().toLowerCase().split(" ");
+    //   const handleSearch = () =>{
+    //     if(searchQuery != null || searchQuery.trim() !== ""){
+    //         const searchTerms = searchQuery.trim().toLowerCase().split(" ");
 
-            const filteredLeases = leases.filter(lease =>{
-                return searchTerms.some(term =>
-                    lease.city.toLowerCase().includes(term.toLowerCase()) ||
-                    lease.furnishing.toLowerCase().includes(term.toLowerCase())
-                    )}  
-                );
-                // lease.bathroom.toLowerCase().includes(searchQuery.toLowerCase())
+    //         const filteredLeases = leases.filter(lease =>{
+    //             return searchTerms.some(term =>
+    //                 lease.city.toLowerCase().includes(term.toLowerCase()) ||
+    //                 lease.furnishing.toLowerCase().includes(term.toLowerCase())
+    //                 )}  
+    //             );
+    //             // lease.bathroom.toLowerCase().includes(searchQuery.toLowerCase())
                 
-            setLeases(filteredLeases);
-        }
+    //         setLeases(filteredLeases);
+    //     }
 
-      }
+    //   }
     useEffect(() => {
         async function fetchLeases()
         {
             try{
                 let response = await fetch('/leases');
-                if(searchQuery != null){
-                    response = await fetch(`/leases/${searchQuery}`);
-                }
+                // if(searchQuery != null){
+                //     response = await fetch(`/leases/${searchQuery}`);
+                // }
                 if(!response.ok){
                     throw new Error('Failed to fetch leases');
                 }
@@ -67,7 +78,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
             setSortOption={setSortOption}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            handleSearch={handleSearch}
+            // handleSearch={handleSearch}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
         {currentLeases.map(apartment => (

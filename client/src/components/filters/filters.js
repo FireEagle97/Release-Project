@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Filters = ({sortOption, setSortOption,searchQuery,setSearchQuery, handleSearch}) => {
+const Filters = ({sortOption, setSortOption,searchQuery,setSearchQuery}) => {
     
     const handleSearchChange= (event) => {
         setSearchQuery(event.target.value);
@@ -21,17 +21,12 @@ const Filters = ({sortOption, setSortOption,searchQuery,setSearchQuery, handleSe
             </select>
         </div>
         <div className='col-3'>
-            <div class="input-group mb-3">
-                <button
-                 class="btn btn-outline-secondary"
-                  type="button"
-                   id="search-btn"
-                   onClick={handleSearch}
-                   >search</button>
-                <input type="text" class="form-control" placeholder="Search Leases..."
-                    value={searchQuery}
-                    onChange={handleSearchChange}/>
-            </div>
+            <input type="text" class="form-control mt-0" placeholder="Search Leases..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}/>
+            {/* <div class="input-group mb-3">
+       
+            </div> */}
         </div>
     </div>
     )
