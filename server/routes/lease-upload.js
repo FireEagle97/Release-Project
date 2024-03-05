@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
         'rentPrice': property.rentPrice,
         'size': property.size,
         'floor': property.floorNumber,
-        'areaLocality': property.address,
+        'address': property.address,
         'city': property.city,
         'furnishing': property.furnishing,
         'preferredTentant': property.preferredTentant,
