@@ -16,7 +16,6 @@ const leaseSchema = new mongoose.Schema({
     bathroom: Number,
     pointOfContact: String,
     description: String,
-    address: String,
     images: Array,
 }); 
 
