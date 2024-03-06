@@ -3,6 +3,8 @@ const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
+const session = require('express-session');
+
 
 const {leasesRouter} = require('./routes/leases.js');
 const {leaseUploadRouter} = require('./routes/lease-upload.js');
@@ -35,7 +37,15 @@ app.use(
         createParentPath: true,
     })
 );
-  
+
+// Used to salt the hash---change periodically
+// resave, saveunitialized??
+app.use(session({
+    secret: 'shhh',
+    // resave: false,
+    // saveUninitialized: true
+}));
+
 
 // Use releases router
 app.use('/leases/', leasesRouter);
@@ -82,10 +92,20 @@ app.post('/login', async (req, res) => {
             users.push(newUser);
         }
 
+        // req.session.user = {
+        //     email: payload.email,
+        //     name: payload.name,
+        //     picture: payload.picture,
+        // };
+        
+        // Store userId in the session
+        req.session.userId = payload.email;
+
+
         res.status(201).json({ message: 'Login successful', data: payload });
 
         console.log('USERSSS->>', users);
-        
+
     } catch (error) {
         console.error('Token verification failed:', error.message);
         res.status(401).json({ message: 'Login failed', error: error.message });
