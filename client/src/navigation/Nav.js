@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
+import {GoogleLogin} from '@react-oauth/google';
+
+
+
+
+
 
 /**
  * Navigation component for displaying a responsive navigation bar.
@@ -14,6 +20,20 @@ export default function Navigation() {
 
   // Function to handle menu click and toggle the click state.
   const handleClick = () => setClick(!click);
+
+  const handleLogin = response => {
+    fetch('http://localhost:3002/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        "idToken": response.credential
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+
 
   return (
     
@@ -51,7 +71,15 @@ export default function Navigation() {
                 Home
               </Link>
             </li>
+
+
+
           </ul>
+          <li className="nav-item">
+            <GoogleLogin onSuccess={handleLogin}
+              onError={() => console.log('Login failed')} />
+            
+          </li>
 
           {/* Button to activate/deactivate the menu on smaller screens. */}
           <div className="nav-activate" onClick={handleClick}>
