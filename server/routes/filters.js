@@ -13,3 +13,6 @@ router.get('/allcities', async (req, res) => {
       
     }
 });
+module.exports = {
+    filtersRouter: router
+};

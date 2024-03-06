@@ -12,7 +12,7 @@ const Filters = ({
     setSearchQuery(event.target.value);
   };
   useEffect(() => {
-    async function fetchLeases() {
+    async function fetchCities() {
       try {
         let response = await fetch("/filters/allcities");
         if (!response.ok) {
@@ -24,7 +24,7 @@ const Filters = ({
         console.error("Error fetching leases:", error);
       }
     }
-    fetchLeases();
+    fetchCities();
   }, []);
 
   return (
