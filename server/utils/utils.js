@@ -1,18 +1,45 @@
 
 const canadianCities = ['Toronto', 'Montreal', 'Vancouver', 
-    'Calgary', 'Edmonton', 'Ottawa', 'Winnipeg', 'Quebec City'];
+    'Calgary', 'Edmonton', 'Ottawa', 'Winnipeg', 'Quebec'];
 
 // Object containing area/locality options for each city
-const areaLocalities = {
-    Toronto: ['Downtown', 'Scarborough', 'North York', 'Etobicoke', 'York', 'East York'],
-    Montreal: ['Downtown', 
-        'Plateau-Mont-Royal', 'Ville-Marie', 'Côte-des-Neiges–Notre-Dame-de-Grâce', 'Le Sud-Ouest'],
-    Vancouver: ['Downtown', 'West End', 'Yaletown', 'Gastown', 'Coal Harbour'],
-    Calgary: ['Downtown', 'Beltline', 'Eau Claire', 'Chinatown'],
-    Edmonton: ['Downtown', 'Oliver', 'Strathcona', 'Glenora'],
-    Ottawa: ['Downtown', 'Centretown', 'ByWard Market', 'Sandy Hill'],
-    Winnipeg: ['Downtown', 'Osborne Village', 'Exchange District', 'St. Boniface'],
-    'Quebec City': ['Old Quebec', 'Saint-Roch', 'Saint-Jean-Baptiste', 'Montcalm']
+const addresses = {
+    Toronto: ['411 Castlefield Ave, Toronto, ON M5N 1L4',
+        '26 Glenvale Blvd, East York, ON M4G 2V1', 
+        '220 Donlea Dr, Toronto, ON M4G 2N2', 
+        '250 Dawlish Ave, North York, ON M4N 1J3', 
+        '358 Glencairn Ave, Toronto, ON M5N 1V1', 
+        '13 Stayner Ave, North York, ON M6B 1N3'],
+    Montreal: ['4359 Montrose Ave, Westmount, QC H3Y 2B2', 
+        '385 35e Avenue, Lachine, QC H8T 1Z9', 
+        '6922 Rue de Saint-Vallier, Montréal, QC H2S 2P9',
+        '750 Av. Outremont, Outremont, QC H2V 3N3', 
+        '7470 Rue de Vittel, Montréal, QC H1S 2M7'],
+    Vancouver: ['2943 W 41st Ave, Vancouver, BC V6N 3C8', 
+        '2832 W 36th Ave, Vancouver, BC V6N 2R1', 
+        '2315 W 20th Ave, Vancouver, BC V6L 1G4', 
+        '6948 Blenheim St, Vancouver, BC V6N 1R9', 
+        '3119 E 54th Ave, Vancouver, BC V5S 1Y9'],
+    Calgary: ['2731 17a St NW, Calgary, AB T2M 3S9', 
+        '8032 5 St SW, Calgary, AB T2V 1C5', 
+        '328 86 Ave SE, Calgary, AB T2H 2K5', 
+        '9625 48 St SE, Calgary, AB T2C 2R1'],
+    Edmonton: ['8745 151 St NW, Edmonton, AB T5R 1H8', 
+        '14012 89a Ave NW, Edmonton, AB T5R 4S5', 
+        '4812 21 Ave NW, Edmonton, AB T6L 2V8', 
+        '1003 Huckell Pl SW, Edmonton, AB T6W 1A3'],
+    Ottawa: ['3114 Kinburn Side Rd, Kinburn, ON K0A 2H0', 
+        '34 Beauly St, Kanata, ON K2W 1E9', 
+        '314 Badgeley Ave, Ottawa, ON K2T 0A7', 
+        '21 Gray Crescent, Ottawa, ON K2K 3J5'],
+    Winnipeg: ['191 Rouge Rd, Winnipeg, MB R3K 1J6', 
+        '1282 Magnus Ave, Winnipeg, MB R2X 0N8', 
+        '363 Oakland Ave, Winnipeg, MB R2G 0B2', 
+        '356 Beliveau Rd, Winnipeg, MB R2M 1T4'],
+    Quebec: ['1362 Rue des Calèches, Québec, QC G3K 2M7', 
+        '3460 Rue du Joybert, Québec, QC G1P 1A7', 
+        '7430 Av. Gustave Beaudet, Québec, QC G1H 6C4', 
+        '875 Rue Monseigneur-Grandin, Québec City, QC G1V 3X8']
 };
 
 // Function to generate a random number within a range
@@ -21,12 +48,12 @@ function getRandomNumber(min, max) {
 }
 
 // Function to get a random city and area/locality pair
-function getRandomCityLocalityPair() {
+function getRandomAddressCityPair() {
     const randomCityIndex = getRandomNumber(0, canadianCities.length - 1);
     const randomCity = canadianCities[randomCityIndex];
-    const localitiesInCity = areaLocalities[randomCity];
-    const randomLocality = localitiesInCity[getRandomNumber(0, localitiesInCity.length - 1)];
-    return { city: randomCity, areaLocality: randomLocality };
+    const addressessInCity = addresses[randomCity];
+    const randomAddress = addressessInCity[getRandomNumber(0, addressessInCity.length - 1)];
+    return { city: randomCity, address: randomAddress };
 }
 
 function getRandomDate() {
@@ -85,4 +112,4 @@ function getRandomPrice(bhk) {
     return randomPrice;
 }
 
-module.exports = { getRandomCityLocalityPair, getRandomPrice, getRandomDate};
+module.exports = { getRandomAddressCityPair, getRandomPrice, getRandomDate};

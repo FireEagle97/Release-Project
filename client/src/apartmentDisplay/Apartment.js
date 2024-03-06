@@ -19,7 +19,7 @@ export default function ApartmentPage() {
                 <ApartmentImages imagesLinks={apartment.images}/>
                 <div className='apt-info'>
                     <h3>
-                        {apartment.furnishing} apartment located in {apartment.areaLocality}, {apartment.city}
+                        {apartment.furnishing} apartment located in {apartment.address}, {apartment.city}
                     </h3>
                     <h4>
                         <br></br>
