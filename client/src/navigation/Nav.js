@@ -75,11 +75,13 @@ export default function Navigation() {
 
 
           </ul>
-          <li className="nav-item">
-            <GoogleLogin onSuccess={handleLogin}
-              onError={() => console.log('Login failed')} />
-            
-          </li>
+          <ul>
+            <li>
+              <GoogleLogin onSuccess={handleLogin}
+                onError={() => console.log('Login failed')} />
+              
+            </li>
+          </ul>
 
           {/* Button to activate/deactivate the menu on smaller screens. */}
           <div className="nav-activate" onClick={handleClick}>

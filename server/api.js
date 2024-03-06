@@ -7,6 +7,8 @@ const { OAuth2Client } = require('google-auth-library');
 const {leasesRouter} = require('./routes/leases.js');
 const {leaseUploadRouter} = require('./routes/lease-upload.js');
 
+const users = [];
+
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
 const _dirname = __dirname || path.dirname(_filename);
@@ -60,13 +62,36 @@ app.post('/login', async (req, res) => {
   
         // Get the JSON with all the user info
         const payload = ticket.getPayload();
-    
-        res.json({ message: 'Login successful', data: payload });
+        // Check if the user already exists in the in-memory "database"
+        const existsAlready = users.findIndex((user) => user.email === payload.email);
+
+        if (existsAlready !== -1) {
+            // Update the existing user
+            users[existsAlready] = {
+                name: payload.name,
+                email: payload.email,
+                picture: payload.picture,
+            };
+        } else {
+            // Create a new user and add to the in-memory "database"
+            const newUser = {
+                name: payload.name,
+                email: payload.email,
+                picture: payload.picture,
+            };
+            users.push(newUser);
+        }
+
+        res.status(201).json({ message: 'Login successful', data: payload });
+
+        console.log('USERSSS->>', users);
+        
     } catch (error) {
         console.error('Token verification failed:', error.message);
         res.status(401).json({ message: 'Login failed', error: error.message });
     }
 });
+
 
 
 
@@ -76,3 +101,4 @@ app.use((req, res) => {
 });
 
 module.exports = { app };
+
