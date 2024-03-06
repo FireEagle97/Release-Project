@@ -16,6 +16,7 @@ export default function Navigation() {
   const [click, setClick] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
 
   // Function to handle menu click and toggle the click state.
   const handleClick = () => setClick(!click);
@@ -45,12 +46,13 @@ export default function Navigation() {
 
       if (res.ok) {
         const data = await res.json();
-        // console.log('nameeee->', data.data.name);
-
-
+        
         // Update state with the login status and username
         setIsLoggedIn(true);
-        setUsername(data.data.name);
+        // console.log('useremail', data.data.email);
+        setUsername(data.data.email);
+        setName(data.data.name);
+
 
       } else {
         console.error('Login failed');
@@ -114,7 +116,7 @@ export default function Navigation() {
             {isLoggedIn ? (
               // Display content for logged-in user
               <div>
-                <p>Welcome, {username}!</p>
+                <p>Welcome, {name}!</p>
               </div>
             ) : (
               // Display content for not logged-in user
