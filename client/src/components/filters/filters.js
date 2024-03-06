@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./filters.css";
 const Filters = ({
   sortOption,
@@ -7,9 +7,25 @@ const Filters = ({
   setSearchQuery,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [cityList, setCityList] = useState(null);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+  useEffect(() => {
+    async function fetchLeases() {
+      try {
+        let response = await fetch("/leases");
+        if (!response.ok) {
+          throw new Error("Failed to fetch leases");
+        }
+        const data = await response.json();
+        setCityList(data.response);
+      } catch (error) {
+        console.error("Error fetching leases:", error);
+      }
+    }
+    fetchLeases();
+  }, []);
 
   return (
     <section class="py-5">
@@ -51,18 +67,12 @@ const Filters = ({
             <form>
               <div className="col-3">
                 <div>City</div>
-                <div className="form-check">
-                  <input type="checkbox" className="form-check-input" />
-                  <label className="form-check-label">City12</label>
-                </div>
-                <div className="form-check">
-                  <input type="checkbox" className="form-check-input" />
-                  <label className="form-check-label">City2</label>
-                </div>
-                <div className="form-check">
-                  <input type="checkbox" className="form-check-input" />
-                  <label className="form-check-label">City3</label>
-                </div>
+                {cityList.map((city) => (
+                  <div className="form-check">
+                    <input type="checkbox" className="form-check-input" />
+                    <label className="form-check-label">{city}</label>
+                  </div>
+                ))}
               </div>
               <button type="submit" className="btn btn-primary">
                 Apply

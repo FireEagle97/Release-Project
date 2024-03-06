@@ -65,6 +65,15 @@ class DB{
             console.error('An error occurred while retrieving leases:', error);
         } 
     }
+    async getAllCities() {
+        try{
+            await this.connect();
+            const cityList = await leases.distinct('city');
+            return cityList;
+        } catch (error) {
+            console.error('An error occurred while retrieving leases:', error);
+        } 
+    }
 
     async getLeasesByCityAndFilters(city, area, filters) {
         try{
