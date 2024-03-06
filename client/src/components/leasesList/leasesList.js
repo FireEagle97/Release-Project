@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Pagination from "../pagination/pagination";
 import Filters from '../filters/filters';
+// import "./leasesList.css";
 const LeasesList = ({ navigateToApartmentPage }) => {
     const [leases, setLeases] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,32 +33,11 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       const handleApartmentClick = (apartment) => {
         navigateToApartmentPage(apartment);
     };
-
-
-    //   const handleSearch = () =>{
-    //     if(searchQuery != null || searchQuery.trim() !== ""){
-    //         const searchTerms = searchQuery.trim().toLowerCase().split(" ");
-
-    //         const filteredLeases = leases.filter(lease =>{
-    //             return searchTerms.some(term =>
-    //                 lease.city.toLowerCase().includes(term.toLowerCase()) ||
-    //                 lease.furnishing.toLowerCase().includes(term.toLowerCase())
-    //                 )}  
-    //             );
-    //             // lease.bathroom.toLowerCase().includes(searchQuery.toLowerCase())
-                
-    //         setLeases(filteredLeases);
-    //     }
-
-    //   }
     useEffect(() => {
         async function fetchLeases()
         {
             try{
                 let response = await fetch('/leases');
-                // if(searchQuery != null){
-                //     response = await fetch(`/leases/${searchQuery}`);
-                // }
                 if(!response.ok){
                     throw new Error('Failed to fetch leases');
                 }
@@ -78,7 +58,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
             setSortOption={setSortOption}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            // handleSearch={handleSearch}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
         {currentLeases.map(apartment => (

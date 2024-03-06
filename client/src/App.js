@@ -7,22 +7,9 @@ import ApartmentPage from './apartmentDisplay/Apartment';
 import PostListing from './forms/post_listing';
 import Contact from './navigation/Contact';
 import About from './navigation/About';
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
 
-const data = [
-  {
-    id: 1,
-    image: 'https://example.com/image1.jpg',
-    title: 'Card 1',
-    description: 'Description for Card 1',
-  },
-  {
-    id: 2,
-    image: 'https://example.com/image2.jpg',
-    title: 'Card 2',
-    description: 'Description for Card 2',
-  },
-  // Add more card objects as needed
-];
+
 
 function App() {
 
@@ -72,6 +59,7 @@ function App() {
           } />
 
         </Routes>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       </div>
       <footer>
           <p>Elissar Fadel, Monica Dimitrova, Anastasia Bondarenko, Dany Makhoul</p>
