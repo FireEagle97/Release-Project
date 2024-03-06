@@ -14,7 +14,7 @@ const Filters = ({
   useEffect(() => {
     async function fetchLeases() {
       try {
-        let response = await fetch("/leases");
+        let response = await fetch("/filters/allcities");
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }
