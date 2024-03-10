@@ -65,15 +65,24 @@ class DB{
             console.error('An error occurred while retrieving leases:', error);
         } 
     }
-    async getAllCities() {
+    async getAllFilterList(filter) {
         try{
             await this.connect();
-            const cityList = await leases.distinct('city');
-            return cityList;
+            const filterList = await leases.distinct(filter);
+            return filterList;
         } catch (error) {
             console.error('An error occurred while retrieving leases:', error);
         } 
     }
+    // async getAllFurnishing() {
+    //     try{
+    //         await this.connect();
+    //         const cityList = await leases.distinct('city');
+    //         return cityList;
+    //     } catch (error) {
+    //         console.error('An error occurred while retrieving leases:', error);
+    //     } 
+    // }
 
     async getLeasesByCityAndFilters(city, area, filters) {
         try{

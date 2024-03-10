@@ -71,7 +71,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                     {/* apartment title */}
                     <h5 class="fw-bolder">
                       {apartment.furnishing} apartment located in{" "}
-                      {apartment.areaLocality}, {apartment.city}
+                      {apartment.address}
                     </h5>
                     {/* apartment rent */}${apartment.rentPrice}/month
                   </div>
@@ -90,6 +90,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
             </div>
           ))}
         </div>
+
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
           <Pagination
             className="pagination-bar"

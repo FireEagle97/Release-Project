@@ -1,15 +1,19 @@
 const CsvReadableStream = require('csv-reader');
-const {getImageUrls} = require('./image-store');
+const { getImageUrls } = require('./image-store');
 const fs = require('fs');
-const {getRandomAddressCityPair, getRandomPrice, getRandomDate} = require('./utils');
+const {
+    getRandomAddressCityPair,
+    getRandomPrice,
+    getRandomDate,
+} = require('./utils');
 // for images, every lease gets 2 from interior and 3 from extras
 
 async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
     try {
-        // retrived images' url from blob storage
-        // images from interior and extras, each lease has 2 interior and 2 extras
-        const {interior, extras} = await getImageUrls();
-        
+    // retrived images' url from blob storage
+    // images from interior and extras, each lease has 2 interior and 2 extras
+        const { interior, extras } = await getImageUrls();
+
         const data = await readCsvFile(filePath);
 
         const arrangedData = reArrangeData(data, interior, extras);
@@ -30,8 +34,8 @@ function shuffleArray(array) {
 
 async function reArrangeData(data, interior, extras) {
     // randomize images
-    shuffleArray(interior); 
-    shuffleArray(extras); 
+    shuffleArray(interior);
+    shuffleArray(extras);
 
     let interiorIndex = 0;
     let extrasIndex = 0;
@@ -44,7 +48,7 @@ async function reArrangeData(data, interior, extras) {
         for (let j = 0; j < 2; j++) {
             if (interiorIndex >= interior.length) {
                 interiorIndex = 0;
-                shuffleArray(interior); 
+                shuffleArray(interior);
             }
             newImageUrls.push(interior[interiorIndex]);
             interiorIndex++;
@@ -53,9 +57,8 @@ async function reArrangeData(data, interior, extras) {
         // Add two URLs from extras
         for (let j = 0; j < 2; j++) {
             if (extrasIndex >= extras.length) {
-               
                 extrasIndex = 0;
-                shuffleArray(extras); 
+                shuffleArray(extras);
             }
             newImageUrls.push(extras[extrasIndex]);
             extrasIndex++;
@@ -75,7 +78,13 @@ async function readCsvFile(filePath) {
         let isFirstRow = true;
 
         inputStream.
-            pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true })).
+            pipe(
+                new CsvReadableStream({
+                    parseNumbers: true,
+                    parseBooleans: true,
+                    trim: true,
+                })
+            ).
             on('data', (row) => {
                 if (isFirstRow) {
                     isFirstRow = false;
@@ -85,19 +94,19 @@ async function readCsvFile(filePath) {
                     const randomAddressCityPair = getRandomAddressCityPair();
                     const randomPrice = getRandomPrice(row[1]);
                     const customizedObject = {
-                        'postedDate': randomPostedDate, 
-                        'bhk': row[1],
-                        'rentPrice': randomPrice,
-                        'size': row[3],
-                        'floor': row[4],
-                        'address': randomAddressCityPair.address,
-                        'city': randomAddressCityPair.city,
-                        'furnishing': row[8],
-                        'preferredTentant': row[9],
-                        'bathroom': row[10],
-                        'pointOfContact': row[11],
-                        'description': null,
-                        'images': null,
+                        postedDate: randomPostedDate,
+                        bhk: row[1],
+                        rentPrice: randomPrice,
+                        size: row[3],
+                        floor: row[4],
+                        address: randomAddressCityPair.address,
+                        city: randomAddressCityPair.city,
+                        furnishing: row[8],
+                        preferredTentant: row[9],
+                        bathroom: row[10],
+                        pointOfContact: row[11],
+                        description: null,
+                        images: null,
                     };
                     results.push(customizedObject);
                 }
@@ -111,5 +120,4 @@ async function readCsvFile(filePath) {
     });
 }
 
-
-module.exports = {getAllLeases};
+module.exports = { getAllLeases };

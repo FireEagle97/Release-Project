@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const {DB} = require('../db/db');
 
-router.get('/allcities', async (req, res) => {
+router.get('/:filter', async (req, res) => {
     try{
         const db = new DB();
-        const data =  await db.getAllCities();
+        const filter = req.params.filter;
+        const data =  await db.getAllFilterList(filter);
         res.json({'response':data});
       
     }catch(err){
