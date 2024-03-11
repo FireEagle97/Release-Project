@@ -108,7 +108,9 @@ class DB{
         if (filters.furnishing) {
             query.furnishing = filters.furnishing;
         }
-
+        // if (filters.bathroom){
+        //     query.bathroom = filters.bathroom;
+        // }
         // Add rent range query if both minimum and maximum are provided
         if (filters.rent && filters.rent.minimum !== undefined 
             && filters.rent.maximum !== undefined) {

@@ -130,7 +130,6 @@ const Filters = ({
             borderRadius: "9px",
           }}
         >
-          {/* <form onSubmit={handleFiltersFormSubmit}> */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <div>
               <div style={{ display: "flex" }}>City</div>
@@ -205,18 +204,6 @@ const Filters = ({
                 )}
               />
             </div>
-            {/* <div>
-              <label for="rent"> Minumum Rent price: {rentValues[0]}  Maximum Rent price: {rentValues[1]}</label>
-              <input
-                step={50}
-                id="rent"
-                type="range"
-                min={0}
-                max={8000}
-                values={rentValues}
-                onChange={handleRentFilter}
-              />
-            </div> */}
             <div>
               <div style={{ display: "flex" }}>Bathrooms:</div>
               <div className="input-group">
@@ -265,7 +252,6 @@ const Filters = ({
           >
             Apply
           </button>
-          {/* </form> */}
         </div>
       )}
     </section>

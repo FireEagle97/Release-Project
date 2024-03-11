@@ -1,13 +1,13 @@
-import "./App.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import Navigation from "./navigation/Nav";
-import Home from "./home/Home";
-import LeasesList from "./components/leasesList/leasesList";
-import ApartmentPage from "./apartmentDisplay/Apartment";
-import PostListing from "./forms/post_listing";
-import Contact from "./navigation/Contact";
-import About from "./navigation/About";
-import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min";
+import './App.css';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import Navigation from './navigation/Nav';
+import Home from './home/Home';
+import LeasesList from './components/leasesList/leasesList';
+import ApartmentPage from './apartmentDisplay/Apartment';
+import PostListing from './forms/post_listing';
+import Contact from './navigation/Contact';
+import About from './navigation/About';
+import Footer from './footer/FooterPlace';
 
 function App() {
   const navigate = useNavigate();
@@ -57,12 +57,7 @@ function App() {
           crossorigin="anonymous"
         ></script>
       </div>
-      <footer>
-        <p>
-          Elissar Fadel, Monica Dimitrova, Anastasia Bondarenko, Dany Makhoul
-        </p>
-        <p>ReLease 2024</p>
-      </footer>
+      <Footer/>
     </>
   );
 }

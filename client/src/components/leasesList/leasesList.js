@@ -115,7 +115,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           rentValues={rentValues}
           setRentValues={setRentValues}
           setApplyFilters={setApplyFilters}
-          // handleRentFilter={handleRentFilter}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
           {currentLeases.map((apartment) => (

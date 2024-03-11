@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { React, useState } from 'react';
 import './post_listing.css';
+import AddressAutocompleteForm from './addressAutocomplete';
 
 export default function PostListing() {
   const [rentPrice, setRentPrice] = useState('');
   const [address, setAddress] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
   const [city, setCity] = useState('');
   const [description, setDescription] = useState('');
   const [contactInfo, setContactInfo] = useState('');
@@ -24,9 +26,6 @@ export default function PostListing() {
         break;
       case 'rentPrice':
         setRentPrice(value);
-        break;
-      case 'address':
-        setAddress(value);
         break;
       case 'description':
         setDescription(value);
@@ -95,7 +94,6 @@ export default function PostListing() {
       formData.append(`file${index + 1}`, file);
     });
 
-
     //formdata
     for (const pair of formData.entries()) {
       console.log(`${pair[0]}: ${pair[1]}`);
@@ -116,6 +114,13 @@ export default function PostListing() {
     }
   };
 
+  const handleAddressChange = (event) => {
+    const { value } = event.target;
+    setAddress(value);
+    fetchSuggestions(value);
+  };
+  
+
   const resetForm = () => {
     setCity('');
     setRentPrice('');
@@ -131,6 +136,27 @@ export default function PostListing() {
     setFiles([]);
   };
 
+  const fetchSuggestions = async (value) => {
+    const key = '487133b272ff44ca96e0b7e0c3427ac1';
+    var requestOptions = {
+      method: 'GET',
+    };
+    try {
+      if(value.trim() !== ''){
+        const response = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(value)}&apiKey=${key}`, requestOptions);
+        const results = await response.json();
+        const formattedList = results.features.map((address)=>{
+          return address.properties.formatted;
+        });
+        setSuggestions(formattedList);
+      }
+    } catch (error) {
+      setSuggestions([]);
+      console.error('Error fetching suggestions:', error);
+    }
+  };
+  
+
   return (
     <div className="post-listing-container">
       <h1 className="create-listing">Create Your Listing</h1>
@@ -142,7 +168,7 @@ export default function PostListing() {
           <input type="number" id="rentPrice" name="rentPrice" value={rentPrice} onChange={handleChange} min="0" />
 
           <label htmlFor="address">Address</label>
-          <input type="text" id="address" name="address" value={address} onChange={handleChange} />
+          <AddressAutocompleteForm addresses={suggestions} readAddressInput={handleAddressChange} selectAddress={setAddress}/>  
 
           <label htmlFor="city">City</label>
           <input type="text" id="city" name="city" value={city} onChange={handleChange} />
@@ -219,3 +245,12 @@ export default function PostListing() {
     </div>
   );
 }
+
+
+/** address api
+ * 
+ * https://apidocs.geoapify.com/docs/geocoding/address-autocomplete/#autocomplete
+ * https://api.geoapify.com/v1/geocode/autocomplete?text=Lessingstra%C3%9Fe%203%2C%20Regensburg&format=json&apiKey=d548c5ed24604be6a9dd0d989631f783
+ * https://api.geoapify.com/v1/geocode/autocomplete?text=7779&format=json&apiKey=d548c5ed24604be6a9dd0d989631f783
+ * https://www.geoapify.com/tutorial/address-input-for-address-validation-and-address-verification-forms-tutorial
+ */
