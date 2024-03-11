@@ -113,6 +113,13 @@ app.post('/login', async (req, res) => {
 });
 
 
+app.delete('/logout', async(req, res) => {
+    await req.session.destroy();
+    res.status(200);
+    res.json({
+        message: 'Logged out successfully'
+    });
+});
 
 
 // 404 route 
