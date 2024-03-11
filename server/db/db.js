@@ -83,7 +83,7 @@ class DB{
     //         console.error('An error occurred while retrieving leases:', error);
     //     } 
     // }
-
+    
     async getLeasesByCityAndFilters(city, area, filters) {
         try{
             await this.connect();
@@ -97,7 +97,6 @@ class DB{
             console.error('An error occurred while retrieving leasess:', error);
         }
     }
-
     leaseQuery(city, area, filters){
 
         const query = { city: city};

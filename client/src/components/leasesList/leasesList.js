@@ -1,12 +1,17 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Pagination from "../pagination/pagination";
 import Filters from "../filters/filters";
-// import "./leasesList.css";
+import "./leasesList.css";
 const LeasesList = ({ navigateToApartmentPage }) => {
   const [leases, setLeases] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState(null);
   const [searchQuery, setSearchQuery] = useState(null);
+  const [city, setCity] = useState(null);
+  const [rentValues, setRentValues] = useState([0, 0]);
+  // let [bathroomCount, setBathroomCount] = useState(0);
+  const [applyFilters, setApplyFilters] = useState(false);
+  const [furnishing, setFurnishing] = useState(null);
   const cardsPerPage = 9;
   const currentLeases = useMemo(() => {
     let filteredLeases = leases;
@@ -34,6 +39,12 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const handleApartmentClick = (apartment) => {
     navigateToApartmentPage(apartment);
   };
+  const resetFiltersForm = () => {
+    setCity(null);
+    setFurnishing(null);
+    // setBathroomCount(0);
+    setRentValues([0, 0]);
+  };
   useEffect(() => {
     async function fetchLeases() {
       try {
@@ -49,6 +60,44 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     }
     fetchLeases();
   }, []);
+  useEffect(() => {
+    async function fetchLeases() {
+      try {
+        let response = await fetch("/leases");
+        if (!response.ok) {
+          throw new Error("Failed to fetch leases");
+        }
+        const data = await response.json();
+        setLeases(data.response);
+      } catch (error) {
+        console.error("Error fetching leases:", error);
+      }
+    }
+    fetchLeases();
+  }, []);
+  useEffect(() => {
+    async function fetchLeasesWithFilters() {
+      try {
+        let response = await fetch(
+          `/leases/${city}?furnishing=${furnishing}&rentMaximum=${rentValues[1]}&rentMinimum=${rentValues[0]}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch leases");
+        }
+        const data = await response.json();
+        console.log(city + " " + furnishing + " " + rentValues);
+        console.log(data);
+        setLeases(data.response);
+      } catch (error) {
+        console.error("Error fetching leases:", error);
+      }
+    }
+    if (applyFilters) {
+      fetchLeasesWithFilters();
+    }
+    setApplyFilters(false);
+    // resetFiltersForm();
+  }, [applyFilters, city, furnishing, rentValues]);
 
   return (
     <section class="py-5">
@@ -58,6 +107,15 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           setSortOption={setSortOption}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          setLeases={setLeases}
+          city={city}
+          setCity={setCity}
+          setFurnishing={setFurnishing}
+          furnishing={furnishing}
+          rentValues={rentValues}
+          setRentValues={setRentValues}
+          setApplyFilters={setApplyFilters}
+          // handleRentFilter={handleRentFilter}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
           {currentLeases.map((apartment) => (

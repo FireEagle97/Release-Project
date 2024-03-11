@@ -14,6 +14,22 @@ router.get('/:filter', async (req, res) => {
       
     }
 });
+router.get('/setFilters', async(req, res) => {
+    const body = req.body;
+    // const filterObject = {
+    //     'rentPrice': body.rent,
+    //     'city': body.city,
+    //     'furishing' : body.furnishing,
+    //     'bathroom':body.bathroom
+    // };
+    const filterObject = {
+        'city': body.city,
+    };
+    const db = new DB();
+    const filteredData = await db.getLeasesByFilters(filterObject);
+    res.json({'response':filteredData});
+
+});
 module.exports = {
     filtersRouter: router
 };
