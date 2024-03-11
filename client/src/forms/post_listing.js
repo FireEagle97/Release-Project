@@ -143,7 +143,6 @@ export default function PostListing() {
     };
     try {
       if(value.trim() !== ''){
-        console.error('val:', value);
         const response = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(value)}&apiKey=${key}`, requestOptions);
         const results = await response.json();
         const formattedList = results.features.map((address)=>{
