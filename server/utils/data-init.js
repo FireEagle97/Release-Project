@@ -1,7 +1,7 @@
 const CsvReadableStream = require('csv-reader');
 const {getImageUrls} = require('./image-store');
 const fs = require('fs');
-const {getRandomCityLocalityPair, getRandomPrice, getRandomDate} = require('./utils');
+const {getRandomAddressCityPair, getRandomPrice, getRandomDate} = require('./utils');
 // for images, every lease gets 2 from interior and 3 from extras
 
 async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
@@ -82,7 +82,7 @@ async function readCsvFile(filePath) {
                 } else {
                     // posted date is randomized from 2024 dates till now
                     const randomPostedDate = getRandomDate();
-                    const randomCityLocalityPair = getRandomCityLocalityPair();
+                    const randomAddressCityPair = getRandomAddressCityPair();
                     const randomPrice = getRandomPrice(row[1]);
                     const customizedObject = {
                         'postedDate': randomPostedDate, 
@@ -90,8 +90,8 @@ async function readCsvFile(filePath) {
                         'rentPrice': randomPrice,
                         'size': row[3],
                         'floor': row[4],
-                        'areaLocality': randomCityLocalityPair.areaLocality,
-                        'city': randomCityLocalityPair.city,
+                        'address': randomAddressCityPair.address,
+                        'city': randomAddressCityPair.city,
                         'furnishing': row[8],
                         'preferredTentant': row[9],
                         'bathroom': row[10],
