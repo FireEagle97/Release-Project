@@ -13,7 +13,7 @@ const AddressAutocompleteForm = ({addresses, readAddressInput, selectAddress}) =
             id="address-autocomplete"
             options={addresses}
             autoHighlight
-            onChange={(event, selectedAddress) => {selectAddress(selectedAddress); console.log('a', selectedAddress);}}
+            onChange={(event, selectedAddress) => {selectAddress(selectedAddress)}}
             renderInput={(params) => (
                 <TextField
                     {...params}
