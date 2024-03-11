@@ -7,22 +7,7 @@ import ApartmentPage from './apartmentDisplay/Apartment';
 import PostListing from './forms/post_listing';
 import Contact from './navigation/Contact';
 import About from './navigation/About';
-
-const data = [
-  {
-    id: 1,
-    image: 'https://example.com/image1.jpg',
-    title: 'Card 1',
-    description: 'Description for Card 1',
-  },
-  {
-    id: 2,
-    image: 'https://example.com/image2.jpg',
-    title: 'Card 2',
-    description: 'Description for Card 2',
-  },
-  // Add more card objects as needed
-];
+import Footer from './footer/FooterPlace';
 
 function App() {
 
@@ -73,11 +58,8 @@ function App() {
 
         </Routes>
       </div>
-      <footer>
-          <p>Elissar Fadel, Monica Dimitrova, Anastasia Bondarenko, Dany Makhoul</p>
-          <p>ReLease 2024</p>
-      </footer>
-      </>
+      <Footer/>
+    </>
   );
 }
 
