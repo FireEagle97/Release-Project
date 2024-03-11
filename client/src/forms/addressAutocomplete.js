@@ -1,24 +1,26 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-const AddressAutocompleteForm = ({addresses, setAddress}) => {
+const AddressAutocompleteForm = ({addresses, readAddressInput, selectAddress}) => {
 
-    const handleAddressSelect = (address) => {
-        setAddress(address);
-        console.log('Selected address:', address);
+    const handleAddressInput = (value) => {
+        const address = value;
+        readAddressInput(address);
     };
 
+    console.log('add', addresses);
     return (
         <Autocomplete
             id="address-autocomplete"
             options={addresses}
             autoHighlight
-            onChange={(event, newValue) => handleAddressSelect(newValue)}
+            onChange={(event, selectedAddress) => selectAddress(selectedAddress)}
             renderInput={(params) => (
                 <TextField
                     {...params}
                     label="Enter Address"
                     variant="outlined"
+                    onChange={handleAddressInput}
                     fullWidth
                 />
             )}

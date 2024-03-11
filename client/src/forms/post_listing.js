@@ -137,22 +137,18 @@ export default function PostListing() {
   };
 
   const fetchSuggestions = async (value) => {
-    const key = 'd548c5ed24604be6a9dd0d989631f783';
+    const key = '487133b272ff44ca96e0b7e0c3427ac1';
     var requestOptions = {
       method: 'GET',
     };
     try {
       if(value.trim() !== ''){
         console.error('val:', value);
-        //const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        //const response = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(value)}&format=json&limit=5&apiKey=${key}`);
-        const response = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(value)}&apiKey=487133b272ff44ca96e0b7e0c3427ac1`, requestOptions);
+        const response = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(value)}&apiKey=${key}`, requestOptions);
         const results = await response.json();
-        console.error('results:', results);
         const formattedList = results.features.map((address)=>{
           return address.properties.formatted;
         });
-        console.error('results:', formattedList);
         setSuggestions(formattedList);
       }
     } catch (error) {
@@ -173,9 +169,7 @@ export default function PostListing() {
           <input type="number" id="rentPrice" name="rentPrice" value={rentPrice} onChange={handleChange} min="0" />
 
           <label htmlFor="address">Address</label>
-          <AddressAutocompleteForm addresses={suggestions} setAddress={handleAddressChange}/>
-          <input type="text" id="address" name="address" value={address} onChange={(value)=>{handleAddressChange(value)}} /> 
-          
+          <AddressAutocompleteForm addresses={suggestions} readAddressInput={handleAddressChange} selectAddress={setAddress}/>  
 
           <label htmlFor="city">City</label>
           <input type="text" id="city" name="city" value={city} onChange={handleChange} />
@@ -256,19 +250,8 @@ export default function PostListing() {
 
 /** address api
  * 
- * https://serpapi.com/search?engine=google_maps
- * https://serpapi.com/google-maps-api
- * 
- * https://developers.google.com/maps/documentation/geocoding/overview
- * https://maps.googleapis.com/maps/api/geocode/outputFormat?parameters
- * 
- * https://developers.google.com/maps/documentation/javascript/place-autocomplete
+ * https://apidocs.geoapify.com/docs/geocoding/address-autocomplete/#autocomplete
+ * https://api.geoapify.com/v1/geocode/autocomplete?text=Lessingstra%C3%9Fe%203%2C%20Regensburg&format=json&apiKey=d548c5ed24604be6a9dd0d989631f783
+ * https://api.geoapify.com/v1/geocode/autocomplete?text=7779&format=json&apiKey=d548c5ed24604be6a9dd0d989631f783
+ * https://www.geoapify.com/tutorial/address-input-for-address-validation-and-address-verification-forms-tutorial
  */
-
-// 3cf555d643b9b0f396328e1a596e2b610f9ec587d7d189d5a9c985b6841b8add
-
-// https://apidocs.geoapify.com/docs/geocoding/address-autocomplete/#autocomplete
-// https://api.geoapify.com/v1/geocode/autocomplete?text=Lessingstra%C3%9Fe%203%2C%20Regensburg&format=json&apiKey=d548c5ed24604be6a9dd0d989631f783
-// https://api.geoapify.com/v1/geocode/autocomplete?text=7779&format=json&apiKey=d548c5ed24604be6a9dd0d989631f783
-
-// https://www.geoapify.com/tutorial/address-input-for-address-validation-and-address-verification-forms-tutorial
