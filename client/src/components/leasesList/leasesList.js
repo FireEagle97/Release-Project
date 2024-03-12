@@ -75,7 +75,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         if(bedroomCount > 0){
           link = link.concat(`bedroom=${bedroomCount}`);
         }
-        if(rentValues[0] >= 0 && rentValues[1] > 0){
+        if((rentValues[0] >= 0 && rentValues[1] > 0) && (rentValues[0] !== rentValues[1])){
           link = link.concat(`rentMinimum=${rentValues[0]}&rentMaximum=${rentValues[1]}&`);
         }
         if(bathroomCount > 0){
