@@ -67,8 +67,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     async function fetchLeasesWithFilters() {
       try {
         let response = await fetch(
-          `/leases/${city}`
-          // `/leases/Ottawa`
+          `/leases/${city}?furnishing=${furnishing}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
