@@ -9,9 +9,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const [searchQuery, setSearchQuery] = useState(null);
   const [city, setCity] = useState(null);
   const [rentValues, setRentValues] = useState([0, 0]);
-  // const [cityList, setCityList] = useState(null);
-  // const [furnishingList, setFurnishingList] = useState(null);
-  // let [bathroomCount, setBathroomCount] = useState(0);
+  let [bathroomCount, setBathroomCount] = useState(0);
   const [applyFilters, setApplyFilters] = useState(false);
   const [furnishing, setFurnishing] = useState(null);
   const cardsPerPage = 9;
@@ -44,7 +42,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const resetFiltersForm = () => {
     setCity(null);
     setFurnishing(null);
-    // setBathroomCount(0);
+    setBathroomCount(0);
     setRentValues([0, 0]);
   };
   useEffect(() => {
@@ -56,7 +54,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         }
         const data = await response.json();
         setLeases(data.response);
-
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
@@ -66,43 +63,36 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   useEffect(() => {
     async function fetchLeasesWithFilters() {
       try {
-        let response = await fetch(
-          `/leases/${city}?furnishing=${furnishing}`
-        );
+        let link = `/leases/`;
+        if(city != null){
+          link = link.concat(`${city}?`);
+        }
+        if(furnishing != null){
+          link = link.concat(`furnishing=${furnishing}&`);
+        }
+        if(rentValues[0] >= 0 && rentValues[1] > 0){
+          link = link.concat(`rentMinimum=${rentValues[0]}&rentMaximum=${rentValues[1]}&`);
+        }
+        if(bathroomCount > 0){
+          link = link.concat(`bathroom=${bathroomCount}`);
+        }
+        let response = await fetch(link);
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }
         const data = await response.json();
-        console.log(city + " " + furnishing + " " + rentValues);
-        console.log(data);
         setLeases(data.response);
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
     }
-    // async function fetchLeases() {
-    //   try {
-    //     let response = await fetch("/leases");
-    //     if (!response.ok) {
-    //       throw new Error("Failed to fetch leases");
-    //     }
-    //     const data = await response.json();
-    //     setLeases(data.response);
-
-    //   } catch (error) {
-    //     console.error("Error fetching leases:", error);
-    //   }
-    // }
     if (applyFilters) {
       fetchLeasesWithFilters();
       setApplyFilters(false);
+      resetFiltersForm();
     }
-    // }else{
-    //   console.log("out filter" + applyFilters);
-    //   fetchLeases();
-    // }
-    // resetFiltersForm();
-  }, [applyFilters, city, furnishing, rentValues]);
+
+  }, [applyFilters, bathroomCount, city, furnishing, rentValues]);
 
   return (
     <section class="py-5">
@@ -121,6 +111,8 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           setApplyFilters={setApplyFilters}
           // cityList={cityList}
           // furnishingList={furnishingList}
+          bathroomCount={bathroomCount}
+          setBathroomCount={setBathroomCount}
           leases={leases}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
