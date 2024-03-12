@@ -10,6 +10,8 @@ const Filters = ({
   setRentValues,
   bathroomCount,
   setBathroomCount,
+  bedroomCount,
+  setBedroomCount,
   furnishing,
   city,
   leases,
@@ -20,9 +22,7 @@ const Filters = ({
   const [isOpen, setIsOpen] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [furnishingList, setFurnishingList] = useState([]);
-  // setCityList([...new Set(leases.map((leases) => leases.city))]);
-  // setFurnishingList([
-  //   ...new Set(leases.map((leases) => leases.furnishing))]);
+
   useEffect(() => {
     async function fetchCities() {
       try {
@@ -61,17 +61,29 @@ const Filters = ({
     setIsOpen(!isOpen);
   };
 
-  function incrementCount() {
+  function incrementBathroomCount() {
     if (bathroomCount < 5) {
       bathroomCount = bathroomCount + 1;
     }
     setBathroomCount(bathroomCount);
   }
-  function decrementCount() {
+  function decrementBathroomCount() {
     if (bathroomCount > 0) {
       bathroomCount = bathroomCount - 1;
     }
     setBathroomCount(bathroomCount);
+  }
+  function incrementBedroomCount() {
+    if (bedroomCount < 5) {
+      bedroomCount = bedroomCount + 1;
+    }
+    setBedroomCount(bedroomCount);
+  }
+  function decrementBedroomCount() {
+    if (bedroomCount > 0) {
+      bedroomCount = bedroomCount - 1;
+    }
+    setBedroomCount(bedroomCount);
   }
   return (
     <section class="py-5">
@@ -212,7 +224,7 @@ const Filters = ({
                 <button
                   className="btn btn-secondary"
                   type="button"
-                  onClick={decrementCount}
+                  onClick={decrementBathroomCount}
                 >
                   -
                 </button>
@@ -235,13 +247,54 @@ const Filters = ({
                 <button
                   className="btn btn-secondary"
                   type="button"
-                  onClick={incrementCount}
+                  onClick={incrementBathroomCount}
+                >
+                  +
+                </button>
+              </span>
+            </div>
+            <div style={{ display: "flex" }}>Bedrooms:</div>
+            <div className="input-group">
+              <span
+                className="input-group-btn"
+                style={{ paddingTop: "0.4rem" }}
+              >
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={decrementBedroomCount}
+                >
+                  -
+                </button>
+              </span>
+              <span className="input-group-btn col-sm-3">
+                <input
+                  className="form-control input-number"
+                  type="number"
+                  id="bathroomNmb"
+                  value={bedroomCount}
+                  min="0"
+                  max="5"
+                  onChange={() => setBedroomCount(bedroomCount)}
+                />
+              </span>
+              <span
+                className="input-group-btn"
+                style={{ paddingTop: "0.4rem" }}
+              >
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={incrementBedroomCount}
                 >
                   +
                 </button>
               </span>
             </div>
           </div>
+          {/* <div>
+            
+          </div> */}
         </div>
         <button
           type="button"

@@ -9,7 +9,8 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const [searchQuery, setSearchQuery] = useState(null);
   const [city, setCity] = useState(null);
   const [rentValues, setRentValues] = useState([0, 0]);
-  let [bathroomCount, setBathroomCount] = useState(0);
+  const [bathroomCount, setBathroomCount] = useState(0);
+  const [bedroomCount,setBedroomCount] = useState(0);
   const [applyFilters, setApplyFilters] = useState(false);
   const [furnishing, setFurnishing] = useState(null);
   const cardsPerPage = 9;
@@ -43,6 +44,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     setCity(null);
     setFurnishing(null);
     setBathroomCount(0);
+    setBedroomCount(0);
     setRentValues([0, 0]);
   };
   useEffect(() => {
@@ -70,6 +72,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         if(furnishing != null){
           link = link.concat(`furnishing=${furnishing}&`);
         }
+        if(bedroomCount > 0){
+          link = link.concat(`bedroom=${bedroomCount}`);
+        }
         if(rentValues[0] >= 0 && rentValues[1] > 0){
           link = link.concat(`rentMinimum=${rentValues[0]}&rentMaximum=${rentValues[1]}&`);
         }
@@ -92,7 +97,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       resetFiltersForm();
     }
 
-  }, [applyFilters, bathroomCount, city, furnishing, rentValues]);
+  }, [applyFilters, bathroomCount, bedroomCount, city, furnishing, rentValues]);
 
   return (
     <section class="py-5">
@@ -109,8 +114,8 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           rentValues={rentValues}
           setRentValues={setRentValues}
           setApplyFilters={setApplyFilters}
-          // cityList={cityList}
-          // furnishingList={furnishingList}
+          setBedroomCount={setBedroomCount}
+          bedroomCount={bedroomCount}
           bathroomCount={bathroomCount}
           setBathroomCount={setBathroomCount}
           leases={leases}
