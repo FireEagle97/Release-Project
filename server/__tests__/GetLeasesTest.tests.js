@@ -10,33 +10,30 @@ jest.mock('../db/db');
 
 describe('GET /leases/', () => {
     test('It should return all leases', async () => {
-        const mockResponse = {
-            'response':[
-                {'_id':'65dcb853542275a4d859dd47', 'postedDate':'2022-05-18', 'bhk':2, 
-                    'rentPrice':10000, 'size':1100, 'floor':'Ground out of 2', 
-                    'areaType':'Super Area', 'areaLocality':'Bandel', 'city':'Kolkata',
-                    'furnishing':'Unfurnished', 'preferredTentant':'Bachelors/Family', 
-                    'bathroom':2, 'pointOfContact':'Contact Owner', 
-                    'images':[
-                        'https://azure2134398.blob.core.windows.net/test/942702830658867919.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/1004083980730387790.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/7.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/707.jpg'
-                    ]
-                },
-                {'_id':'65dcb853542275a4d859dd49', 'postedDate':'2022-07-03', 'bhk':2, 
-                    'rentPrice':5000, 'size':800, 'floor':'Ground out of 1', 
-                    'areaType':'Carpet Area', 'areaLocality':'Baruipur', 'city':'Kolkata', 
-                    'furnishing':'Unfurnished', 'preferredTentant':'Bachelors/Family', 
-                    'bathroom':1, 'pointOfContact':'Contact Owner', 
-                    'images':[
-                        'https://azure2134398.blob.core.windows.net/test/526123703573496324.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/558448978082769337.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/718.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/717.jpg'
-                    ]
-                }
-            ]};
+        const mockResponse = {'response':[
+            {'_id':'65f09ec24638f47198053e24', 'postedDate':'2024-01-13', 'bhk':2, 
+                'rentPrice':2260, 'size':1100, 'floor':'Ground out of 2', 
+                'address':'191 Rouge Rd, Winnipeg, MB R3K 1J6', 'city':'Winnipeg', 
+                'furnishing':'Unfurnished', 'preferredTentant':'Bachelors/Family', 'bathroom':2, 
+                'pointOfContact':'Contact Owner', 'description':null, 
+                'images':[
+                    'https://azure2134398.blob.core.windows.net/test/486270562401877917.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/569377484757626220.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/621.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/383585474952906101.jpg'
+                ]},
+            {'_id':'65f09ec24638f47198053e25', 'postedDate':'2024-03-05', 'bhk':2, 
+                'rentPrice':2270, 'size':800, 'floor':'1 out of 3', 
+                'address':'8745 151 St NW, Edmonton, AB T5R 1H8', 'city':'Edmonton', 
+                'furnishing':'Semi-Furnished', 'preferredTentant':'Bachelors/Family', 'bathroom':1, 
+                'pointOfContact':'Contact Owner', 'description':null, 
+                'images':[
+                    'https://azure2134398.blob.core.windows.net/test/410634209720680660.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/531098564368947116.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/3026988627694289001.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/708.jpg'
+                ]}
+        ]};
         jest.spyOn(DB.prototype, 'getAllLeases').mockResolvedValue(mockResponse);
         const response = await request(app).get('/leases/');
         expect(response.body).toEqual(mockResponse);
@@ -46,33 +43,30 @@ describe('GET /leases/', () => {
 
 describe('GET /leases/Toronto?furnishing=Unfurnished&minRent=1000&maxRent=2000', () => {
     test('It should return filtered leases', async () => {
-        const mockResponse = {
-            'response':[
-                {'_id':'65dcb853542275a4d859dd47', 'postedDate':'2022-05-18', 'bhk':2, 
-                    'rentPrice':10000, 'size':1100, 'floor':'Ground out of 2', 
-                    'areaType':'Super Area', 'areaLocality':'Bandel', 'city':'Kolkata',
-                    'furnishing':'Unfurnished', 'preferredTentant':'Bachelors/Family', 
-                    'bathroom':2, 'pointOfContact':'Contact Owner', 
-                    'images':[
-                        'https://azure2134398.blob.core.windows.net/test/942702830658867919.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/1004083980730387790.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/7.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/707.jpg'
-                    ]
-                },
-                {'_id':'65dcb853542275a4d859dd49', 'postedDate':'2022-07-03', 'bhk':2, 
-                    'rentPrice':5000, 'size':800, 'floor':'Ground out of 1', 
-                    'areaType':'Carpet Area', 'areaLocality':'Baruipur', 'city':'Kolkata', 
-                    'furnishing':'Unfurnished', 'preferredTentant':'Bachelors/Family', 
-                    'bathroom':1, 'pointOfContact':'Contact Owner', 
-                    'images':[
-                        'https://azure2134398.blob.core.windows.net/test/526123703573496324.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/558448978082769337.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/718.jpg', 
-                        'https://azure2134398.blob.core.windows.net/test/717.jpg'
-                    ]
-                }
-            ]};
+        const mockResponse = {'response':[
+            {'_id':'65f09ec24638f47198053e39', 'postedDate':'2024-01-18', 'bhk':2, 
+                'rentPrice':1500, 'size':900, 'floor':'10 out of 15', 
+                'address':'250 Dawlish Ave, North York, ON M4N 1J3', 'city':'Toronto', 
+                'furnishing':'Unfurnished', 'preferredTentant':'Bachelors/Family', 'bathroom':2, 
+                'pointOfContact':'Contact Agent', 'description':null, 
+                'images':[
+                    'https://azure2134398.blob.core.windows.net/test/537237998364429189.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/499985316136411928.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/708.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/3160829741043027440.jpg'
+                ]}, 
+            {'_id':'65f09ec24638f47198053e7b', 'postedDate':'2024-02-16', 'bhk':2, 
+                'rentPrice':1790, 'size':1250, 'floor':'2 out of 3', 
+                'address':'13 Stayner Ave, North York, ON M6B 1N3', 'city':'Toronto', 
+                'furnishing':'Unfurnished', 'preferredTentant':'Bachelors/Family', 'bathroom':2, 
+                'pointOfContact':'Contact Owner', 'description':null, 
+                'images':[
+                    'https://azure2134398.blob.core.windows.net/test/526123703573496324.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/561032646239992387.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/717.jpg', 
+                    'https://azure2134398.blob.core.windows.net/test/3115761877181109966.jpg'
+                ]}
+        ]};
         jest.spyOn(DB.prototype, 'getLeasesByCityAndFilters').mockResolvedValue(mockResponse);
         const response = await request(app).
             get('/leases/Toronto?furnishing=Unfurnished&minRent=1000&maxRent=2000');
