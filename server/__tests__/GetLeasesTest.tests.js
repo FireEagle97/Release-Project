@@ -1,12 +1,8 @@
 const request = require('supertest');
-const app = require('../api');
-const DB = require('../db/db');
+const {app} = require('../api');
+const {DB} = require('../db/db');
 
 jest.mock('../db/db');
-
-/**
- * Test server route endpoint
- */
 
 describe('GET /leases/', () => {
     test('It should return all leases', async () => {
@@ -36,7 +32,7 @@ describe('GET /leases/', () => {
         ]};
         jest.spyOn(DB.prototype, 'getAllLeases').mockResolvedValue(mockResponse);
         const response = await request(app).get('/leases/');
-        expect(response.body).toEqual(mockResponse);
+        expect(response.body.response).toEqual(mockResponse);
         expect(response.statusCode).toBe(200);
     });
 });
@@ -70,7 +66,7 @@ describe('GET /leases/Toronto?furnishing=Unfurnished&minRent=1000&maxRent=2000',
         jest.spyOn(DB.prototype, 'getLeasesByCityAndFilters').mockResolvedValue(mockResponse);
         const response = await request(app).
             get('/leases/Toronto?furnishing=Unfurnished&minRent=1000&maxRent=2000');
-        expect(response.body).toEqual(mockResponse);
+        expect(response.body.response).toEqual(mockResponse);
         expect(response.statusCode).toBe(200);
     });
 });
