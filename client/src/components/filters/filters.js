@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Range } from "react-range";
 import "./filters.css";
 const Filters = ({
@@ -6,46 +6,36 @@ const Filters = ({
   setSortOption,
   searchQuery,
   setSearchQuery,
-  setLeases,
   rentValues,
   setRentValues,
   bathroomCount,
   setBathroomCount,
   furnishing,
   city,
+  leases,
   setCity,
   setFurnishing,
   setApplyFilters,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [cityList, setCityList] = useState(null);
-  const [furnishingList, setFurnishingList] = useState(null);
+  const [cityList, setCityList] = useState([]);
+  const [furnishingList, setFurnishingList] = useState([]);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
   const handleApplyFilters = () => {
     setApplyFilters(true);
   };
+  const handleFiltersDropdown = () => {
+    setIsOpen(true);
+    const leasesCities = [...new Set(leases.map((leases) => leases.city))];
+    setCityList(leasesCities);
+    const leasesFurnishings = [
+      ...new Set(leases.map((leases) => leases.furnishing)),
+    ];
+    setFurnishingList(leasesFurnishings);
+  };
 
-  // const handleFiltersFormSubmit = async () => {
-  //   try {
-  //     let response = await fetch(`/leases/${city}`);
-  //     console.log({ city });
-  //     if (!response.ok) {
-  //       console.error(`Error: ${response.statusText}`);
-  //     }
-  //     const responseData = await response.json();
-  //     console.log({responseData});
-  //     setLeases(responseData);
-  //     resetForm();
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     alert("Error submitting the form");
-  //   }
-  // };
-  // const handleRentFilter = (event) => {
-  //   setRentValues(event.target.value);
-  // };
   function incrementCount() {
     if (bathroomCount < 5) {
       bathroomCount = bathroomCount + 1;
@@ -58,35 +48,6 @@ const Filters = ({
     }
     setBathroomCount(bathroomCount);
   }
-  useEffect(() => {
-    async function fetchCities() {
-      try {
-        let response = await fetch("/filters/city");
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setCityList(data.response);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
-      }
-    }
-    async function fetchFurnishing() {
-      try {
-        let response = await fetch("/filters/furnishing");
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setFurnishingList(data.response);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
-      }
-    }
-    fetchCities();
-    fetchFurnishing();
-  }, []);
-
   return (
     <section class="py-5">
       <div className="mb-3" style={{ display: "flex" }}>
@@ -115,7 +76,7 @@ const Filters = ({
         <div style={{ padding: "1rem" }}>
           <button
             className="btn btn-secondary dropdown-toggle"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={handleFiltersDropdown}
           >
             Filters
           </button>
@@ -168,7 +129,10 @@ const Filters = ({
               ))}
             </div>
             <div style={{ margin: "50px" }}>
-              <label htmlFor="rent">Minimum Rent price: {rentValues[0]} | Maximum Rent price: {rentValues[1]}</label>
+              <label htmlFor="rent">
+                Minimum Rent price: {rentValues[0]} | Maximum Rent price:{" "}
+                {rentValues[1]}
+              </label>
               <Range
                 step={50}
                 min={0}
@@ -197,8 +161,8 @@ const Filters = ({
                       height: "21px",
                       width: "21px",
                       backgroundColor: "#bfbfbf",
-                      borderRadius:"50%",
-                      border:"2px solid #999",
+                      borderRadius: "50%",
+                      border: "2px solid #999",
                     }}
                   />
                 )}

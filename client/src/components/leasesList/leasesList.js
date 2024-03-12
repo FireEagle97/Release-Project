@@ -9,6 +9,8 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const [searchQuery, setSearchQuery] = useState(null);
   const [city, setCity] = useState(null);
   const [rentValues, setRentValues] = useState([0, 0]);
+  // const [cityList, setCityList] = useState(null);
+  // const [furnishingList, setFurnishingList] = useState(null);
   // let [bathroomCount, setBathroomCount] = useState(0);
   const [applyFilters, setApplyFilters] = useState(false);
   const [furnishing, setFurnishing] = useState(null);
@@ -35,7 +37,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     const firstPageIndex = (currentPage - 1) * cardsPerPage;
     const lastPageIndex = firstPageIndex + cardsPerPage;
     return filteredLeases.slice(firstPageIndex, lastPageIndex);
-  }, [leases, sortOption, currentPage, searchQuery]);
+  }, [leases, sortOption, searchQuery, currentPage]);
   const handleApartmentClick = (apartment) => {
     navigateToApartmentPage(apartment);
   };
@@ -54,21 +56,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         }
         const data = await response.json();
         setLeases(data.response);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
-      }
-    }
-    fetchLeases();
-  }, []);
-  useEffect(() => {
-    async function fetchLeases() {
-      try {
-        let response = await fetch("/leases");
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setLeases(data.response);
+
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
@@ -79,7 +67,8 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     async function fetchLeasesWithFilters() {
       try {
         let response = await fetch(
-          `/leases/${city}?furnishing=${furnishing}&rentMaximum=${rentValues[1]}&rentMinimum=${rentValues[0]}`
+          `/leases/${city}`
+          // `/leases/Ottawa`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
@@ -92,10 +81,27 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         console.error("Error fetching leases:", error);
       }
     }
+    // async function fetchLeases() {
+    //   try {
+    //     let response = await fetch("/leases");
+    //     if (!response.ok) {
+    //       throw new Error("Failed to fetch leases");
+    //     }
+    //     const data = await response.json();
+    //     setLeases(data.response);
+
+    //   } catch (error) {
+    //     console.error("Error fetching leases:", error);
+    //   }
+    // }
     if (applyFilters) {
       fetchLeasesWithFilters();
+      setApplyFilters(false);
     }
-    setApplyFilters(false);
+    // }else{
+    //   console.log("out filter" + applyFilters);
+    //   fetchLeases();
+    // }
     // resetFiltersForm();
   }, [applyFilters, city, furnishing, rentValues]);
 
@@ -107,7 +113,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           setSortOption={setSortOption}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          setLeases={setLeases}
           city={city}
           setCity={setCity}
           setFurnishing={setFurnishing}
@@ -115,6 +120,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           rentValues={rentValues}
           setRentValues={setRentValues}
           setApplyFilters={setApplyFilters}
+          // cityList={cityList}
+          // furnishingList={furnishingList}
+          leases={leases}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
           {currentLeases.map((apartment) => (
