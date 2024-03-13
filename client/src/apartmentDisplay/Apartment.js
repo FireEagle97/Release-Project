@@ -9,7 +9,7 @@ import './Apartment.css';
  * @component
  * @returns {JSX.Element} Rendered ApartmentPage component.
  */
-export default function ApartmentPage() {
+export default function ApartmentPage({navigateToReportPage}) {
     const location = useLocation();
     const apartment = location.state?.apartment;
     return (
@@ -44,6 +44,9 @@ export default function ApartmentPage() {
                     <button>Interested</button>
                 </div>
                 <ContactSection/>
+                <br/>
+                <p>Any problems in this posting?</p>
+                <button id="report-btn" onClick={navigateToReportPage}>Report</button>
             </div>
         </div>
     )
