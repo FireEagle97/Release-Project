@@ -112,4 +112,4 @@ function getRandomPrice(bhk) {
     return randomPrice;
 }
 
-module.exports = { getRandomAddressCityPair, getRandomPrice, getRandomDate};
+module.exports = { getRandomAddressCityPair, getRandomPrice, getRandomDate, getRandomNumber};
