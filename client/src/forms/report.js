@@ -22,7 +22,7 @@ export default function ReportListing() {
             <p>If you clicked on report button, then you found this listing problematic. 
                 Please fill out the report.</p>
             <div id="report-listing-info">
-                <p><b>Listing in </b>{apartment.address}</p>
+                <p><strong>Listing in </strong>{apartment.address}</p>
                 <img src={`${apartment.images[0]}`} alt=""/>
             </div>
             <form onSubmit={handleSubmit}>
