@@ -1,4 +1,4 @@
-const {getRandomNumber, getRandomAddressCityPair} = require('../../utils/utils');
+const {getRandomNumber, getRandomAddressCityPair, getRandomDate} = require('../../utils/utils');
 
 // beforeEach(() => {
 //     jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
@@ -30,5 +30,18 @@ describe('getRandomAddressCityPair', () => {
   
         expect(result).toEqual({ city: 'Toronto', 
             address: '411 Castlefield Ave, Toronto, ON M5N 1L4' });
+    });
+});
+
+describe('getRandomDate', () => {
+    test('returns a random date between 2024-01-01 and current date', () => {
+  
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+  
+        const result = getRandomDate();
+  
+        expect(result).toBe('2024-02-06'); 
+  
+        jest.restoreAllMocks();
     });
 });
