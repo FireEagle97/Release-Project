@@ -12,6 +12,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const [bathroomCount, setBathroomCount] = useState(0);
   const [bedroomCount,setBedroomCount] = useState(0);
   const [applyFilters, setApplyFilters] = useState(false);
+  const [clearFilters, setClearFilters] = useState(false);
   const [furnishing, setFurnishing] = useState(null);
   const cardsPerPage = 9;
   const currentLeases = useMemo(() => {
@@ -27,8 +28,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         filteredLeases = leases.filter((lease) => {
           return searchTerms.some(
             (term) =>
-              lease.city.toLowerCase().includes(term.toLowerCase()) ||
-              lease.furnishing.toLowerCase().includes(term.toLowerCase())
+              lease.address.toLowerCase().includes(term.toLowerCase()) 
           );
         });
       }
@@ -55,13 +55,16 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           throw new Error("Failed to fetch leases");
         }
         const data = await response.json();
+        if(clearFilters){
+          setLeases(data.response);
+        }
         setLeases(data.response);
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
     }
     fetchLeases();
-  }, []);
+  }, [clearFilters]);
   useEffect(() => {
     async function fetchLeasesWithFilters() {
       try {
@@ -119,6 +122,8 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           bathroomCount={bathroomCount}
           setBathroomCount={setBathroomCount}
           leases={leases}
+          clearFilters={clearFilters}
+          setClearFilters={setClearFilters}
         />
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
           {currentLeases.map((apartment) => (

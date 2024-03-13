@@ -18,6 +18,8 @@ const Filters = ({
   setCity,
   setFurnishing,
   setApplyFilters,
+  clearFilters,
+  setClearFilters
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cityList, setCityList] = useState([]);
@@ -59,6 +61,7 @@ const Filters = ({
   };
   const handleFiltersDropdown = () => {
     setIsOpen(!isOpen);
+    setClearFilters(!clearFilters);
   };
 
   function incrementBathroomCount() {
@@ -84,6 +87,10 @@ const Filters = ({
       bedroomCount = bedroomCount - 1;
     }
     setBedroomCount(bedroomCount);
+  }
+  function handleClearFilters(){
+    setIsOpen(!isOpen);
+    setClearFilters(!clearFilters)
   }
   return (
     <section class="py-5">
@@ -113,11 +120,21 @@ const Filters = ({
         <div style={{ padding: "1rem" }}>
           <button
             className="btn btn-secondary dropdown-toggle"
-            onClick={handleFiltersDropdown}
+            onClick={handleClearFilters}
           >
             Filters
           </button>
         </div>
+        {clearFilters && (
+          <div style={{ padding: "1rem" }}>
+            <button
+              className="btn btn-danger"
+              onClick={handleFiltersDropdown}
+            >
+              Clear Filters
+            </button>
+          </div>
+        )}
       </div>
       {isOpen && (
         <div
