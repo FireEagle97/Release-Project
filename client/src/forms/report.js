@@ -17,7 +17,7 @@ export default function ReportListing({listing}) {
         <div className="report-listing-container">
         <h1 className="report-listing">Report this Listing</h1>
             <div id="report-listing-info">
-                <p><b>Listing in </b>listing.address</p>
+                <p><b>Listing in </b>{listing.address}</p>
                 <img src={`${listing.images[0]}`} alt=""/>
             </div>
             <form onSubmit={handleSubmit}>
