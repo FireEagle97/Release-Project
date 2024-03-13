@@ -48,7 +48,7 @@ function getRandomNumber(min, max) {
 }
 
 // Function to get a random city and area/locality pair
-function getRandomAddressCityPair() {
+function getRandomAddressCityPair(getRandomNumber = getRandomNumber) {
     const randomCityIndex = getRandomNumber(0, canadianCities.length - 1);
     const randomCity = canadianCities[randomCityIndex];
     const addressessInCity = addresses[randomCity];
