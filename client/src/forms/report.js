@@ -1,13 +1,13 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import './report.css';
 
 export default function ReportListing() {
-    const [reason, setReason] = useState('');
-    const [comment, setComment] = useState([]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
+        const reason = event.target.elements['reason'].value;
+        const comment = event.target.elements['report-comment'].value;
         //formData.append('Listing id', id);
         formData.append('reason', reason);
         formData.append('comment', comment);
