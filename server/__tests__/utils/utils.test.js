@@ -1,4 +1,5 @@
-const {getRandomNumber, getRandomAddressCityPair, getRandomDate} = require('../../utils/utils');
+const {getRandomNumber, getRandomAddressCityPair, 
+    getRandomDate, getRandomPrice} = require('../../utils/utils');
 
 // beforeEach(() => {
 //     jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
@@ -42,6 +43,54 @@ describe('getRandomDate', () => {
   
         expect(result).toBe('2024-02-06'); 
   
+        jest.restoreAllMocks();
+    });
+});
+
+describe('getRandomPrice', () => {
+    test('returns a random price for 1 BHK', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+
+        const result = getRandomPrice(1);
+
+        expect(result).toBe(1150); 
+
+        jest.restoreAllMocks();
+    });
+    test('returns a random price for 2 BHK', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+
+        const result = getRandomPrice(2);
+
+        expect(result).toBe(2000); 
+
+        jest.restoreAllMocks();
+    });
+    test('returns a random price for 3 BHK', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+
+        const result = getRandomPrice(3);
+
+        expect(result).toBe(3150); 
+
+        jest.restoreAllMocks();
+    });
+    test('returns a random price for 4 BHK', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+
+        const result = getRandomPrice(4);
+
+        expect(result).toBe(4600); 
+
+        jest.restoreAllMocks();
+    });
+    test('returns a random price for 5 BHK, aka null price', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+
+        const result = getRandomPrice(5);
+
+        expect(result).toBe(null); 
+
         jest.restoreAllMocks();
     });
 });
