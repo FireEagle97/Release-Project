@@ -2,6 +2,7 @@ import ApartmentImages from './images.js';
 import ContactSection from './ContactSection.js';
 import { useLocation } from 'react-router-dom';
 import './Apartment.css';
+import React, { useState } from 'react';
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
@@ -9,9 +10,14 @@ import './Apartment.css';
  * @component
  * @returns {JSX.Element} Rendered ApartmentPage component.
  */
-export default function ApartmentPage({navigateToReportPage}) {
+export default function ApartmentPage() {
     const location = useLocation();
     const apartment = location.state?.apartment;
+    const [isReported, setIsReported] = useState(false);
+
+    const handleReport = () => {
+        setIsReported(true);
+    };
     return (
         <div>
             {/* <ApartmentImages imagesLinks={apartment.images}/> */}
@@ -45,8 +51,14 @@ export default function ApartmentPage({navigateToReportPage}) {
                 </div>
                 <ContactSection/>
                 <br/>
-                <p>Any problems in this posting?</p>
-                <button id="report-btn" onClick={navigateToReportPage}>Report</button>
+                {!isReported ? (
+                    <div>
+                        <p>Any problems in this posting?</p>
+                        <button id="report-btn" onClick={handleReport}>Report</button>
+                    </div>
+                ) : (
+                    <p id="report-message">Thank you! You've submitted your report.</p>
+                )}
             </div>
         </div>
     )

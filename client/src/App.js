@@ -5,7 +5,6 @@ import Home from './home/Home';
 import LeasesList from './components/leasesList/leasesList';
 import ApartmentPage from './apartmentDisplay/Apartment';
 import PostListing from './forms/post_listing';
-import ReportListing from './forms/report';
 import Contact from './navigation/Contact';
 import About from './navigation/About';
 import Footer from './footer/FooterPlace';
@@ -22,10 +21,6 @@ function App() {
   // Function to navigate to the Leases page
   const navigateToLeases = () => {
     navigate(`/apartments`, {});
-  };
-
-  const navigateToReportPage = (apartment) => {
-    navigate(`/reportment/${apartment._id}`, { state: { apartment } });
   };
 
   return ( 
@@ -59,10 +54,6 @@ function App() {
 
           <Route path='/about' element={
             <About />
-          } />
-
-          <Route path="/report/:id" element={
-            <ReportListing/>
           } />
 
         </Routes>
