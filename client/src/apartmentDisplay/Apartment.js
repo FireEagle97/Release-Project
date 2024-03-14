@@ -1,5 +1,4 @@
 import ApartmentImages from './images.js';
-import ContactSection from './ContactSection.js';
 import { useLocation } from 'react-router-dom';
 import './Apartment.css';
 import React, { useState } from 'react';
@@ -18,6 +17,7 @@ export default function ApartmentPage() {
     const handleReport = () => {
         setIsReported(true);
     };
+    
     return (
         <div>
             {/* <ApartmentImages imagesLinks={apartment.images}/> */}
@@ -48,17 +48,17 @@ export default function ApartmentPage() {
                         For more information, click the button below to contact the lister.
                     </h6>
                     <button>Interested</button>
+                    <br/>
+                    <br/>
+                    {!isReported ? (
+                        <div id="report-space">
+                            <p>Any problems in this posting?</p>
+                            <button id="report-btn" onClick={handleReport}>Report</button>
+                        </div>
+                    ) : (
+                        <p id="report-message">Thank you! You've submitted your report.</p>
+                    )}
                 </div>
-                <ContactSection/>
-                <br/>
-                {!isReported ? (
-                    <div>
-                        <p>Any problems in this posting?</p>
-                        <button id="report-btn" onClick={handleReport}>Report</button>
-                    </div>
-                ) : (
-                    <p id="report-message">Thank you! You've submitted your report.</p>
-                )}
             </div>
         </div>
     )

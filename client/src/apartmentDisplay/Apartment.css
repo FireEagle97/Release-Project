@@ -54,4 +54,24 @@
   button:hover {
     background-color: rgb(100, 107, 101);
   }
+
+  #report-space{
+    border-radius: 25px;
+    border: solid rgb(79, 74, 74) 2px;
+    padding: 1% 0;
+    width: auto-fit;
+  }
+
+  #report-message{
+    color: rgb(101, 20, 20);
+  }
+
+  #report-btn{
+    background-color: rgb(101, 20, 89);
+    color: white;
+  }
+
+  #report-btn:hover{
+    background-color: rgb(48, 17, 43);
+  }
   

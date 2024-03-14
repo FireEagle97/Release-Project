@@ -37,7 +37,7 @@ function App() {
           } />
 
           <Route path="/apartment/:id" element={
-            <ApartmentPage navigateToReportPage={navigateToReportPage}/>
+            <ApartmentPage/>
           } />
 
           <Route path="/apartments" element={
