@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
-import {GoogleLogin} from '@react-oauth/google';
+import {GoogleLogin, GoogleLogout} from '@react-oauth/google';
 
 
 
@@ -21,17 +21,7 @@ export default function Navigation() {
   // Function to handle menu click and toggle the click state.
   const handleClick = () => setClick(!click);
 
-  // const handleLogin = response => {
-  //   fetch('http://localhost:3002/login', {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       "idToken": response.credential
-  //     }),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   });
-  // }
+
   const handleLogin = async (response) => {
     try {
       const res = await fetch('http://localhost:3002/login', {
@@ -59,6 +49,25 @@ export default function Navigation() {
       }
     } catch (error) {
       console.error('Error during login:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/logout', {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        //updating state to indicate user is logged out
+        setIsLoggedIn(false);
+        setUsername('');
+        setName('');
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
     }
   };
 
@@ -117,6 +126,7 @@ export default function Navigation() {
               // Display content for logged-in user
               <div>
                 <p>Welcome, {name}!</p>
+                <button onClick={handleLogout}>Logout</button>
               </div>
             ) : (
               // Display content for not logged-in user
