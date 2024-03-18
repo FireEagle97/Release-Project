@@ -1,4 +1,5 @@
-const {shuffleArray, reArrangeData, readCsvFile} = require('../../utils/data-init.js');
+const {shuffleArray, 
+    reArrangeData, readCsvFile, getAllLeases} = require('../../utils/data-init.js');
 
 describe('shuffleArray', () => {
     
@@ -66,7 +67,6 @@ describe('readCsvFile', () => {
 
         const result = await readCsvFile('__tests__/utils/leases.csv', 
             mockGetRandomDate, mockGetRandomAddressCityPair, mockGetRandomPrice);
-        console.log(result);
         expect(result).toEqual([
             {
                 'postedDate': '2024-01-01',
@@ -84,5 +84,54 @@ describe('readCsvFile', () => {
                 'images': null,
             }
         ]);
+    });
+});
+
+
+const mockReadCsvFile = jest.fn();
+const mockGetImageUrls = jest.fn();
+const mockReArrangeData = jest.fn();
+
+describe('readCsvFile', () => {
+    
+    test('returns leases', async () => {
+
+        mockGetImageUrls.mockResolvedValue({ interior: [], extras: [] });
+        const mockData = [
+            {
+                'postedDate': '2024-01-01',
+                'bhk': 'Value2',
+                'rentPrice': 1000,
+                'size': 'Value4',
+                'floor': 'Value5',
+                'address': 'MockAddress',
+                'city': 'MockCity',
+                'furnishing': 'Value8',
+                'preferredTentant': 'Value9',
+                'bathroom': 'Value10',
+                'pointOfContact': 'Value11',
+                'description': null,
+                'images': null,
+            }
+        ];
+        mockReadCsvFile.mockResolvedValue(mockData);
+        mockReArrangeData.mockReturnValue(mockData);
+
+        const result = await getAllLeases(mockGetImageUrls, 
+            'mockFilePath', mockReadCsvFile, mockReArrangeData);
+        
+        expect(mockGetImageUrls).toHaveBeenCalled();
+        expect(mockReArrangeData).toHaveBeenCalledWith(mockData, [], []);
+        expect(result).toEqual(mockData);
+    });
+    test('should log error when an error occurs', async () => {
+        const mockError = new Error('Image URL error');
+        mockGetImageUrls.mockRejectedValue(mockError);
+
+        console.error = jest.fn();
+
+        await getAllLeases(mockGetImageUrls, 'mockFilePath', mockReadCsvFile, mockReArrangeData);
+
+        expect(console.error).toHaveBeenCalledWith('Error in fetching data for seed:', mockError);
     });
 });

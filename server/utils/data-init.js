@@ -1,10 +1,13 @@
 const CsvReadableStream = require('csv-reader');
-const {getImageUrls} = require('./image-store');
 const fs = require('fs');
 const {getRandomAddressCityPair, getRandomPrice, getRandomDate} = require('./utils');
 // for images, every lease gets 2 from interior and 3 from extras
 
-async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
+async function getAllLeases(getImageUrls, 
+    filePath = 'data/House_Rent_Dataset.csv',
+    readCsvFile = readCsvFile,
+    reArrangeData = reArrangeData
+) {
     try {
         // retrived images' url from blob storage
         // images from interior and extras, each lease has 2 interior and 2 extras
