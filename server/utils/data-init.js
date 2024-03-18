@@ -10,7 +10,10 @@ async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
         // images from interior and extras, each lease has 2 interior and 2 extras
         const {interior, extras} = await getImageUrls();
         
-        const data = await readCsvFile(filePath);
+        const data = await readCsvFile(filePath, 
+            getRandomAddressCityPair, 
+            getRandomPrice, 
+            getRandomDate);
 
         const arrangedData = reArrangeData(data, interior, extras);
 
@@ -68,7 +71,10 @@ function reArrangeData(data, interior, extras, shuffleArray = shuffleArray) {
     return data;
 }
 
-async function readCsvFile(filePath) {
+async function readCsvFile(filePath, 
+    getRandomDate, 
+    getRandomAddressCityPair, 
+    getRandomPrice) {
     return new Promise((resolve, reject) => {
         const results = [];
         const inputStream = fs.createReadStream(filePath, 'utf8');
@@ -112,4 +118,4 @@ async function readCsvFile(filePath) {
 }
 
 
-module.exports = {getAllLeases, shuffleArray, reArrangeData};
+module.exports = {getAllLeases, shuffleArray, reArrangeData, readCsvFile};
