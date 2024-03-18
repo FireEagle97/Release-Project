@@ -55,4 +55,30 @@ describe('POST /leaseUpload/', () => {
 
 
     });
+
+    test('should return status 400 for invalid property', async () => {
+
+        const property = {
+            rentPrice: 1000,
+            address: 'Mock Address',
+            contactInfo: '123-456-7890',
+            size: 100,
+            bedrooms: null,
+            bathrooms: 2,
+            floorNumber: 2,
+            furnishing: 'Furnished'
+        };
+
+        const response = await request(app).
+            post('/leaseUpload').
+            send(property);
+            
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({ 'error': 
+        'Validation failed. Please provide valid property details.' });
+        
+        jest.restoreAllMocks();
+
+
+    });
 });
