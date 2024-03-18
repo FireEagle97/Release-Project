@@ -13,10 +13,13 @@ jest.mock('../../routes/utils/image-upload', () => ({
 
 describe('POST /leaseUpload/', () => {
     test('should return status 200 and upload property data', async () => {
+        
+        const mockDate = new Date('14 Oct 2024');
+        global.Date = jest.fn().mockImplementation(() => mockDate); 
+        global.Date.now = jest.fn().mockReturnValue(mockDate.valueOf()); 
+
         const property = {
             rentPrice: 1000,
-            bhk: 3,
-            floor: 2,
             address: 'Mock Address',
             contactInfo: '123-456-7890',
             size: 100,
@@ -25,11 +28,31 @@ describe('POST /leaseUpload/', () => {
             floorNumber: 2,
             furnishing: 'Furnished'
         };
+
+        const modifiedProperty = {
+            rentPrice: 1000,
+            bhk: 3,
+            floor: 2,
+            address: 'Mock Address',
+            pointOfContact: '123-456-7890',
+            size: 100,
+            bathroom: 2,
+            furnishing: 'Furnished',
+            postedDate: '2024-10-14',
+            images:[
+                'mock-url-1',
+                'mock-url-2',
+            ],
+        };
         const response = await request(app).
             post('/leaseUpload').
             send(property);
             
         expect(response.status).toBe(200);
-        expect(response.body).toEqual({ 'respose': 'ok' });
+        expect(response.body).toEqual({ 'respose': modifiedProperty });
+        
+        jest.restoreAllMocks();
+
+
     });
 });

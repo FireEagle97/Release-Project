@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
     const db = new DB();
     await db.createManyLeases([leaseObject]);
     logger('data seeded', leaseObject);
-    res.status(200).send({'respose':'ok'});
+    res.status(200).send({'respose':leaseObject});
 
 });
 
