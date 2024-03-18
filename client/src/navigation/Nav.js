@@ -99,11 +99,15 @@ export default function Navigation() {
                 Contact
               </Link>
             </li>
+
+            {isLoggedIn && (
             <li className="nav-item">
               <Link to="/post-listing" className="nav-link" onClick={handleClick}>
                 Post Listing
               </Link>
             </li>
+            )}
+
             <li className="nav-item">
               <Link to="/" className="nav-link" onClick={handleClick}>
                 Home
@@ -114,14 +118,7 @@ export default function Navigation() {
 
           </ul>
           
-          {/* <ul>
-            <li>
-              <GoogleLogin onSuccess={handleLogin}
-                onError={() => console.log('Login failed')} />
-              
-            </li>
-          </ul> */}
-          <div>
+          {/* <div>
             {isLoggedIn ? (
               // Display content for logged-in user
               <div>
@@ -132,11 +129,13 @@ export default function Navigation() {
               // Display content for not logged-in user
               <ul>
                 <li>
-                  <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
+                  <button>
+                    <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
+                  </button>
                 </li>
               </ul>
             )}
-          </div>
+          </div> */}
 
           {/* Button to activate/deactivate the menu on smaller screens. */}
           <div className="nav-activate" onClick={handleClick}>
@@ -152,6 +151,23 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
+
+      <div>
+        {isLoggedIn ? (
+          // Display content for logged-in user
+          <div>
+            <p>Welcome, {name}!</p>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        ) : (
+          // Display content for not logged-in user
+
+          <button>
+            <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
+          </button>
+
+        )}
+      </div>
   </>
     
   );

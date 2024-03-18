@@ -41,35 +41,52 @@ function App() {
 
   return ( 
     <>
-      <Navigation />
+      {/* <Navigation /> */}
       <div className="App">
         
         <Routes>
           <Route path="/" element={
             <>
+              <Navigation />
+
               <Home navigateToApartments={navigateToLeases}/>
               <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
             </>
           } />
 
           <Route path="/apartment/:id" element={
-            <ApartmentPage/>
+            <> 
+              <Navigation />
+
+              <ApartmentPage/>
+            </>   
           } />
 
           <Route path="/apartments" element={
-            <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
-          } />
+            <> 
+              <Navigation />
+
+              <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
+            </>
+            } />
 
           <Route path="/post-listing" element={
             <PostListing />
           } />
 
           <Route path='/contact' element={
-            <Contact />
+            <>
+              <Navigation />
+              <Contact />
+            </>
           } />
 
           <Route path='/about' element={
-            <About />
+            <>
+              <Navigation />
+              
+              <About />
+            </>
           } />
 
         </Routes>

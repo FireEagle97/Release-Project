@@ -114,11 +114,23 @@ app.post('/login', async (req, res) => {
 
 
 app.delete('/logout', async(req, res) => {
-    await req.session.destroy();
-    res.status(200);
-    res.json({
-        message: 'Logged out successfully'
-    });
+    try {
+        await req.session.destroy();
+        res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        console.error('Error during logout:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+// get api for restricted access
+app.get('/restrictedAccess', (req, res) => {
+    if (req.session.userId){
+        res.status(200).json({ userId: req.session.userId });
+    } else {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
 });
 
 
