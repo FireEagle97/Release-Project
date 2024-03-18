@@ -1,19 +1,4 @@
-const {shuffleArray, 
-    reArrangeData, readCsvFile, getAllLeases} = require('../../utils/data-init.js');
-
-describe('shuffleArray', () => {
-    
-    test('returns a shuffled array', () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
-
-        const inputArray = [1, 2, 3, 4, 5];
-        const shuffledArray = shuffleArray(inputArray);
-        const expectedShuffledArray = [1, 4, 2, 5, 3];
-        expect(shuffledArray).toEqual(expectedShuffledArray);
-
-        jest.spyOn(global.Math, 'random').mockRestore();
-    });
-});
+const { reArrangeData, readCsvFile, getAllLeases} = require('../../utils/data-init.js');
 
 
 const mockShuffleArray = jest.fn();

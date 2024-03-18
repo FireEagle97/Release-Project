@@ -1,6 +1,6 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
-const {getRandomAddressCityPair, getRandomPrice, getRandomDate} = require('./utils');
+const {getRandomAddressCityPair, getRandomPrice, getRandomDate, shuffleArray} = require('./utils');
 // for images, every lease gets 2 from interior and 3 from extras
 
 async function getAllLeases(getImageUrls, 
@@ -24,14 +24,6 @@ async function getAllLeases(getImageUrls,
     } catch (error) {
         console.error('Error in fetching data for seed:', error);
     }
-}
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
 }
 
 function reArrangeData(data, interior, extras, shuffleArray) {

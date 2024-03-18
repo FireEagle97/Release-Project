@@ -1,5 +1,5 @@
 const {getRandomAddressCityPair, 
-    getRandomDate, getRandomPrice} = require('../../utils/utils');
+    getRandomDate, getRandomPrice, shuffleArray} = require('../../utils/utils');
 
 beforeEach(() => {
     jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
@@ -15,6 +15,17 @@ describe('getRandomAddressCityPair', () => {
 
         expect(result).toEqual({ city: 'Edmonton', 
             address: '4812 21 Ave NW, Edmonton, AB T6L 2V8' });
+    });
+});
+
+describe('shuffleArray', () => {
+    
+    test('returns a shuffled array', () => {
+
+        const inputArray = [1, 2, 3, 4, 5];
+        const shuffledArray = shuffleArray(inputArray);
+        const expectedShuffledArray = [1, 4, 2, 5, 3];
+        expect(shuffledArray).toEqual(expectedShuffledArray);
     });
 });
 
