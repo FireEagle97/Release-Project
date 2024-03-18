@@ -8,6 +8,7 @@ import PostListing from './forms/post_listing';
 import Contact from './navigation/Contact';
 import About from './navigation/About';
 import Footer from './footer/FooterPlace';
+import LeaseMap from './components/leaseMap/leaseMap';
 
 function App() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function App() {
               <LeasesList navigateToApartmentPage={navigateToApartmentPage} />
             }
           />
-
+          <Route path="/map" element={<LeaseMap/>} />
           <Route path="/post-listing" element={<PostListing />} />
 
           <Route path="/contact" element={<Contact />} />
