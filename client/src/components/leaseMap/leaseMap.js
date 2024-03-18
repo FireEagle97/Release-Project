@@ -17,22 +17,32 @@ function CenterMap({ coordinates }) {
 const LeaseMap = ({address}) => {
 
   let defaultcoord = [45.5019, -73.5674];
+
   const [leaseCoordinate, setLeaseCoordinate] = useState(defaultcoord);
+  
   useEffect(() => {
     async function fetchCoordinate() {
       try {
         let response = await fetch(`/coordinate/${address}`);
+        console.log('responseeee', response);
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }
         const data = await response.json();
+        //log
+        console.log('data coordinates', data.coordinates);
+
         setLeaseCoordinate(data.coordinates);
+        
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
     }
+
     fetchCoordinate();
+
   }, [address]);
+
   return (
     <div id="map-container">
       {leaseCoordinate.length === 2  && (
