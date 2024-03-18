@@ -1,5 +1,5 @@
 const {DB}  = require('../db/db.js');
-const {getAllLeases} = require('./data-init.js');
+const {getAllLeases, readCsvFile, reArrangeData} = require('./data-init.js');
 const {getImageUrls} = require('./image-store');
 
 require('dotenv').config();
@@ -12,7 +12,8 @@ const logger = debug('server:seeded database');
         const db = new DB();
 
         await db.deleteMany();
-        const data = await getAllLeases(getImageUrls);
+        // passing these for testing
+        const data = await getAllLeases(getImageUrls, readCsvFile, reArrangeData);
         await db.createManyLeases(data);
         logger('data seeded', data);
         logger('seeded database');

@@ -4,9 +4,9 @@ const {getRandomAddressCityPair, getRandomPrice, getRandomDate} = require('./uti
 // for images, every lease gets 2 from interior and 3 from extras
 
 async function getAllLeases(getImageUrls, 
-    filePath = 'data/House_Rent_Dataset.csv',
-    readCsvFile = readCsvFile,
-    reArrangeData = reArrangeData
+    readCsvFile,
+    reArrangeData,
+    filePath = 'data/House_Rent_Dataset.csv'
 ) {
     try {
         // retrived images' url from blob storage
@@ -14,11 +14,11 @@ async function getAllLeases(getImageUrls,
         const {interior, extras} = await getImageUrls();
         
         const data = await readCsvFile(filePath, 
+            getRandomDate, 
             getRandomAddressCityPair, 
-            getRandomPrice, 
-            getRandomDate);
+            getRandomPrice);
 
-        const arrangedData = reArrangeData(data, interior, extras);
+        const arrangedData = reArrangeData(data, interior, extras, shuffleArray);
 
         return arrangedData;
     } catch (error) {
@@ -34,7 +34,7 @@ function shuffleArray(array) {
     return array;
 }
 
-function reArrangeData(data, interior, extras, shuffleArray = shuffleArray) {
+function reArrangeData(data, interior, extras, shuffleArray) {
     // randomize images
     shuffleArray(interior); 
     shuffleArray(extras); 

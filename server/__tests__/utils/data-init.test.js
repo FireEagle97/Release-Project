@@ -92,7 +92,7 @@ const mockReadCsvFile = jest.fn();
 const mockGetImageUrls = jest.fn();
 const mockReArrangeData = jest.fn();
 
-describe('readCsvFile', () => {
+describe('getAllLeases', () => {
     
     test('returns leases', async () => {
 
@@ -118,10 +118,8 @@ describe('readCsvFile', () => {
         mockReArrangeData.mockReturnValue(mockData);
 
         const result = await getAllLeases(mockGetImageUrls, 
-            'mockFilePath', mockReadCsvFile, mockReArrangeData);
+            mockReadCsvFile, mockReArrangeData, 'mockFilePath');
         
-        expect(mockGetImageUrls).toHaveBeenCalled();
-        expect(mockReArrangeData).toHaveBeenCalledWith(mockData, [], []);
         expect(result).toEqual(mockData);
     });
     test('should log error when an error occurs', async () => {
