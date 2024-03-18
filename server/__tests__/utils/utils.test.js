@@ -33,8 +33,12 @@ describe('getRandomAddressCityPair', () => {
 
 describe('getRandomDate', () => {
     test('returns a random date between 2024-01-01 and current date', () => {
+        const mockDate = new Date('2024-02-06');
+        const realDateNow = Date.now.bind(global.Date);
+        jest.spyOn(global.Date, 'now').mockImplementation(() => mockDate.getTime());
         const result = getRandomDate();
-        expect(result).toBe('2024-02-06'); 
+        global.Date.now = realDateNow;
+        expect(result).toBe('2024-02-08'); 
     });
 });
 

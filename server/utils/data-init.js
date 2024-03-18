@@ -28,7 +28,7 @@ function shuffleArray(array) {
     return array;
 }
 
-async function reArrangeData(data, interior, extras) {
+function reArrangeData(data, interior, extras, shuffleArray = shuffleArray) {
     // randomize images
     shuffleArray(interior); 
     shuffleArray(extras); 
@@ -112,4 +112,4 @@ async function readCsvFile(filePath) {
 }
 
 
-module.exports = {getAllLeases};
+module.exports = {getAllLeases, shuffleArray, reArrangeData};
