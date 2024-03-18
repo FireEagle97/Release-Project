@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
-import {GoogleLogin, GoogleLogout} from '@react-oauth/google';
+import {GoogleLogin} from '@react-oauth/google';
 
 
 
@@ -17,6 +17,8 @@ export default function Navigation() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
+  const [otherField, setOtherField] = useState('');
+
 
   // Function to handle menu click and toggle the click state.
   const handleClick = () => setClick(!click);
@@ -43,6 +45,10 @@ export default function Navigation() {
         setUsername(data.data.email);
         setName(data.data.name);
 
+        // store user email in local storage
+        localStorage.setItem('username', data.data.email);
+        localStorage.setItem('name', data.data.name);
+
 
       } else {
         console.error('Login failed');
@@ -59,6 +65,10 @@ export default function Navigation() {
       });
 
       if (response.ok) {
+
+        //clear user email form local storage
+        localStorage.removeItem('username');
+        localStorage.removeItem('name');
         //updating state to indicate user is logged out
         setIsLoggedIn(false);
         setUsername('');
@@ -71,11 +81,62 @@ export default function Navigation() {
     }
   };
 
+  useEffect(() => {
+    let mounted = true;
+
+    // Fetch data from the restricted access API when the component mounts
+    fetch('/restrictedAccess')
+      .then(response => {
+        // Check if the component is still mounted before updating state
+        if (mounted) {
+          // Check if the response status is 200
+          if (response.status === 200) {
+            // If the response status is 200, extract the data and set the state
+            return response.json().then(data => {
+              setOtherField(data.userId);
+              console.log('dataaaaa', data);
+              console.log('OTHER FIELD', data.userId); // Moved console.log here
+            });
+            // return response.json().then(data => setOtherField(data.userId));
+          } else {
+            // If the response status is not 200, handle the error
+            throw new Error('Unauthorized');
+          }
+        }
+
+      })
+      .catch(error => {
+        // Log and handle the error if any
+        console.error('Error fetching data:', error);
+        // You can set otherField to a default value or handle the error in any way you want
+        setOtherField('');
+      });
+
+    // Cleanup function to set mounted to false when the component unmounts
+    return () => {
+      mounted = false;
+    };
+  }, [username]);
+
+  useEffect(() => {
+    // Check if the user email exists in local storage
+    const storedUsername = localStorage.getItem('username');
+    const storedname = localStorage.getItem('name');
+    if (storedUsername && storedname) {
+      setUsername(storedUsername);
+      setName(storedname);
+      setIsLoggedIn(true);
+    }
+  }, []);
 
 
   return (
     
     <>
+    {/* <div>
+      <p>Here is some other data: {otherField}</p>
+    </div> */}
+
       <nav className="navbar">
         <div className="nav-container">
           {/* Navigation header with a link to the home page. */}
@@ -114,28 +175,7 @@ export default function Navigation() {
               </Link>
             </li>
 
-
-
           </ul>
-          
-          {/* <div>
-            {isLoggedIn ? (
-              // Display content for logged-in user
-              <div>
-                <p>Welcome, {name}!</p>
-                <button onClick={handleLogout}>Logout</button>
-              </div>
-            ) : (
-              // Display content for not logged-in user
-              <ul>
-                <li>
-                  <button>
-                    <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
-                  </button>
-                </li>
-              </ul>
-            )}
-          </div> */}
 
           {/* Button to activate/deactivate the menu on smaller screens. */}
           <div className="nav-activate" onClick={handleClick}>
