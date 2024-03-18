@@ -6,6 +6,7 @@ const fileUpload = require('express-fileupload');
 const { leasesRouter } = require('./routes/leases.js');
 const { leaseUploadRouter } = require('./routes/lease-upload.js');
 const { filtersRouter } = require('./routes/filters.js');
+const { coordinatesRouter} = require('./routes/coordinates.js');
 
 const _filename =
   __filename ||
@@ -38,6 +39,7 @@ app.use(
 
 // Use releases router
 app.use('/leases/', leasesRouter);
+app.use('/coordinate/', coordinatesRouter);
 app.use('/filters/', filtersRouter);
 app.use('/leaseUpload/', leaseUploadRouter);
 

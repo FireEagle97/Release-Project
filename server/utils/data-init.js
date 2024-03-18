@@ -1,3 +1,4 @@
+/* eslint-disable dot-location */
 const CsvReadableStream = require('csv-reader');
 const { getImageUrls } = require('./image-store');
 const fs = require('fs');
@@ -5,6 +6,7 @@ const {
     getRandomAddressCityPair,
     getRandomPrice,
     getRandomDate,
+    getAddressLocation,
 } = require('./utils');
 // for images, every lease gets 2 from interior and 3 from extras
 
@@ -63,7 +65,7 @@ async function reArrangeData(data, interior, extras) {
             newImageUrls.push(extras[extrasIndex]);
             extrasIndex++;
         }
-
+        item.location = await getAddressLocation(data[i].address);
         // Update the image field in the item object
         item.images = newImageUrls;
     }
@@ -77,8 +79,8 @@ async function readCsvFile(filePath) {
         const inputStream = fs.createReadStream(filePath, 'utf8');
         let isFirstRow = true;
 
-        inputStream.
-            pipe(
+        inputStream
+            .pipe(
                 new CsvReadableStream({
                     parseNumbers: true,
                     parseBooleans: true,
@@ -110,11 +112,12 @@ async function readCsvFile(filePath) {
                     };
                     results.push(customizedObject);
                 }
-            }).
-            on('end', () => {
+            })
+            .on('end', () => {
+                
                 resolve(results);
-            }).
-            on('error', (error) => {
+            })
+            .on('error', (error) => {
                 reject(error);
             });
     });

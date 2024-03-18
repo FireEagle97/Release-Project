@@ -3,6 +3,7 @@ import ContactSection from "./ContactSection.js";
 import LeaseMap from "../components/leaseMap/leaseMap.js";
 import { useLocation } from "react-router-dom";
 import "./Apartment.css";
+import { useState, useEffect } from "react";
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
@@ -45,9 +46,9 @@ export default function ApartmentPage() {
           </h6>
           <button>Interested</button>
           <h4>
-            <strong>location</strong>
+            <strong>location: </strong>
           </h4>
-          <LeaseMap />
+          <LeaseMap address={apartment.address} />
         </div>
         <ContactSection />
       </div>

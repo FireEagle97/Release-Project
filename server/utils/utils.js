@@ -1,4 +1,7 @@
-
+/* eslint-disable dot-location */
+/* eslint-disable max-len */
+require('dotenv').config();
+const mapboxToken = process.env.MAPBOX_TOKEN;
 const canadianCities = ['Toronto', 'Montreal', 'Vancouver', 
     'Calgary', 'Edmonton', 'Ottawa', 'Winnipeg', 'Quebec'];
 
@@ -46,7 +49,19 @@ const addresses = {
 function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
+async function getAddressLocation(address){
+    try {
+        const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?proximity=ip&access_token=${mapboxToken}`);
+        const data = await response.json();
+        if (data.features.length > 0) {
+            return data.features[0].geometry.coordinates;
+        } else {
+            return 'Location not found: ' + address;
+        }
+    } catch (error) {
+        return `Error with address ${address}: ${error}`;
+    }
+}
 // Function to get a random city and area/locality pair
 function getRandomAddressCityPair() {
     const randomCityIndex = getRandomNumber(0, canadianCities.length - 1);
@@ -112,4 +127,4 @@ function getRandomPrice(bhk) {
     return randomPrice;
 }
 
-module.exports = { getRandomAddressCityPair, getRandomPrice, getRandomDate};
+module.exports = { getRandomAddressCityPair, getRandomPrice, getRandomDate, getAddressLocation};

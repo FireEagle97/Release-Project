@@ -8,13 +8,16 @@ const aptIcon = new L.Icon({
   iconSize: [32, 32],
 });
 
-const LeaseMap = () => {
-  // const [aptPosition, setAptPosition] = useState([]);
+const LeaseMap = (address) => {
 
+  const defaultcoord = [45.5019, -73.5674];
+  console.log('location' , address);
+  // const coordinates = [aptLocation.aptLocation[0], aptLocation.aptLocation[1]];
   return (
     <div id="map-container">
+      <div>apt: </div>
       <MapContainer
-        center={[45.5019, -73.5674]}
+        center={defaultcoord}
         zoom={13}
         scrollWheelZoom={false}
         style={{ height: "300px", width: "400px" }}
@@ -23,7 +26,7 @@ const LeaseMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[45.5019, -73.5674]} icon={aptIcon}>
+        <Marker position={defaultcoord} icon={aptIcon}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
