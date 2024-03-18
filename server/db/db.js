@@ -65,7 +65,16 @@ class DB{
             console.error('An error occurred while retrieving leases:', error);
         } 
     }
-
+    async getAllFilterList(filter) {
+        try{
+            await this.connect();
+            const filterList = await leases.distinct(filter);
+            return filterList;
+        } catch (error) {
+            console.error('An error occurred while retrieving leases:', error);
+        } 
+    }
+  
     async getLeasesByCityAndFilters(city, area, filters) {
         try{
             await this.connect();
@@ -79,7 +88,6 @@ class DB{
             console.error('An error occurred while retrieving leasess:', error);
         }
     }
-
     leaseQuery(city, area, filters){
 
         const query = { city: city};
@@ -91,7 +99,12 @@ class DB{
         if (filters.furnishing) {
             query.furnishing = filters.furnishing;
         }
-
+        if (filters.bathroom){
+            query.bathroom = filters.bathroom;
+        }
+        if(filters.bedroom){
+            query.bedroom = filters.bedroom;
+        }
         // Add rent range query if both minimum and maximum are provided
         if (filters.rent && filters.rent.minimum !== undefined 
             && filters.rent.maximum !== undefined) {

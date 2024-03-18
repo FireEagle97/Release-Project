@@ -7,26 +7,9 @@ import ApartmentPage from './apartmentDisplay/Apartment';
 import PostListing from './forms/post_listing';
 import Contact from './navigation/Contact';
 import About from './navigation/About';
-
-
-const data = [
-  {
-    id: 1,
-    image: 'https://example.com/image1.jpg',
-    title: 'Card 1',
-    description: 'Description for Card 1',
-  },
-  {
-    id: 2,
-    image: 'https://example.com/image2.jpg',
-    title: 'Card 2',
-    description: 'Description for Card 2',
-  },
-  // Add more card objects as needed
-];
+import Footer from './footer/FooterPlace';
 
 function App() {
-
   const navigate = useNavigate();
 
   // Function to navigate to the ApartmentPage with apartment data
@@ -39,11 +22,10 @@ function App() {
     navigate(`/apartments`, {});
   };
 
-  return ( 
+  return (
     <>
       {/* <Navigation /> */}
       <div className="App">
-        
         <Routes>
           <Route path="/" element={
             <>
@@ -69,10 +51,25 @@ function App() {
               <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
             </>
             } />
+          {/* <Route
+            path="/"
+            element={
+              <>
+                <Home navigateToApartments={navigateToLeases} />
+              </>
+            }
+          /> */}
 
-          <Route path="/post-listing" element={
-            <PostListing />
-          } />
+          {/* <Route path="/apartment/:id" element={<ApartmentPage />} />
+
+          <Route
+            path="/apartments"
+            element={
+              <LeasesList navigateToApartmentPage={navigateToApartmentPage} />
+            }
+          /> */}
+
+          <Route path="/post-listing" element={<PostListing />} />
 
           <Route path='/contact' element={
             <>
@@ -89,13 +86,16 @@ function App() {
             </>
           } />
 
+
         </Routes>
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossorigin="anonymous"
+        ></script>
       </div>
-      <footer>
-          <p>Elissar Fadel, Monica Dimitrova, Anastasia Bondarenko, Dany Makhoul</p>
-          <p>ReLease 2024</p>
-      </footer>
-      </>
+      <Footer/>
+    </>
   );
 }
 

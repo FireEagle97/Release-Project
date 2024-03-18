@@ -6,13 +6,18 @@ const { OAuth2Client } = require('google-auth-library');
 const session = require('express-session');
 
 
-const {leasesRouter} = require('./routes/leases.js');
-const {leaseUploadRouter} = require('./routes/lease-upload.js');
+const { leasesRouter } = require('./routes/leases.js');
+const { leaseUploadRouter } = require('./routes/lease-upload.js');
+const { filtersRouter } = require('./routes/filters.js');
 
 const users = [];
 
-const _filename = 
-__filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
+
+const _filename =
+  __filename ||
+  typeof require !== 'undefined' && require('url').fileURLToPath ||
+  '';
+  
 const _dirname = __dirname || path.dirname(_filename);
 
 const { config } = require('dotenv');
@@ -22,15 +27,15 @@ config({ path: envPath });
 const app = express();
 
 // Add middleware to serve static files
-app.use(express.static(path.join(path.dirname(_filename), '..', 
-    'client', 'build')));
+app.use(
+    express.static(path.join(path.dirname(_filename), '..', 'client', 'build'))
+);
 
 // Middleware to parse JSON requests
-app.use(express.json()); 
+app.use(express.json());
 
 // Middleware to compress data
 app.use(compression());
-
 
 app.use(
     fileUpload({
@@ -49,6 +54,7 @@ app.use(session({
 
 // Use releases router
 app.use('/leases/', leasesRouter);
+app.use('/filters/', filtersRouter);
 app.use('/leaseUpload/', leaseUploadRouter);
 
 
@@ -134,7 +140,7 @@ app.get('/restrictedAccess', (req, res) => {
 });
 
 
-// 404 route 
+
 app.use((req, res) => {
     res.status(404).json({ message: '404 - Not Found' });
 });
