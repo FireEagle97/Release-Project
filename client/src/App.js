@@ -10,7 +10,6 @@ import About from './navigation/About';
 import Footer from './footer/FooterPlace';
 
 function App() {
-
   const navigate = useNavigate();
 
   // Function to navigate to the ApartmentPage with apartment data
@@ -23,40 +22,40 @@ function App() {
     navigate(`/apartments`, {});
   };
 
-  return ( 
+  return (
     <>
       <Navigation />
       <div className="App">
-        
         <Routes>
-          <Route path="/" element={
-            <>
-              <Home navigateToApartments={navigateToLeases}/>
-              <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
-            </>
-          } />
+          <Route
+            path="/"
+            element={
+              <>
+                <Home navigateToApartments={navigateToLeases} />
+              </>
+            }
+          />
 
-          <Route path="/apartment/:id" element={
-            <ApartmentPage/>
-          } />
+          <Route path="/apartment/:id" element={<ApartmentPage />} />
 
-          <Route path="/apartments" element={
-            <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
-          } />
+          <Route
+            path="/apartments"
+            element={
+              <LeasesList navigateToApartmentPage={navigateToApartmentPage} />
+            }
+          />
 
-          <Route path="/post-listing" element={
-            <PostListing />
-          } />
+          <Route path="/post-listing" element={<PostListing />} />
 
-          <Route path='/contact' element={
-            <Contact />
-          } />
+          <Route path="/contact" element={<Contact />} />
 
-          <Route path='/about' element={
-            <About />
-          } />
-
+          <Route path="/about" element={<About />} />
         </Routes>
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossorigin="anonymous"
+        ></script>
       </div>
       <Footer/>
     </>
