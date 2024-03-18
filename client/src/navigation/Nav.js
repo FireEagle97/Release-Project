@@ -12,7 +12,7 @@ import {GoogleLogin} from '@react-oauth/google';
  * @returns {JSX.Element} Rendered Navigation component.
  */
 export default function Navigation() {
-  // State variable to track the click state for menu activation.
+  //state variable to track the click state for menu activation.
   const [click, setClick] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
@@ -20,13 +20,13 @@ export default function Navigation() {
   const [otherField, setOtherField] = useState('');
 
 
-  // Function to handle menu click and toggle the click state.
+  //function to handle menu click and toggle the click state.
   const handleClick = () => setClick(!click);
 
 
   const handleLogin = async (response) => {
     try {
-      const res = await fetch('http://localhost:3002/login', {
+      const res = await fetch('/login', {
         method: 'POST',
         body: JSON.stringify({
           idToken: response.credential,
@@ -84,42 +84,37 @@ export default function Navigation() {
   useEffect(() => {
     let mounted = true;
 
-    // Fetch data from the restricted access API when the component mounts
+    //fetch data from the restricted access API when component mounts
     fetch('/restrictedAccess')
       .then(response => {
-        // Check if the component is still mounted before updating state
+        //check if the component is still mounted before updating state
         if (mounted) {
-          // Check if the response status is 200
+          //check if the response status is 200
           if (response.status === 200) {
-            // If the response status is 200, extract the data and set the state
+            //if the response status is 200, extract data and set state
             return response.json().then(data => {
               setOtherField(data.userId);
-              console.log('dataaaaa', data);
-              console.log('OTHER FIELD', data.userId); // Moved console.log here
             });
-            // return response.json().then(data => setOtherField(data.userId));
           } else {
-            // If the response status is not 200, handle the error
+            //if the response status is not 200, handle error
             throw new Error('Unauthorized');
           }
         }
 
       })
       .catch(error => {
-        // Log and handle the error if any
         console.error('Error fetching data:', error);
-        // You can set otherField to a default value or handle the error in any way you want
         setOtherField('');
       });
 
-    // Cleanup function to set mounted to false when the component unmounts
+    //cleanup to set mounted to false when the component unmounts
     return () => {
       mounted = false;
     };
   }, [username]);
 
   useEffect(() => {
-    // Check if the user email exists in local storage
+    //check if the user email & name exists in local storage
     const storedUsername = localStorage.getItem('username');
     const storedname = localStorage.getItem('name');
     if (storedUsername && storedname) {
@@ -174,7 +169,11 @@ export default function Navigation() {
                 Home
               </Link>
             </li>
-
+            {isLoggedIn && (
+            <li className="nav-item">
+              <button className="logout-button" onClick={handleLogout}>Logout</button>
+            </li>
+          )}
           </ul>
 
           {/* Button to activate/deactivate the menu on smaller screens. */}
@@ -194,17 +193,19 @@ export default function Navigation() {
 
       <div>
         {isLoggedIn ? (
-          // Display content for logged-in user
-          <div>
-            <p>Welcome, {name}!</p>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
+          <div className="user-info">
+              <p>Welcome, {name}!</p>
+              {/* <button onClick={handleLogout}>Logout</button> */}
+            </div>
         ) : (
           // Display content for not logged-in user
 
-          <button>
+          // <button>
+          //   <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
+          // </button>
+          <div className="login-button">
             <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
-          </button>
+          </div>
 
         )}
       </div>
