@@ -2,7 +2,7 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
-const { leases } = require('./schemas');
+const { leases, users } = require('./schemas');
 
 let instance;
 
@@ -131,6 +131,18 @@ class DB{
             await leases.deleteMany({});
         } catch (error) {
             console.error('An error occurred while deleting:', error);
+        }
+    }
+
+    //FOR USERS
+    async createUser(userData) {
+        try {
+            await this.connect();
+            const result = await users.create(userData);
+            console.log('User created successfully:', result);
+            return result;
+        } catch (error) {
+            console.error('An error occurred while creating user:', error);
         }
     }
 }

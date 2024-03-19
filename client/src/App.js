@@ -7,6 +7,7 @@ import ApartmentPage from './apartmentDisplay/Apartment';
 import PostListing from './forms/post_listing';
 import Contact from './navigation/Contact';
 import About from './navigation/About';
+import Profil from './navigation/Profil';
 import Footer from './footer/FooterPlace';
 
 function App() {
@@ -83,6 +84,14 @@ function App() {
               <Navigation />
               
               <About />
+            </>
+          } />
+
+          <Route path='/profil' element={
+            <>
+              <Navigation />
+              
+              <Profil />
             </>
           } />
 
