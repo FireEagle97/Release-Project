@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
+import './Profil.css';
 
 
 
 export default function Profil() {
+    
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     // const [otherField, setOtherField] = useState('');
     const [click, setClick] = useState(false);
-
 
 
     const handleClick = () => setClick(!click);
@@ -39,7 +40,6 @@ export default function Profil() {
             // store user email in local storage
             localStorage.setItem('username', data.data.email);
             localStorage.setItem('name', data.data.name);
-    
     
           } else {
             console.error('Login failed');
@@ -119,23 +119,7 @@ export default function Profil() {
         <div className="profil">
             <h1>Profil</h1>
             <br></br>
-            <p>
-                Profil
-            </p>
-            {isLoggedIn && (
-            <li className="nav-item">
-              <Link to="/post-listing" className="nav-link" onClick={handleClick}>
-                Post Listing
-              </Link>
-            </li>
-            )}
-             {isLoggedIn && (
-            <li className="nav-item">
-              <button className="logout-button" onClick={handleLogout}>Logout</button>
-            </li>
-          )}
-        
-        <div>
+            <div>
             {isLoggedIn ? (
             <div className="user-info">
                 <p>Welcome, {name}!</p>
@@ -153,6 +137,21 @@ export default function Profil() {
 
             )}
         </div>
+            {isLoggedIn && (
+            <div className="nav-item">
+              <Link to="/post-listing" className="nav-link" onClick={handleClick}>
+                Post Listing
+              </Link>
+            </div>
+            )}
+
+            {isLoggedIn && (
+            <div className="nav-item">
+              <button className="logout-button" onClick={handleLogout}>Logout</button>
+            </div>
+            )}
+        
+
 
         </div>
     );
