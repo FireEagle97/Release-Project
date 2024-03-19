@@ -4,15 +4,22 @@ const azureContainerName = process.env.AZURE_CONTAINER_NAME;
 const { BlobServiceClient} = require('@azure/storage-blob');
 
 
-async function getImageUrls() {
+async function getImageUrls(getContainerClient, uploadService,
+    interiorFolderPath = 'data/images/interior', extrasFolderPath = 'data/images/extras') {
     const containerClient = getContainerClient();
 
     const interiorUrls = [];
     const extrasUrls = []; 
-    const interiorFolderPath = 'data/images/interior';
-    const extrasFolderPath = 'data/images/extras';
+    let completed = 0;
     
     return new Promise((resolve, reject) => {
+        function checkCompletion() {
+            completed++;
+            if (completed === 2) {
+                resolve({ interior: interiorUrls, extras: extrasUrls });
+            }
+        }
+
         fs.readdir(interiorFolderPath, async (err, files) => {
             if (err) {
                 console.error('Error reading folder:', err);
@@ -40,6 +47,7 @@ async function getImageUrls() {
                 uploadPromises.push(uploadPromise);
             }
             await Promise.all(uploadPromises);
+            checkCompletion();
         });
 
         fs.readdir(extrasFolderPath, async (err, files) => {
@@ -66,7 +74,7 @@ async function getImageUrls() {
                 uploadPromises.push(uploadPromise);
             }
             await Promise.all(uploadPromises);
-            resolve({ interior: interiorUrls, extras: extrasUrls });
+            checkCompletion();
         });
 
     });
@@ -88,4 +96,4 @@ async function uploadService(filePath, containerClient, file){
         console.error('Error uploading file (extras):', error.message);
     }
 }
-module.exports = {getImageUrls};
+module.exports = {getImageUrls, getContainerClient, uploadService};

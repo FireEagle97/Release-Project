@@ -50,7 +50,7 @@ describe('readCsvFile', () => {
         mockGetRandomPrice.mockReturnValue(1000);
 
 
-        const result = await readCsvFile('__tests__/utils/leases.csv', 
+        const result = await readCsvFile('__tests__/utils/data/leases.csv', 
             mockGetRandomDate, mockGetRandomAddressCityPair, mockGetRandomPrice);
         expect(result).toEqual([
             {
