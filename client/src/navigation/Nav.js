@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
-import {GoogleLogin} from '@react-oauth/google';
-
+import { GoogleLogin } from '@react-oauth/google';
 
 
 /**
@@ -144,8 +143,12 @@ export default function Navigation() {
 
           {/* List of navigation items with links to different sections. */}
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className="nav-item">
+              <Link to="/" className="nav-link" onClick={handleClick}>
+                Home
+              </Link>
+            </li>
             <li className="nav-item">
-
               <Link to="/about" className="nav-link" onClick={handleClick}>
                 About
               </Link>
@@ -164,11 +167,11 @@ export default function Navigation() {
             </li>
             )}
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/" className="nav-link" onClick={handleClick}>
                 Home
               </Link>
-            </li>
+            </li> */}
             {isLoggedIn && (
             <li className="nav-item">
               <button className="logout-button" onClick={handleLogout}>Logout</button>
