@@ -1,6 +1,7 @@
 import ApartmentImages from './images.js';
 import ContactSection from './ContactSection.js';
 import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './Apartment.css';
 
 /**
@@ -10,8 +11,37 @@ import './Apartment.css';
  * @returns {JSX.Element} Rendered ApartmentPage component.
  */
 export default function ApartmentPage() {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        // Check if the user is logged in based on stored credentials
+        const storedUsername = localStorage.getItem('username');
+        const storedName = localStorage.getItem('name');
+        if (storedUsername && storedName) {
+            setUsername(storedUsername);
+            setName(storedName);
+            setIsLoggedIn(true);
+        }
+    }, []);
+
     const location = useLocation();
     const apartment = location.state?.apartment;
+
+
+    const handleInterestedClick = () => {
+        if (isLoggedIn) {
+            // Display tenant's contact information
+            // You can implement this part based on your application logic
+            console.log("Display tenant's contact information");
+        } else {
+            // Redirect to signup/login page (profil)
+            console.log("hihi");
+        }
+    };
+
     return (
         <div>
             {/* <ApartmentImages imagesLinks={apartment.images}/> */}
@@ -41,8 +71,7 @@ export default function ApartmentPage() {
                     <h6>
                         For more information, click the button below to contact the lister.
                     </h6>
-                    <button>Interested</button>
-                </div>
+                    <button onClick={handleInterestedClick}>Interested</button>                </div>
                 <ContactSection/>
             </div>
         </div>
