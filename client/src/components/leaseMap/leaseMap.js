@@ -9,53 +9,46 @@ const aptIcon = new L.Icon({
 });
 function CenterMap({ coordinates }) {
   const map = useMap();
-  console.log("coordinates",coordinates);
   map.setView(coordinates, map.getZoom());
+  const currentCenter = map.getCenter();
+  console.log("coordinates", currentCenter);
+
   return null;
 }
 
-const LeaseMap = ({address}) => {
+const LeaseMap = ({ leaseCoordinates }) => {
 
-  let defaultcoord = [45.5019, -73.5674];
-  const [leaseCoordinate, setLeaseCoordinate] = useState(defaultcoord);
-  useEffect(() => {
-    async function fetchCoordinate() {
-      try {
-        let response = await fetch(`/coordinate/${address}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setLeaseCoordinate(data.coordinates);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
-      }
-    }
-    fetchCoordinate();
-  }, [address]);
+ 
+
+  // useEffect(() => {
+  //   console.log("Coordinates updated:", leaseCoordinate); // Log when leaseCoordinate changes
+  // }, [leaseCoordinate]);
   return (
     <div id="map-container">
-      {leaseCoordinate.length === 2  && (
       <>
-      <div>apt:{leaseCoordinate[0]} </div>
-      <MapContainer
-          center={leaseCoordinate}
+        <div>apt:{leaseCoordinates[0]} </div>
+        <MapContainer
+          // key={leaseCoordinate.toString()}
+          center={leaseCoordinates}
           zoom={13}
           scrollWheelZoom={false}
           style={{ height: "300px", width: "400px" }}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <Marker position={leaseCoordinate} icon={aptIcon}>
-            <Popup>
-              A pretty CSS3 popup {leaseCoordinate[0]}. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-          {/* <CenterMap coordinates={leaseCoordinate} /> */}
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {leaseCoordinates.length === 2 && (
+            <Marker position={leaseCoordinates} icon={aptIcon}>
+              <Popup>
+                A pretty CSS3 popup {leaseCoordinates[0]}. <br /> Easily
+                customizable.
+              </Popup>
+            </Marker>
+          )}
+          {/* <CenterMap coordinates={leaseCoordinates} /> */}
         </MapContainer>
-        </>
-       )}
+      </>
     </div>
   );
 };

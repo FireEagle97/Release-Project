@@ -14,6 +14,27 @@ import { useState, useEffect } from "react";
 export default function ApartmentPage() {
   const location = useLocation();
   const apartment = location.state?.apartment;
+  let defaultcoord = [45.5019, -73.5674];
+  const [leaseCoordinates, setLeaseCoordinates] = useState(defaultcoord);
+  useEffect(() => {
+    async function fetchCoordinate() {
+      try {
+        let response = await fetch(`/coordinate/${apartment.address}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch leases");
+        }else{
+          const data = await response.json();
+          setLeaseCoordinates(data.coordinates);
+        }
+  
+      } catch (error) {
+        console.error("Error fetching leases:", error);
+      }
+    }
+    if (apartment.address !== null ) {
+      fetchCoordinate();
+    }
+  }, [apartment.address]);
   return (
     <div>
       {/* <ApartmentImages imagesLinks={apartment.images}/> */}
@@ -48,7 +69,7 @@ export default function ApartmentPage() {
           <h4>
             <strong>location: </strong>
           </h4>
-          <LeaseMap address={apartment.address} />
+          <LeaseMap leaseCoordinates={leaseCoordinates} />
         </div>
         <ContactSection />
       </div>
