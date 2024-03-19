@@ -16,10 +16,30 @@ function CenterMap({ coordinates }) {
   return null;
 }
 
-const LeaseMap = ({ leaseCoordinates }) => {
+const LeaseMap = ({ address }) => {
 
  
-
+  let defaultcoord = [45.5019, -73.5674];
+  const [leaseCoordinates, setLeaseCoordinates] = useState(defaultcoord);
+  useEffect(() => {
+    async function fetchCoordinate() {
+      try {
+        let response = await fetch(`/coordinate/${address}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch leases");
+        }else{
+          const data = await response.json();
+          setLeaseCoordinates(data.coordinates);
+        }
+  
+      } catch (error) {
+        console.error("Error fetching leases:", error);
+      }
+    }
+    if (address !== null ) {
+      fetchCoordinate();
+    }
+  }, [address]);
   // useEffect(() => {
   //   console.log("Coordinates updated:", leaseCoordinate); // Log when leaseCoordinate changes
   // }, [leaseCoordinate]);
