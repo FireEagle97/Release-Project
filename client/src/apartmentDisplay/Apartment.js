@@ -3,7 +3,22 @@ import ContactSection from './ContactSection.js';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Apartment.css';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 /**
  * ApartmentPage component for displaying information on a single apartment.
  *
@@ -15,6 +30,8 @@ export default function ApartmentPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
+
 
     useEffect(() => {
         // Check if the user is logged in based on stored credentials
@@ -36,11 +53,16 @@ export default function ApartmentPage() {
             // Display tenant's contact information
             // You can implement this part based on your application logic
             console.log("Display tenant's contact information");
+            setIsModalOpen(true);
         } else {
             // Redirect to signup/login page (profil)
             console.log("hihi");
         }
     };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
 
     return (
         <div>
@@ -72,8 +94,32 @@ export default function ApartmentPage() {
                         For more information, click the button below to contact the lister.
                     </h6>
                     <button onClick={handleInterestedClick}>Interested</button>                </div>
-                <ContactSection/>
+                {/* <ContactSection/> */}
             </div>
+            {/* Modal to display tenant's contact information */}
+            <Modal
+                open={isModalOpen}
+                onClose={closeModal}
+                contentLabel="Contact Information Modal"
+            >
+                {/* Contact information content */}
+                {/* You can customize this content based on your application logic
+                <h2>Contact Information</h2>
+                <p>Tenant's name: {name}</p>
+                <p>Email: {username}</p>
+                <button onClick={closeModal}>Close</button> */}
+                <Box sx={style}>
+                <Typography variant="h6" component="h2">
+                    Contact Information
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                    Tenant's name: {name}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                    Email: {username}
+                </Typography>
+                </Box>
+            </Modal>
         </div>
     )
 }
