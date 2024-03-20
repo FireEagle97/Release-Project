@@ -6,6 +6,7 @@ const fileUpload = require('express-fileupload');
 const {leasesRouter} = require('./routes/leases.js');
 const {leaseUploadRouter} = require('./routes/lease-upload.js');
 const {leaseReport} = require('./routes/reports.js');
+const {leaseDelete} = require('./routes/lease-delete.js');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
@@ -39,6 +40,7 @@ app.use(
 app.use('/leases/', leasesRouter);
 app.use('/leaseUpload/', leaseUploadRouter);
 app.use('/leaseReport/', leaseReport);
+app.use('/leaseDelete/', leaseDelete);
 
 
 

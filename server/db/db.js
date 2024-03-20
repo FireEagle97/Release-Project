@@ -150,6 +150,20 @@ class DB{
             console.error('An error occurred while updating lease reports:', error);
         }
     }
+
+    async deleteLease(leaseId) {
+        try {
+            await this.connect();
+            const result = await leases.deleteOne({ _id: leaseId });
+            if (result.deletedCount === 0) {
+                throw new Error('Lease not found');
+            }
+            return result;
+        } catch (error) {
+            console.error('An error occurred while deleting the lease:', error);
+            throw error;
+        }
+    }
     
 }
 
