@@ -14,8 +14,14 @@ export default function ApartmentPage() {
     const apartment = location.state?.apartment;
     const [isReported, setIsReported] = useState(false);
 
-    const handleReport = () => {
+    const handleReport = async() => {
         setIsReported(true);
+        if(apartment.reports > 3){
+            await removeRelease(apartment._id);
+        }else{
+            console.log('rp', apartment.reports);
+            await reportRelease(apartment._id);
+        }
     };
     
     return (
@@ -66,17 +72,13 @@ export default function ApartmentPage() {
 
 async function removeRelease(id){
     try {
-        const response = await fetch('/leaseDelete/' + id, {
+        await fetch('/leaseDelete/' + id, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json' 
             },
             body: JSON.stringify({ id: id }) 
         });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
 
     } catch (error) {
         console.error('Error:', error);
@@ -86,17 +88,13 @@ async function removeRelease(id){
 
 async function reportRelease(id){
     try {
-        const response = await fetch('/leaseReport/' + id, {
+        await fetch('/leaseReport/' + id, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json' 
             },
             body: JSON.stringify({ id: id }) 
         });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
 
     } catch (error) {
         console.error('Error:', error);
