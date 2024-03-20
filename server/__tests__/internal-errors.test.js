@@ -32,6 +32,9 @@ jest.mock('../db/db', () => ({
         deleteLease: jest.fn().mockImplementation(() => {
             throw new Error('Mock error from deleteLease');
         }),
+        createManyLeases: jest.fn().mockImplementation(() => {
+            throw new Error('Mock error from createManyLeases');
+        }),
     })),
 }));
 
@@ -58,4 +61,32 @@ describe('DELETE leaseDelete/:leaseId', () => {
         expect(response.body).toEqual({ error: 'Internal server error'});
     });
 
+});
+
+jest.mock('../routes/utils/image-upload', () => ({
+    getImageUrls: jest.fn().mockResolvedValue(['mock-url-1', 'mock-url-2'])
+}));
+
+describe('POST /leaseUpload/', () => {
+    test('should give internal error because of db', async () => {
+
+        const property = {
+            rentPrice: 1000,
+            address: 'Mock Address',
+            contactInfo: '123-456-7890',
+            size: 100,
+            bedrooms: 3,
+            bathrooms: 2,
+            floorNumber: 2,
+            furnishing: 'Furnished'
+        };
+
+        const response = await request(app).
+            post('/leaseUpload').
+            send(property);
+            
+        expect(response.status).toBe(500);
+        expect(response.body).toEqual({ error: 'Internal server error'});
+
+    });
 });

@@ -15,32 +15,33 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ error: 
             'Validation failed. Please provide valid property details.' });
     }
+    try{
+        const imageUrls = await getImageUrls(req.files);
 
-    // to do
-    // not validated the req.files has files
-    const imageUrls = await getImageUrls(req.files);
+        const postedDate = getCurrentDate();
+        const leaseObject = {
+            'postedDate': postedDate, 
+            'bhk': property.bedrooms,
+            'rentPrice': property.rentPrice,
+            'size': property.size,
+            'floor': property.floorNumber,
+            'address': property.address,
+            'city': property.city,
+            'furnishing': property.furnishing,
+            'preferredTentant': property.preferredTentant,
+            'bathroom': property.bathrooms,
+            'pointOfContact': property.contactInfo,
+            'description': property.description,
+            'images': imageUrls
+        };
 
-    const postedDate = getCurrentDate();
-    const leaseObject = {
-        'postedDate': postedDate, 
-        'bhk': property.bedrooms,
-        'rentPrice': property.rentPrice,
-        'size': property.size,
-        'floor': property.floorNumber,
-        'address': property.address,
-        'city': property.city,
-        'furnishing': property.furnishing,
-        'preferredTentant': property.preferredTentant,
-        'bathroom': property.bathrooms,
-        'pointOfContact': property.contactInfo,
-        'description': property.description,
-        'images': imageUrls
-    };
-
-    const db = new DB();
-    await db.createManyLeases([leaseObject]);
-    logger('data seeded', leaseObject);
-    res.status(200).send({'respose':leaseObject});
+        const db = new DB();
+        await db.createManyLeases([leaseObject]);
+        logger('data seeded', leaseObject);
+        res.status(200).send({'respose':leaseObject});
+    }catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
 
 });
 

@@ -3,6 +3,10 @@ const azureContainerName = process.env.AZURE_CONTAINER_NAME;
 const { BlobServiceClient} = require('@azure/storage-blob');
 
 async function getImageUrls(files){
+    if (!files || Object.keys(files).length === 0) {
+        return [];
+    }
+
     const blobService = BlobServiceClient.fromConnectionString(azureConnection);
     const containerClient = blobService.getContainerClient(azureContainerName);
 
