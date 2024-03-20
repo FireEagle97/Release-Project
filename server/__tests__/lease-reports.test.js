@@ -51,6 +51,24 @@ describe('POST leaseReport/:leaseId', () => {
             toEqual({ message: 'Reports field incremented successfully', 
                 lease: mockLeaseResult });
     });
+    test('should give error invalid format for id', async () => {
 
-    // Add more test cases as needed
+        // wrong format of id
+        const response = await request(app).
+            post('/leaseReport/65fa52');
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({ error: 'Invalid ID format'});
+    });
+
+    test('should give error for id not found', async () => {
+
+        // id non existent
+        const response = await request(app).
+            post('/leaseReport/65fa52163b35ce14fd8e47a4');
+
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({ error: 'Lease not found'});
+    });
+
 });
