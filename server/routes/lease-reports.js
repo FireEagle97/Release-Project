@@ -26,7 +26,6 @@ router.post('/:leaseId', async (req, res) => {
         res.status(200).json({ message: 'Reports field incremented successfully', lease });
 
     } catch (error) {
-        console.error('Error incrementing reports field:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

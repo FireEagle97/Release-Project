@@ -24,7 +24,6 @@ router.delete('/:leaseId', async (req, res) => {
         await db.deleteLease(leaseId);
         res.status(200).json({ message: 'Lease deleted successfully' });
     } catch (error) {
-        console.error('Error deleting lease:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

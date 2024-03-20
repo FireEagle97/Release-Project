@@ -29,6 +29,9 @@ jest.mock('../db/db', () => ({
         updateLease: jest.fn().mockImplementation(() => {
             throw new Error('Mock error from updateLease');
         }),
+        deleteLease: jest.fn().mockImplementation(() => {
+            throw new Error('Mock error from deleteLease');
+        }),
     })),
 }));
 
@@ -42,4 +45,17 @@ describe('POST leaseReport/:leaseId', () => {
         expect(response.status).toBe(500);
         expect(response.body).toEqual({ error: 'Internal server error'});
     });
+});
+
+describe('DELETE leaseDelete/:leaseId', () => {
+    test('should give internal error because of db', async () => {
+
+        // id non existent
+        const response = await request(app).
+            delete('/leaseDelete/65fa52163b35ce14fd8e47ae');
+
+        expect(response.status).toBe(500);
+        expect(response.body).toEqual({ error: 'Internal server error'});
+    });
+
 });
