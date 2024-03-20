@@ -63,3 +63,42 @@ export default function ApartmentPage() {
         </div>
     )
 }
+
+async function removeRelease(id){
+    try {
+        const response = await fetch('/leaseDelete/' + id, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ id: id }) 
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+}
+
+async function reportRelease(id){
+    try {
+        const response = await fetch('/leaseReport/' + id, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ id: id }) 
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
