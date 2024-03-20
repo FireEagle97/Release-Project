@@ -19,14 +19,12 @@ export default function ApartmentPage() {
         if(apartment.reports > 3){
             await removeRelease(apartment._id);
         }else{
-            console.log('rp', apartment.reports);
             await reportRelease(apartment._id);
         }
     };
     
     return (
         <div>
-            {/* <ApartmentImages imagesLinks={apartment.images}/> */}
             <div id="apartment-information">
                 <ApartmentImages imagesLinks={apartment.images}/>
                 <div className='apt-info'>
@@ -73,7 +71,7 @@ export default function ApartmentPage() {
 async function removeRelease(id){
     try {
         await fetch('/leaseDelete/' + id, {
-            method: 'POST', 
+            method: 'DELETE', 
             headers: {
                 'Content-Type': 'application/json' 
             },
