@@ -1,13 +1,13 @@
 const request = require('supertest');
-const {app} = require('../../api');
+const {app} = require('../api');
 
-jest.mock('../../db/db', () => ({
+jest.mock('../db/db', () => ({
     DB: jest.fn().mockImplementation(() => ({
         createManyLeases: jest.fn()
     }))
 }));
 
-jest.mock('../../routes/utils/image-upload', () => ({
+jest.mock('../routes/utils/image-upload', () => ({
     getImageUrls: jest.fn().mockResolvedValue(['mock-url-1', 'mock-url-2'])
 }));
 

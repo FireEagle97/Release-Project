@@ -67,6 +67,7 @@ describe('readCsvFile', () => {
                 'pointOfContact': 'value12',
                 'description': null,
                 'images': null,
+                'reports':0
             }
         ]);
     });
@@ -97,6 +98,7 @@ describe('getAllLeases', () => {
                 'pointOfContact': 'Value11',
                 'description': null,
                 'images': null,
+                'reports':0
             }
         ];
         mockReadCsvFile.mockResolvedValue(mockData);
