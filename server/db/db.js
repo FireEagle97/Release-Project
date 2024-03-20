@@ -120,6 +120,37 @@ class DB{
             console.error('An error occurred while deleting:', error);
         }
     }
+
+    async findLeaseById(leaseId) {
+        try {
+            await this.connect();
+            const lease = await leases.findById(leaseId);
+            return lease;
+        } catch (error) {
+            console.error('An error occurred while finding lease by ID:', error);
+        }
+    }
+    
+    async updateLease(leaseId, newlease) {
+        try {
+            await this.connect();
+            let lease = await leases.findById(leaseId);
+    
+            if (!lease) {
+                throw new Error('Lease not found');
+            }
+            // Update the reports field
+            lease = newlease;
+    
+            // Save the updated lease back to the database
+            await lease.save();
+    
+            return lease;
+        } catch (error) {
+            console.error('An error occurred while updating lease reports:', error);
+        }
+    }
+    
 }
 
 module.exports = {DB};

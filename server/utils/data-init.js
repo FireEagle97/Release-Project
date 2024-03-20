@@ -100,6 +100,7 @@ async function readCsvFile(filePath,
                         'pointOfContact': row[11],
                         'description': null,
                         'images': null,
+                        'reports': 0
                     };
                     results.push(customizedObject);
                 }
