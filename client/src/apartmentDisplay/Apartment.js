@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -47,6 +49,7 @@ export default function ApartmentPage() {
     const location = useLocation();
     const apartment = location.state?.apartment;
 
+    let navigate = useNavigate();
 
     const handleInterestedClick = () => {
         if (isLoggedIn) {
@@ -57,6 +60,7 @@ export default function ApartmentPage() {
         } else {
             // Redirect to signup/login page (profil)
             console.log("hihi");
+            navigate('/profil', { replace: true });
         }
     };
 
@@ -93,7 +97,10 @@ export default function ApartmentPage() {
                     <h6>
                         For more information, click the button below to contact the lister.
                     </h6>
-                    <button onClick={handleInterestedClick}>Interested</button>                </div>
+                    <button onClick={handleInterestedClick}>Interested</button>                
+                </div>
+
+            
                 {/* <ContactSection/> */}
             </div>
             {/* Modal to display tenant's contact information */}
@@ -102,17 +109,12 @@ export default function ApartmentPage() {
                 onClose={closeModal}
                 contentLabel="Contact Information Modal"
             >
-                {/* Contact information content */}
-                {/* You can customize this content based on your application logic
-                <h2>Contact Information</h2>
-                <p>Tenant's name: {name}</p>
-                <p>Email: {username}</p>
-                <button onClick={closeModal}>Close</button> */}
                 <Box sx={style}>
                 <Typography variant="h6" component="h2">
                     Contact Information
                 </Typography>
                 <Typography sx={{ mt: 2 }}>
+                    {/* NAME & EMAIL ARE NOT CORRECT!!! */}
                     Tenant's name: {name}
                 </Typography>
                 <Typography sx={{ mt: 2 }}>
