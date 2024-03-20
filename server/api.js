@@ -19,32 +19,30 @@ config({ path: envPath });
 const app = express();
 
 // Add middleware to serve static files
-app.use(express.static(path.join(path.dirname(_filename), '..', 
-    'client', 'build')));
+app.use(
+    express.static(path.join(path.dirname(_filename), '..', 'client', 'build'))
+);
 
 // Middleware to parse JSON requests
-app.use(express.json()); 
+app.use(express.json());
 
 // Middleware to compress data
 app.use(compression());
-
 
 app.use(
     fileUpload({
         createParentPath: true,
     })
 );
-  
 
 // Use releases router
 app.use('/leases/', leasesRouter);
+app.use('/filters/', filtersRouter);
 app.use('/leaseUpload/', leaseUploadRouter);
 app.use('/leaseReport/', leaseReport);
 app.use('/leaseDelete/', leaseDelete);
 
-
-
-// 404 route 
+// 404 route
 app.use((req, res) => {
     res.status(404).json({ message: '404 - Not Found' });
 });

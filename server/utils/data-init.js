@@ -29,8 +29,8 @@ async function getAllLeases(getImageUrls,
 
 function reArrangeData(data, interior, extras, shuffleArray) {
     // randomize images
-    shuffleArray(interior); 
-    shuffleArray(extras); 
+    shuffleArray(interior);
+    shuffleArray(extras);
 
     let interiorIndex = 0;
     let extrasIndex = 0;
@@ -43,7 +43,7 @@ function reArrangeData(data, interior, extras, shuffleArray) {
         for (let j = 0; j < 2; j++) {
             if (interiorIndex >= interior.length) {
                 interiorIndex = 0;
-                shuffleArray(interior); 
+                shuffleArray(interior);
             }
             newImageUrls.push(interior[interiorIndex]);
             interiorIndex++;
@@ -52,9 +52,8 @@ function reArrangeData(data, interior, extras, shuffleArray) {
         // Add two URLs from extras
         for (let j = 0; j < 2; j++) {
             if (extrasIndex >= extras.length) {
-               
                 extrasIndex = 0;
-                shuffleArray(extras); 
+                shuffleArray(extras);
             }
             newImageUrls.push(extras[extrasIndex]);
             extrasIndex++;
@@ -77,7 +76,13 @@ async function readCsvFile(filePath,
         let isFirstRow = true;
 
         inputStream.
-            pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true })).
+            pipe(
+                new CsvReadableStream({
+                    parseNumbers: true,
+                    parseBooleans: true,
+                    trim: true,
+                })
+            ).
             on('data', (row) => {
                 if (isFirstRow) {
                     isFirstRow = false;
