@@ -1,26 +1,12 @@
 import ApartmentImages from './images.js';
-import ContactSection from './ContactSection.js';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Apartment.css';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
 /**
  * ApartmentPage component for displaying information on a single apartment.
  *
@@ -36,7 +22,7 @@ export default function ApartmentPage() {
 
 
     useEffect(() => {
-        // Check if the user is logged in based on stored credentials
+        //check if the user is logged in based on stored credentials
         const storedUsername = localStorage.getItem('username');
         const storedName = localStorage.getItem('name');
         if (storedUsername && storedName) {
@@ -53,13 +39,8 @@ export default function ApartmentPage() {
 
     const handleInterestedClick = () => {
         if (isLoggedIn) {
-            // Display tenant's contact information
-            // You can implement this part based on your application logic
-            console.log("Display tenant's contact information");
             setIsModalOpen(true);
         } else {
-            // Redirect to signup/login page (profil)
-            console.log("hihi");
             navigate('/profil', { replace: true });
         }
     };
@@ -109,7 +90,7 @@ export default function ApartmentPage() {
                 onClose={closeModal}
                 contentLabel="Contact Information Modal"
             >
-                <Box sx={style}>
+                <Box className='box'>
                 <Typography variant="h6" component="h2">
                     Contact Information
                 </Typography>
