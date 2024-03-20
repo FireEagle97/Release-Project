@@ -7,6 +7,7 @@ const {leasesRouter} = require('./routes/leases.js');
 const {leaseUploadRouter} = require('./routes/lease-upload.js');
 const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
+const {filtersRouter} = require('./routes/filters.js');
 
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
