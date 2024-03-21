@@ -6,19 +6,19 @@ const { OAuth2Client } = require('google-auth-library');
 const session = require('express-session');
 
 
-const { leasesRouter } = require('./routes/leases.js');
-const { leaseUploadRouter } = require('./routes/lease-upload.js');
-const { filtersRouter } = require('./routes/filters.js');
+const {leasesRouter} = require('./routes/leases.js');
+const {leaseUploadRouter} = require('./routes/lease-upload.js');
+const {leaseReport} = require('./routes/lease-reports.js');
+const {leaseDelete} = require('./routes/lease-delete.js');
+const {filtersRouter} = require('./routes/filters.js');
 
 const users = [];
 
-
-const _filename =
-  __filename ||
-  typeof require !== 'undefined' && require('url').fileURLToPath ||
-  '';
   
+const _filename = 
+__filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
 const _dirname = __dirname || path.dirname(_filename);
+
 
 const { config } = require('dotenv');
 const envPath = path.resolve(_dirname, '../.env');
@@ -56,6 +56,8 @@ app.use(session({
 app.use('/leases/', leasesRouter);
 app.use('/filters/', filtersRouter);
 app.use('/leaseUpload/', leaseUploadRouter);
+app.use('/leaseReport/', leaseReport);
+app.use('/leaseDelete/', leaseDelete);
 
 
 // Add a POST API endpoint for login with token verification

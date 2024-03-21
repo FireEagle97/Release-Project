@@ -17,6 +17,7 @@ const leaseSchema = new mongoose.Schema({
     pointOfContact: String,
     description: String,
     images: Array,
+    reports: Number
 }); 
 
 const lease = mongoose.model('lease', leaseSchema); 

@@ -42,19 +42,15 @@ const addresses = {
         '875 Rue Monseigneur-Grandin, Québec City, QC G1V 3X8']
 };
 
-// Function to generate a random number within a range
-function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // Function to get a random city and area/locality pair
 function getRandomAddressCityPair() {
-    const randomCityIndex = getRandomNumber(0, canadianCities.length - 1);
+    const randomCityIndex = Math.floor(Math.random() * canadianCities.length);
     const randomCity = canadianCities[randomCityIndex];
     const addressessInCity = addresses[randomCity];
-    const randomAddress = addressessInCity[getRandomNumber(0, addressessInCity.length - 1)];
+    const randomAddress = addressessInCity[Math.floor(Math.random() * addressessInCity.length)];
     return { city: randomCity, address: randomAddress };
 }
+
 
 function getRandomDate() {
     // randomly get a date that starts from beginning of 2024 till current date
@@ -112,4 +108,13 @@ function getRandomPrice(bhk) {
     return randomPrice;
 }
 
-module.exports = { getRandomAddressCityPair, getRandomPrice, getRandomDate};
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+module.exports = { getRandomAddressCityPair, 
+    getRandomPrice, getRandomDate, shuffleArray};

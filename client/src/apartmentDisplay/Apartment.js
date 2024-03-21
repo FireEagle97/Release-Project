@@ -35,6 +35,7 @@ export default function ApartmentPage() {
     const location = useLocation();
     const apartment = location.state?.apartment;
 
+
     let navigate = useNavigate();
 
     const handleInterestedClick = () => {
@@ -48,6 +49,13 @@ export default function ApartmentPage() {
     const closeModal = () => {
         setIsModalOpen(false);
     }
+
+    const [isReported, setIsReported] = useState(false);
+
+    const handleReport = () => {
+        setIsReported(true);
+    };
+    
 
     return (
         <div>
@@ -81,9 +89,19 @@ export default function ApartmentPage() {
                     <button onClick={handleInterestedClick}>Interested</button>                
                 </div>
 
-            
-                {/* <ContactSection/> */}
+                    <br/>
+                    <br/>
+                    {!isReported ? (
+                        <div id="report-space">
+                            <p>Any problems in this posting?</p>
+                            <button id="report-btn" onClick={handleReport}>Report</button>
+                        </div>
+                    ) : (
+                        <p id="report-message">Thank you! You've submitted your report.</p>
+                    )}
             </div>
+            
+
             {/* Modal to display tenant's contact information */}
             <Modal
                 open={isModalOpen}
