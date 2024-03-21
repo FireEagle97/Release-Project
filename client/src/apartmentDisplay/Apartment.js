@@ -57,7 +57,7 @@ export default function ApartmentPage() {
                     {!isReported ? (
                         <div id="report-space">
                             <p>Any problems in this posting?</p>
-                            <button id="report-btn" onClick={handleReport}>Report</button>
+                            <button id="report-btn" onClick={handleReport}>report</button>
                         </div>
                     ) : (
                         <p id="report-message">Thank you! You've submitted your report.</p>
