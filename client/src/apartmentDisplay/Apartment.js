@@ -113,11 +113,7 @@ export default function ApartmentPage() {
                     Contact Information
                 </Typography>
                 <Typography sx={{ mt: 2 }}>
-                    {/* NAME & EMAIL ARE NOT CORRECT!!! */}
-                    Tenant's name: {name}
-                </Typography>
-                <Typography sx={{ mt: 2 }}>
-                    Email: {username}
+                     {apartment.pointOfContact}
                 </Typography>
                 </Box>
             </Modal>
