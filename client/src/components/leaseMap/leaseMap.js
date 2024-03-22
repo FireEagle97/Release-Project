@@ -3,10 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "./leaseMap.css";
 import L from "leaflet";
 
-const aptIcon = new L.Icon({
-  iconUrl: require("../../assets/marker-icon.png"),
-  iconSize: [32, 32],
-});
 function CenterMap({ coordinates }) {
   const map = useMap();
   map.setView(coordinates, map.getZoom());
@@ -15,12 +11,31 @@ function CenterMap({ coordinates }) {
 
   return null;
 }
-
 const LeaseMap = ({ address }) => {
 
  
   let defaultcoord = [45.5019, -73.5674];
-  const [leaseCoordinates, setLeaseCoordinates] = useState(defaultcoord);
+  const [leaseCoordinates, setLeaseCoordinates] = useState([]);
+  function iniializeMap(){
+    console.log("coordinates",leaseCoordinates)
+    const map = L.map("map-container", {
+      center: leaseCoordinates,
+      zoom:13,
+      layers: [
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        })
+      ]
+    });
+    const aptIcon = new L.Icon({
+      iconUrl: require("../../assets/marker-icon.png"),
+      iconSize: [32, 32],
+    });
+    const marker = L.marker(leaseCoordinates, {icon: aptIcon});
+    marker.bindPopup(`<b>Coordinates: ${leaseCoordinates[0]}</b>`).openPopup();
+    marker.addTo(map);
+  
+  }
   useEffect(() => {
     async function fetchCoordinate() {
       try {
@@ -39,36 +54,38 @@ const LeaseMap = ({ address }) => {
     if (address !== null ) {
       fetchCoordinate();
     }
-  }, [address]);
+  }, []);
+  useEffect(() => {
+    if (leaseCoordinates.length > 0) {
+      iniializeMap();
+    }
+  },[leaseCoordinates]);
   // useEffect(() => {
   //   console.log("Coordinates updated:", leaseCoordinate); // Log when leaseCoordinate changes
   // }, [leaseCoordinate]);
   return (
     <div id="map-container">
-      <>
-        <div>apt:{leaseCoordinates[0]} </div>
-        <MapContainer
+        {/* <div>apt:{leaseCoordinates[0]} leaseCoordinates: {leaseCoordinates.length} </div> */}
+        {/* {leaseCoordinates.length === 2 && ( */}
+        {/* <MapContainer
           // key={leaseCoordinate.toString()}
           center={leaseCoordinates}
           zoom={13}
           scrollWheelZoom={false}
-          style={{ height: "300px", width: "400px" }}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {leaseCoordinates.length === 2 && (
             <Marker position={leaseCoordinates} icon={aptIcon}>
               <Popup>
                 A pretty CSS3 popup {leaseCoordinates[0]}. <br /> Easily
                 customizable.
               </Popup>
-            </Marker>
-          )}
+            </Marker> */}
           {/* <CenterMap coordinates={leaseCoordinates} /> */}
-        </MapContainer>
-      </>
+        {/* </MapContainer> */}
+        {/* )} */}
     </div>
   );
 };
