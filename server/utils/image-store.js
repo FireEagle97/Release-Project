@@ -4,16 +4,22 @@ const azureContainerName = process.env.AZURE_CONTAINER_NAME;
 const { BlobServiceClient} = require('@azure/storage-blob');
 
 
-async function getImageUrls() {
-    const blobService = BlobServiceClient.fromConnectionString(azureConnection);
-    const containerClient = blobService.getContainerClient(azureContainerName);
+async function getImageUrls(getContainerClient, uploadService,
+    interiorFolderPath = 'data/images/interior', extrasFolderPath = 'data/images/extras') {
+    const containerClient = getContainerClient();
 
     const interiorUrls = [];
     const extrasUrls = []; 
-    const interiorFolderPath = 'data/images/interior';
-    const extrasFolderPath = 'data/images/extras';
+    let completed = 0;
     
     return new Promise((resolve, reject) => {
+        function checkCompletion() {
+            completed++;
+            if (completed === 2) {
+                resolve({ interior: interiorUrls, extras: extrasUrls });
+            }
+        }
+
         fs.readdir(interiorFolderPath, async (err, files) => {
             if (err) {
                 console.error('Error reading folder:', err);
@@ -31,24 +37,17 @@ async function getImageUrls() {
 
                 const filePath = `${interiorFolderPath}/${file}`;
 
-                const blobClient = containerClient.getBlockBlobClient(file);
 
                 // Wrap the asynchronous operation inside a function and push it to uploadPromises
                 const uploadPromise = (async () => {
-                    try {
-                        const fileData = fs.readFileSync(filePath);
-                        const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
-                        await blobClient.uploadData(fileData, options);
-                        const url = blobClient.url;
-                        interiorUrls.push(url);
-                    } catch (error) {
-                        console.error('Error uploading file:', error.message);
-                    }
+                    const url = await uploadService(filePath, containerClient, file);
+                    interiorUrls.push(url);
                 })();
 
                 uploadPromises.push(uploadPromise);
             }
             await Promise.all(uploadPromises);
+            checkCompletion();
         });
 
         fs.readdir(extrasFolderPath, async (err, files) => {
@@ -66,27 +65,35 @@ async function getImageUrls() {
                 }
 
                 const filePath = `${extrasFolderPath}/${file}`;
-                const blobClient = containerClient.getBlockBlobClient(file);
 
                 const uploadPromise = (async () => {
-                    try {
-                        const fileData = fs.readFileSync(filePath);
-                        const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
-                        await blobClient.uploadData(fileData, options);
-                        const url = blobClient.url;
-                        extrasUrls.push(url);
-                    } catch (error) {
-                        console.error('Error uploading file (extras):', error.message);
-                    }
+                    const url = await uploadService(filePath, containerClient, file);
+                    extrasUrls.push(url);
                 })();
 
                 uploadPromises.push(uploadPromise);
             }
             await Promise.all(uploadPromises);
-            resolve({ interior: interiorUrls, extras: extrasUrls });
+            checkCompletion();
         });
 
     });
 }
 
-module.exports = {getImageUrls};
+function getContainerClient(){
+    const blobService = BlobServiceClient.fromConnectionString(azureConnection);
+    return blobService.getContainerClient(azureContainerName);
+}
+
+async function uploadService(filePath, containerClient, file){
+    try {
+        const blobClient = containerClient.getBlockBlobClient(file);
+        const fileData = fs.readFileSync(filePath);
+        const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
+        await blobClient.uploadData(fileData, options);
+        return blobClient.url;
+    } catch (error) {
+        console.error('Error uploading file (extras):', error.message);
+    }
+}
+module.exports = {getImageUrls, getContainerClient, uploadService};

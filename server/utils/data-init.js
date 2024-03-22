@@ -1,24 +1,26 @@
 /* eslint-disable dot-location */
 const CsvReadableStream = require('csv-reader');
-const { getImageUrls } = require('./image-store');
 const fs = require('fs');
-const {
-    getRandomAddressCityPair,
-    getRandomPrice,
-    getRandomDate,
-    getAddressLocation,
-} = require('./utils');
+const {getRandomAddressCityPair, getRandomPrice, getRandomDate, shuffleArray} = require('./utils');
+const {getContainerClient, uploadService} = require('./image-store');
 // for images, every lease gets 2 from interior and 3 from extras
 
-async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
+async function getAllLeases(getImageUrls, 
+    readCsvFile,
+    reArrangeData,
+    filePath = 'data/House_Rent_Dataset.csv'
+) {
     try {
-    // retrived images' url from blob storage
-    // images from interior and extras, each lease has 2 interior and 2 extras
-        const { interior, extras } = await getImageUrls();
+        // retrived images' url from blob storage
+        // images from interior and extras, each lease has 2 interior and 2 extras
+        const {interior, extras} = await getImageUrls(getContainerClient, uploadService);
+        
+        const data = await readCsvFile(filePath, 
+            getRandomDate, 
+            getRandomAddressCityPair, 
+            getRandomPrice);
 
-        const data = await readCsvFile(filePath);
-
-        const arrangedData = reArrangeData(data, interior, extras);
+        const arrangedData = reArrangeData(data, interior, extras, shuffleArray);
 
         return arrangedData;
     } catch (error) {
@@ -26,15 +28,7 @@ async function getAllLeases(filePath = 'data/House_Rent_Dataset.csv') {
     }
 }
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-async function reArrangeData(data, interior, extras) {
+function reArrangeData(data, interior, extras, shuffleArray) {
     // randomize images
     shuffleArray(interior);
     shuffleArray(extras);
@@ -65,7 +59,6 @@ async function reArrangeData(data, interior, extras) {
             newImageUrls.push(extras[extrasIndex]);
             extrasIndex++;
         }
-        item.location = await getAddressLocation(data[i].address);
         // Update the image field in the item object
         item.images = newImageUrls;
     }
@@ -73,7 +66,10 @@ async function reArrangeData(data, interior, extras) {
     return data;
 }
 
-async function readCsvFile(filePath) {
+async function readCsvFile(filePath, 
+    getRandomDate, 
+    getRandomAddressCityPair, 
+    getRandomPrice) {
     return new Promise((resolve, reject) => {
         const results = [];
         const inputStream = fs.createReadStream(filePath, 'utf8');
@@ -96,19 +92,20 @@ async function readCsvFile(filePath) {
                     const randomAddressCityPair = getRandomAddressCityPair();
                     const randomPrice = getRandomPrice(row[1]);
                     const customizedObject = {
-                        postedDate: randomPostedDate,
-                        bhk: row[1],
-                        rentPrice: randomPrice,
-                        size: row[3],
-                        floor: row[4],
-                        address: randomAddressCityPair.address,
-                        city: randomAddressCityPair.city,
-                        furnishing: row[8],
-                        preferredTentant: row[9],
-                        bathroom: row[10],
-                        pointOfContact: row[11],
-                        description: null,
-                        images: null,
+                        'postedDate': randomPostedDate, 
+                        'bhk': row[1],
+                        'rentPrice': randomPrice,
+                        'size': row[3],
+                        'floor': row[4],
+                        'address': randomAddressCityPair.address,
+                        'city': randomAddressCityPair.city,
+                        'furnishing': row[8],
+                        'preferredTentant': row[9],
+                        'bathroom': row[10],
+                        'pointOfContact': row[11],
+                        'description': null,
+                        'images': null,
+                        'reports': 0
                     };
                     results.push(customizedObject);
                 }
@@ -123,4 +120,5 @@ async function readCsvFile(filePath) {
     });
 }
 
-module.exports = { getAllLeases };
+
+module.exports = {getAllLeases, shuffleArray, reArrangeData, readCsvFile};
