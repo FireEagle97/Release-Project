@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 export default function ApartmentPage() {
   const location = useLocation();
   const apartment = location.state?.apartment;
+  console.log("apartment address", apartment.address);
  
   return (
     <div>
