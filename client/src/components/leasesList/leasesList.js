@@ -2,7 +2,11 @@ import React, { useEffect, useState, useMemo } from "react";
 import Pagination from "../pagination/pagination";
 import Filters from "../filters/filters";
 import "./leasesList.css";
+import { useLocation } from 'react-router-dom';
 const LeasesList = ({ navigateToApartmentPage }) => {
+  const location = useLocation();
+  const cityParam = location.state?.city;
+
   const [leases, setLeases] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState(null);
@@ -50,11 +54,18 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   useEffect(() => {
     async function fetchLeases() {
       try {
-        let response = await fetch("/leases");
+        console.log(cityParam);
+        let link = "/leases";
+        if (cityParam) {
+          link += `/${cityParam}`;
+        }
+        console.log(link);
+        let response = await fetch(link);
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }
         const data = await response.json();
+        console.log(data.response);
         if(clearFilters){
           setLeases(data.response);
         }

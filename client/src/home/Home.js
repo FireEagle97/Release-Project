@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import './home.css';
 import { Link } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 /**
  * Home component for displaying data related to a selected country.
@@ -9,6 +10,7 @@ import { Link } from 'react-router-dom';
  * @returns {JSX.Element} Rendered Home component.
  */
 export default function Home({navigateToApartments}) {
+  const navigate = useNavigate();
   
   /**
    * useEffect hook to fetch data when there are changes in page or country.
@@ -23,7 +25,13 @@ export default function Home({navigateToApartments}) {
     } catch (e) {
     }
   }, []);
-
+  
+  const navigateToApartmentsWithCity = (city) => {
+    navigate(`/apartments/${city}`, { state: { city } });
+  };
+  const navigateToApartmentsMontreal = () => {
+    navigateToApartmentsWithCity("Montreal");
+  }
   
   return (
     <>
@@ -50,9 +58,11 @@ export default function Home({navigateToApartments}) {
       <button id='view-apartments-btn' type='button' onClick={navigateToApartments}>
         Start Searching
       </button>
-      <Link to="/apartments/Montreal" className="nav-link" >
-                monteal
-              </Link>
+
+      <button id='view-apartments-btn' type='button' onClick={navigateToApartmentsMontreal}>
+        Montreal
+      </button>
+      
     </>
   );
   
