@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import './home.css';
+import { Link } from 'react-router-dom';
 
 /**
  * Home component for displaying data related to a selected country.
@@ -49,6 +50,9 @@ export default function Home({navigateToApartments}) {
       <button id='view-apartments-btn' type='button' onClick={navigateToApartments}>
         Start Searching
       </button>
+      <Link to="/apartments/Montreal" className="nav-link" >
+                monteal
+              </Link>
     </>
   );
   

@@ -39,7 +39,7 @@ function App() {
           <Route path="/apartment/:id" element={<ApartmentPage />} />
 
           <Route
-            path="/apartments"
+            path="/apartments/:City?"
             element={
               <LeasesList navigateToApartmentPage={navigateToApartmentPage} />
             }
