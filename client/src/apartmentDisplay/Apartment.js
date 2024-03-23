@@ -14,13 +14,17 @@ export default function ApartmentPage() {
     const apartment = location.state?.apartment;
     const [isReported, setIsReported] = useState(false);
 
-    const handleReport = () => {
+    const handleReport = async() => {
         setIsReported(true);
+        if(apartment.reports > 3){
+            await removeRelease(apartment._id);
+        }else{
+            await reportRelease(apartment._id);
+        }
     };
     
     return (
         <div>
-            {/* <ApartmentImages imagesLinks={apartment.images}/> */}
             <div id="apartment-information">
                 <ApartmentImages imagesLinks={apartment.images}/>
                 <div className='apt-info'>
@@ -53,7 +57,7 @@ export default function ApartmentPage() {
                     {!isReported ? (
                         <div id="report-space">
                             <p>Any problems in this posting?</p>
-                            <button id="report-btn" onClick={handleReport}>Report</button>
+                            <button id="report-btn" onClick={handleReport}>report</button>
                         </div>
                     ) : (
                         <p id="report-message">Thank you! You've submitted your report.</p>
@@ -62,4 +66,35 @@ export default function ApartmentPage() {
             </div>
         </div>
     )
+}
+
+async function removeRelease(id){
+    try {
+        await fetch('/leaseDelete/' + id, {
+            method: 'DELETE', 
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ id: id }) 
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+}
+
+async function reportRelease(id){
+    try {
+        await fetch('/leaseReport/' + id, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ id: id }) 
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
