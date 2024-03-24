@@ -90,9 +90,7 @@ export default function ApartmentPage() {
                     <h6>
                         For more information, click the button below to contact the lister.
                     </h6>
-                    <button onClick={handleInterestedClick}>Interested</button>                
-                </div>
-
+                    <button onClick={handleInterestedClick}>Interested</button>   
                     <br/>
                     <br/>
                     {!isReported ? (
@@ -102,7 +100,8 @@ export default function ApartmentPage() {
                         </div>
                     ) : (
                         <p id="report-message">Thank you! You've submitted your report.</p>
-                    )}
+                    )}             
+                </div>
             </div>
             
 
