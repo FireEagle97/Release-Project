@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import './nav.css';
+import React, { useState} from 'react';
+import './Nav.css';
 import { Link } from 'react-router-dom';
+
 
 /**
  * Navigation component for displaying a responsive navigation bar.
@@ -9,15 +10,17 @@ import { Link } from 'react-router-dom';
  * @returns {JSX.Element} Rendered Navigation component.
  */
 export default function Navigation() {
-  // State variable to track the click state for menu activation.
+  //state variable to track the click state for menu activation.
   const [click, setClick] = useState(false);
 
-  // Function to handle menu click and toggle the click state.
+  //function to handle menu click and toggle the click state.
   const handleClick = () => setClick(!click);
 
   return (
-    
     <>
+    {/* <div>
+      <p>Here is some other data: {otherField}</p>
+    </div> */}
       <nav className="navbar">
         <div className="nav-container">
           {/* Navigation header with a link to the home page. */}
@@ -27,11 +30,14 @@ export default function Navigation() {
             <p>RE-LEASE</p>
           </a>
 
-
           {/* List of navigation items with links to different sections. */}
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className="nav-item">
+              <Link to="/" className="nav-link" onClick={handleClick}>
+                Home
+              </Link>
+            </li>
             <li className="nav-item">
-
               <Link to="/about" className="nav-link" onClick={handleClick}>
                 About
               </Link>
@@ -42,13 +48,8 @@ export default function Navigation() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/post-listing" className="nav-link" onClick={handleClick}>
-                Post Listing
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/" className="nav-link" onClick={handleClick}>
-                Home
+              <Link to="/profil" className="nav-link" onClick={handleClick}>
+                Profil
               </Link>
             </li>
           </ul>
@@ -68,6 +69,5 @@ export default function Navigation() {
         </div>
       </nav>
   </>
-    
   );
 }

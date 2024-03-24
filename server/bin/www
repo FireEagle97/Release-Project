@@ -18,6 +18,8 @@ const port = process.env.PORT || 3002;
 
 const server = app.listen(port, () => {
     logger('started listening on port ' + port);
+    // logger('CLIENT_ID:', process.env.REACT_APP_GOOGLE_CLIENT_ID);
+
 });
 
 process.on('SIGINT', () => {

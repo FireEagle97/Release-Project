@@ -2,7 +2,7 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
-const { leases } = require('./schemas');
+const { leases, users } = require('./schemas');
 
 let instance;
 
@@ -134,6 +134,30 @@ class DB{
         }
     }
 
+    //FOR USERS
+    async createUser(userData) {
+        try {
+            await this.connect();
+            const result = await users.create(userData);
+            console.log('User created successfully:', result);
+            return result;
+        } catch (error) {
+            console.error('An error occurred while creating user:', error);
+        }
+    }
+
+    async findUser(email) {
+        try {
+            await this.connect();
+            const user = await users.findOne({email: email});
+            console.log('User found:', user);
+            return user;
+        } catch (error) {
+            console.error('User could not be found:', error);
+        }
+    }
+
+    
     async findLeaseById(leaseId) {
         try {
             await this.connect();

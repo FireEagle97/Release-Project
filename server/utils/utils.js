@@ -1,4 +1,5 @@
-
+/* eslint-disable dot-location */
+/* eslint-disable max-len */
 const canadianCities = ['Toronto', 'Montreal', 'Vancouver', 
     'Calgary', 'Edmonton', 'Ottawa', 'Winnipeg', 'Quebec'];
 

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import LeaseMap from '../components/leaseMap/leaseMap';
 import './home.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -76,6 +77,7 @@ export default function Home({navigateToApartments}) {
       </div>
       
     </>
+    
   );
   
 }
