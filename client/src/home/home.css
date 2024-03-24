@@ -51,27 +51,32 @@
   
   .city-container {
     position: relative;
-    width: 100%;
-    margin: 2.5% 10%;
+    width: 70%;
+    margin: 2.5% auto;
     height: 400px; 
     overflow: hidden;
+    background-color: #233038;
+    display: flex;
+    flex-direction: row;
+    border-radius: 1%;
   }
   
   .city-image {
-    height: auto; 
+    height: 400px; 
     display: block;
     width: 600px;
+    flex: 4;
   }
   
   .city-text {
-    position: absolute;
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    margin: 0; 
-    padding: 10px 20px; 
-    background-color: rgba(255, 255, 255, 0.7); 
-    border-radius: 5px; 
+    flex: 1;
+    color: white;    
+    padding: 20% 5%;
+    font-weight: bold;
+  }
+  .city-text:hover {
+    color: #e8e8e8;
+    font-weight: lighter;
     cursor: pointer;
   }
   
