@@ -7,11 +7,12 @@ const session = require('express-session');
 // const {users} = require('./db/schemas.js');
 const {DB} = require('./db/db.js');
 
-const {leasesRouter} = require('./routes/leases.js');
-const {leaseUploadRouter} = require('./routes/lease-upload.js');
+const { leasesRouter } = require('./routes/leases.js');
+const { leaseUploadRouter } = require('./routes/lease-upload.js');
+const { filtersRouter } = require('./routes/filters.js');
+const { coordinatesRouter} = require('./routes/coordinates.js');
 const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
-const {filtersRouter} = require('./routes/filters.js');
 
 //const users = [];
 
@@ -55,6 +56,7 @@ app.use(session({
 
 // Use releases router
 app.use('/leases/', leasesRouter);
+app.use('/coordinate/', coordinatesRouter);
 app.use('/filters/', filtersRouter);
 app.use('/leaseUpload/', leaseUploadRouter);
 app.use('/leaseReport/', leaseReport);

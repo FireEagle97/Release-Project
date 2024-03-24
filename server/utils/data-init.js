@@ -1,3 +1,4 @@
+/* eslint-disable dot-location */
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
 const {getRandomAddressCityPair, getRandomPrice, getRandomDate, shuffleArray} = require('./utils');
@@ -58,7 +59,6 @@ function reArrangeData(data, interior, extras, shuffleArray) {
             newImageUrls.push(extras[extrasIndex]);
             extrasIndex++;
         }
-
         // Update the image field in the item object
         item.images = newImageUrls;
     }
@@ -75,8 +75,8 @@ async function readCsvFile(filePath,
         const inputStream = fs.createReadStream(filePath, 'utf8');
         let isFirstRow = true;
 
-        inputStream.
-            pipe(
+        inputStream
+            .pipe(
                 new CsvReadableStream({
                     parseNumbers: true,
                     parseBooleans: true,
@@ -109,11 +109,12 @@ async function readCsvFile(filePath,
                     };
                     results.push(customizedObject);
                 }
-            }).
-            on('end', () => {
+            })
+            .on('end', () => {
+                
                 resolve(results);
-            }).
-            on('error', (error) => {
+            })
+            .on('error', (error) => {
                 reject(error);
             });
     });

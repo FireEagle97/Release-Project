@@ -20,9 +20,13 @@
   "bugs": {
     "url": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project/issues"
   },
+<<<<<<< HEAD
+  "homepage": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project#readme"
+=======
   "homepage": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project#readme",
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
     "react-modal": "^3.16.1"
   }
+>>>>>>> e4eadee5eea329ebd27f54a22241d3f76adae4b6
 }
