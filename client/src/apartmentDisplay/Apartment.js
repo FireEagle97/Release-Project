@@ -1,7 +1,11 @@
 import ApartmentImages from './images.js';
 import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './Apartment.css';
-import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
@@ -10,8 +14,42 @@ import React, { useState } from 'react';
  * @returns {JSX.Element} Rendered ApartmentPage component.
  */
 export default function ApartmentPage() {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
+
+
+    useEffect(() => {
+        //check if the user is logged in based on stored credentials
+        const storedUsername = localStorage.getItem('username');
+        const storedName = localStorage.getItem('name');
+        if (storedUsername && storedName) {
+            setUsername(storedUsername);
+            setName(storedName);
+            setIsLoggedIn(true);
+        }
+    }, []);
+
     const location = useLocation();
     const apartment = location.state?.apartment;
+
+
+    let navigate = useNavigate();
+
+    const handleInterestedClick = () => {
+        if (isLoggedIn) {
+            setIsModalOpen(true);
+        } else {
+            navigate('/profil', { replace: true });
+        }
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+
     const [isReported, setIsReported] = useState(false);
 
     const handleReport = async() => {
@@ -23,6 +61,7 @@ export default function ApartmentPage() {
         }
     };
     
+
     return (
         <div>
             <div id="apartment-information">
@@ -51,7 +90,9 @@ export default function ApartmentPage() {
                     <h6>
                         For more information, click the button below to contact the lister.
                     </h6>
-                    <button>Interested</button>
+                    <button onClick={handleInterestedClick}>Interested</button>                
+                </div>
+
                     <br/>
                     <br/>
                     {!isReported ? (
@@ -62,8 +103,24 @@ export default function ApartmentPage() {
                     ) : (
                         <p id="report-message">Thank you! You've submitted your report.</p>
                     )}
-                </div>
             </div>
+            
+
+            {/* Modal to display tenant's contact information */}
+            <Modal
+                open={isModalOpen}
+                onClose={closeModal}
+                contentLabel="Contact Information Modal"
+            >
+                <Box className='box'>
+                <Typography variant="h6" component="h2">
+                    Contact Information
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                     {apartment.pointOfContact}
+                </Typography>
+                </Box>
+            </Modal>
         </div>
     )
 }
