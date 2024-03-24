@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import './home.css';
-import { Link } from 'react-router-dom';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Home component for displaying data related to a selected country.
@@ -29,9 +28,6 @@ export default function Home({navigateToApartments}) {
   const navigateToApartmentsWithCity = (city) => {
     navigate(`/apartments/${city}`, { state: { city } });
   };
-  const navigateToApartmentsMontreal = () => {
-    navigateToApartmentsWithCity("Montreal");
-  }
   
   return (
     <>
@@ -59,9 +55,25 @@ export default function Home({navigateToApartments}) {
         Start Searching
       </button>
 
-      <button id='view-apartments-btn' type='button' onClick={navigateToApartmentsMontreal}>
-        Montreal
-      </button>
+      <div className='cities-container'>
+        <div className="city-container">
+          <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
+            View Montreal Leases</p>
+        </div>
+
+        <div className="city-container">
+          <img src={'/toronto.webp'} alt="Toronto" className="city-image" />
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Toronto")}>
+            View Toronto Leases</p>
+        </div>
+
+        <div className="city-container">
+          <img src={'/vancouver.jpeg'} alt="Vancouver" className="city-image" />
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Vancouver")}>
+            View Vancouver Leases</p>
+        </div>
+      </div>
       
     </>
   );

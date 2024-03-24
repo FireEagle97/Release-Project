@@ -44,4 +44,34 @@
     font-weight: lighter;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
+
+  .cities-container{
+    margin-top: 20px;
+  }
+  
+  .city-container {
+    position: relative;
+    width: 100%;
+    margin: 2.5% 10%;
+    height: 400px; 
+    overflow: hidden;
+  }
+  
+  .city-image {
+    height: auto; 
+    display: block;
+    width: 600px;
+  }
+  
+  .city-text {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    margin: 0; 
+    padding: 10px 20px; 
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-radius: 5px; 
+    cursor: pointer;
+  }
   
