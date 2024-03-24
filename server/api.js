@@ -4,7 +4,7 @@ const compression = require('compression');
 const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const session = require('express-session');
-const {users} = require('./db/schemas.js');
+// const {users} = require('./db/schemas.js');
 const {DB} = require('./db/db.js');
 
 const {leasesRouter} = require('./routes/leases.js');
@@ -86,10 +86,8 @@ app.post('/login', async (req, res) => {
 
         const db = new DB();
 
-        console.log('USERs', users);
         let user = await db.findUser(payload.email);
 
-        console.log('user', user);
         // if (existsAlready !== -1) {
         //     // Update the existing user
         //     users[existsAlready] = {
