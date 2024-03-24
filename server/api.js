@@ -4,7 +4,8 @@ const compression = require('compression');
 const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const session = require('express-session');
-
+const {users} = require('./db/schemas.js');
+const {DB} = require('./db/db.js');
 
 const {leasesRouter} = require('./routes/leases.js');
 const {leaseUploadRouter} = require('./routes/lease-upload.js');
@@ -12,7 +13,7 @@ const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
 const {filtersRouter} = require('./routes/filters.js');
 
-const users = [];
+//const users = [];
 
   
 const _filename = 
@@ -81,38 +82,52 @@ app.post('/login', async (req, res) => {
         // Get the JSON with all the user info
         const payload = ticket.getPayload();
         // Check if the user already exists in the in-memory "database"
-        const existsAlready = users.findIndex((user) => user.email === payload.email);
+        //const existsAlready = users.findIndex((user) => user.email === payload.email);
 
-        if (existsAlready !== -1) {
-            // Update the existing user
-            users[existsAlready] = {
+        const db = new DB();
+
+        console.log('USERs', users);
+        let user = await db.findUser(payload.email);
+
+        console.log('user', user);
+        // if (existsAlready !== -1) {
+        //     // Update the existing user
+        //     users[existsAlready] = {
+        //         name: payload.name,
+        //         email: payload.email,
+        //         picture: payload.picture,
+        //     };
+        // } else {
+        //     // Create a new user and add to the in-memory "database"
+        //     const newUser = {
+        //         name: payload.name,
+        //         email: payload.email,
+        //         picture: payload.picture,
+        //     };
+        //     users.push(newUser);
+        // }
+
+        if (!user) {
+            // If the user doesn't exist, create a new user in the database
+            user = await db.createUser({
                 name: payload.name,
                 email: payload.email,
                 picture: payload.picture,
-            };
+            });
         } else {
-            // Create a new user and add to the in-memory "database"
-            const newUser = {
-                name: payload.name,
-                email: payload.email,
-                picture: payload.picture,
-            };
-            users.push(newUser);
+            // If the user already exists, update their information
+            user.name = payload.name;
+            user.picture = payload.picture;
+            await user.save();
         }
 
-        // req.session.user = {
-        //     email: payload.email,
-        //     name: payload.name,
-        //     picture: payload.picture,
-        // };
-        
         // Store userId in the session
         req.session.userId = payload.email;
 
 
         res.status(201).json({ message: 'Login successful', data: payload });
 
-        console.log('USERSSS->>', users);
+        //console.log('USERSSS->>', users);
 
     } catch (error) {
         console.error('Token verification failed:', error.message);
