@@ -5,13 +5,14 @@ import "./leasesList.css";
 import { useLocation } from 'react-router-dom';
 const LeasesList = ({ navigateToApartmentPage }) => {
   const location = useLocation();
-  const cityParam = location.state?.city;
+  // let cityParam = location.state?.city;
+  const [cityParam, setCityParam] = useState(location.state?.city);
 
   const [leases, setLeases] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState(null);
   const [searchQuery, setSearchQuery] = useState(null);
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState(location.state?.city || null);
   const [rentValues, setRentValues] = useState([0, 0]);
   const [bathroomCount, setBathroomCount] = useState(0);
   const [bedroomCount,setBedroomCount] = useState(0);
@@ -56,9 +57,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       try {
         console.log(cityParam);
         let link = "/leases";
-        if (cityParam) {
-          link += `/${cityParam}`;
-        }
+        
         console.log(link);
         let response = await fetch(link);
         if (!response.ok) {
@@ -66,20 +65,20 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         }
         const data = await response.json();
         console.log(data.response);
-        if(clearFilters){
-          setLeases(data.response);
-        }
         setLeases(data.response);
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
     }
-    fetchLeases();
+    if(!cityParam && !clearFilters){
+      fetchLeases();
+    }
   }, [clearFilters]);
   useEffect(() => {
     async function fetchLeasesWithFilters() {
       try {
         let link = `/leases/`;
+        console.log("city here " + city);
         if(city != null){
           link = link.concat(`${city}?`);
         }
@@ -104,6 +103,13 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
+    }
+    if(cityParam) {
+      console.log("reached here");
+      setCityParam(null);
+      fetchLeasesWithFilters();
+      setApplyFilters(false);
+      resetFiltersForm();
     }
     if (applyFilters) {
       fetchLeasesWithFilters();
