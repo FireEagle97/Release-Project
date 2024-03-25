@@ -34,7 +34,6 @@ function App() {
               <Navigation />
 
               <Home navigateToApartments={navigateToLeases}/>
-              <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
             </>
           } />
 
@@ -46,7 +45,7 @@ function App() {
             </>   
           } />
 
-          <Route path="/apartments" element={
+          <Route path="/apartments/:City?" element={
             <> 
               <Navigation />
 
