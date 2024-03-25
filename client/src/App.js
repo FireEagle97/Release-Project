@@ -9,7 +9,6 @@ import Contact from './navigation/Contact';
 import About from './navigation/About';
 import Profil from './navigation/Profil';
 import Footer from './footer/FooterPlace';
-import LeaseMap from './components/leaseMap/leaseMap';
 
 function App() {
   const navigate = useNavigate();
