@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import LeaseMap from '../components/leaseMap/leaseMap';
 import './home.css';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Home component for displaying data related to a selected country.
@@ -9,6 +10,7 @@ import './home.css';
  * @returns {JSX.Element} Rendered Home component.
  */
 export default function Home({navigateToApartments}) {
+  const navigate = useNavigate();
   
   /**
    * useEffect hook to fetch data when there are changes in page or country.
@@ -23,7 +25,10 @@ export default function Home({navigateToApartments}) {
     } catch (e) {
     }
   }, []);
-
+  
+  const navigateToApartmentsWithCity = (city) => {
+    navigate(`/apartments/${city}`, { state: { city } });
+  };
   
   return (
     <>
@@ -50,8 +55,28 @@ export default function Home({navigateToApartments}) {
       <button id='view-apartments-btn' type='button' onClick={navigateToApartments}>
         Start Searching
       </button>
+
+      <div className='cities-container'>
+        <div className="city-container">
+          <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
+            View Montreal Leases</p>
+        </div>
+
+        <div className="city-container">
+          <img src={'/toronto.webp'} alt="Toronto" className="city-image" />
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Toronto")}>
+            View Toronto Leases</p>
+        </div>
+
+        <div className="city-container">
+          <img src={'/vancouver.jpeg'} alt="Vancouver" className="city-image" />
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Vancouver")}>
+            View Vancouver Leases</p>
+        </div>
+      </div>
+      
     </>
-    
   );
   
 }

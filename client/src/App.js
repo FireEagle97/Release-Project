@@ -34,7 +34,6 @@ function App() {
               <Navigation />
 
               <Home navigateToApartments={navigateToLeases}/>
-              <LeasesList navigateToApartmentPage={navigateToApartmentPage}/>
             </>
           } />
 
@@ -46,7 +45,7 @@ function App() {
             </>   
           } />
 
-          <Route path="/apartments" element={
+          <Route path="/apartments/:City?" element={
             <> 
               <Navigation />
 
@@ -65,17 +64,12 @@ function App() {
           {/* <Route path="/apartment/:id" element={<ApartmentPage />} />
 
           <Route
-            path="/apartments"
+            path="/apartments/:City?"
             element={
               <LeasesList navigateToApartmentPage={navigateToApartmentPage} />
             }
-<<<<<<< HEAD
-          />
-          <Route path="/map" element={<LeaseMap/>} />
-=======
           /> */}
 
->>>>>>> e4eadee5eea329ebd27f54a22241d3f76adae4b6
           <Route path="/post-listing" element={<PostListing />} />
 
           <Route path='/contact' element={
