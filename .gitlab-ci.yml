@@ -27,6 +27,7 @@ build-frontend:
     - cd client && npm install && CI=false npm run build
   only:
     - azureDeployment
+    - sprint2
   artifacts:
     expire_in: 1 days
     when: on_success
@@ -57,14 +58,15 @@ build-backend:
     paths:
       - server/node_modules
 
-# test:
-#   stage: test
-#   only:
-#     - azureDeployment
-#   dependencies:
-#     - build-backend
-#   script:
-#     - cd server && npm run test
+test:
+  stage: test
+  only:
+    - azureDeployment
+    - sprint2
+  dependencies:
+    - build-backend
+  script:
+    - cd server && npm run test
 
 
 # from M Frydrychowicz
@@ -86,6 +88,7 @@ deploy_to_azure_dev:
     - build-backend
   only:
     - azureDeployment
+    - sprint2
   before_script:
     - apk update
     - apk add zip
@@ -96,5 +99,7 @@ deploy_to_azure_dev:
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings ATLAS_URI=$ATLAS_URI"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings AZURE_SAS=$AZURE_SAS"
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings AZURE_CONTAINER_NAME=$AZURE_CONTAINER_NAME"
+        - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings MAPBOX_TOKEN=$MAPBOX_TOKEN"
+            - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID"
     # - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings PORT=3002"
     - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --src deploy.zip"
