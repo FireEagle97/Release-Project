@@ -1,4 +1,5 @@
 import ApartmentImages from './images.js';
+import LeaseMap from '../components/leaseMap/leaseMap.js';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Apartment.css';
@@ -87,6 +88,7 @@ export default function ApartmentPage() {
                         <strong>Listing post date:</strong> {apartment.postedDate}
                     </h4>
                     <br></br>
+                    <LeaseMap></LeaseMap>
                     <h6>
                         For more information, click the button below to contact the lister.
                     </h6>
