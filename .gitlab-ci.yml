@@ -77,7 +77,7 @@ test:
 #     - main
 #   before_script:
 #     - npm install -g eslint
-#   script:
+#   script:dfdf
 #     - eslint --ext .js .
 
 deploy_to_azure_dev:
