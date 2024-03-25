@@ -58,15 +58,15 @@ build-backend:
     paths:
       - server/node_modules
 
-# test:
-#   stage: test
-#   only:
-#     - azureDeployment
-#     - sprint2
-#   dependencies:
-#     - build-backend
-#   script:
-#     - cd server && npm run test
+test:
+  stage: test
+  only:
+    - azureDeployment
+    - sprint2
+  dependencies:
+    - build-backend
+  script:
+    - cd server && npm run test
 
 
 # from M Frydrychowicz
