@@ -89,9 +89,6 @@ deploy_to_azure_dev:
   only:
     - sprint2
     - sprint3
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "sprint2" && $CI_PIPELINE_SOURCE == "merge_request_event"'
-  #   - if: '$CI_COMMIT_BRANCH == "sprint3" && $CI_PIPELINE_SOURCE == "merge_request_event"'
   before_script:
     - apk update
     - apk add zip
@@ -114,8 +111,6 @@ deploy_to_azure_prod:
     - build-backend
   only:
     - azureDeployment
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "azureDeployment" && $CI_PIPELINE_SOURCE == "merge_request_event"'
   before_script:
     - apk update
     - apk add zip
