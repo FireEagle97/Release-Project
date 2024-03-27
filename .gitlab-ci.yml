@@ -92,7 +92,7 @@ deploy_to_azure_dev:
   before_script:
     - apk update
     - apk add zip
-    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID_DEV -p $AZ_SP_SECRET_DEV --tenant $AZ_TENANT"
+    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
   script:
     - zip -r deploy.zip client/build server ./package.json
     - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings WEBSITE_RUN_FROM_PACKAGE='1'"
@@ -114,13 +114,13 @@ deploy_to_azure_prod:
   before_script:
     - apk update
     - apk add zip
-    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID_PROD -p $AZ_SP_SECRET_PROD --tenant $AZ_TENANT"
+    - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID -p $AZ_SP_SECRET --tenant $AZ_TENANT"
   script:
     - zip -r deploy.zip client/build server ./package.json
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings WEBSITE_RUN_FROM_PACKAGE='1'"
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings ATLAS_URI=$ATLAS_URI"
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings AZURE_CONNECTION=$AZURE_CONNECTION"
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings AZURE_CONTAINER_NAME=$AZURE_CONTAINER_NAME"
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings MAPBOX_TOKEN=$MAPBOX_TOKEN"
-    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --settings REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID"
-    - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME --name release-your-apt --src deploy.zip"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME_PROD --name release-your-apt --settings WEBSITE_RUN_FROM_PACKAGE='1'"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME_PROD --name release-your-apt --settings ATLAS_URI=$ATLAS_URI"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME_PROD --name release-your-apt --settings AZURE_CONNECTION=$AZURE_CONNECTION"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME_PROD --name release-your-apt --settings AZURE_CONTAINER_NAME=$AZURE_CONTAINER_NAME"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME_PROD --name release-your-apt --settings MAPBOX_TOKEN=$MAPBOX_TOKEN"
+    - "az webapp config appsettings set --resource-group $RESOURCE_GROUP_NAME_PROD --name release-your-apt --settings REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID"
+    - "az webapp deployment source config-zip --resource-group $RESOURCE_GROUP_NAME_PROD --name release-your-apt --src deploy.zip"
