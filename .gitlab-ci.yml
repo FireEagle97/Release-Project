@@ -24,9 +24,9 @@ build-frontend:
     paths:
       - 'client/node_modules/'
   only:
-    - "azureDeployment"
-    - "sprint3"
-    - "sprint2"
+    - azureDeployment
+    - sprint3
+    - sprint2
   script:
     - cd client && npm install && CI=false npm run build
   artifacts:
@@ -46,9 +46,9 @@ build-backend:
     paths:
       - 'server/node_modules/'
   only:
-    - "azureDeployment"
-    - "sprint3"
-    - "sprint2"
+    - azureDeployment
+    - sprint3
+    - sprint2
   script:
     - cd server && npm install
   artifacts:
@@ -61,6 +61,10 @@ test:
   stage: test
   dependencies:
     - build-backend
+  only:
+    - azureDeployment
+    - sprint3
+    - sprint2
   script:
     - cd server && npm run test
 
