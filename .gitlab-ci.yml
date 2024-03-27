@@ -15,10 +15,6 @@ workflow:
 
 build-frontend:
   stage: build
-  # only:
-  #   - azureDeployment
-  #   - sprint2
-  #   - sprint3
   cache:
     key:
       prefix: 'frontend'
@@ -37,10 +33,6 @@ build-frontend:
 
 build-backend:
   stage: build
-  # only:
-  #   - azureDeployment
-  #   - sprint2
-  #   - sprint3
   cache:
     key:
       prefix: 'backend'
@@ -58,9 +50,9 @@ build-backend:
 
 test:
   stage: test
-  only:
-    - azureDeployment
-    - sprint2
+  rules:
+      - if: '$CI_COMMIT_BRANCH == "sprint2" && $CI_PIPELINE_SOURCE == "merge_request_event"'
+      - if: '$CI_COMMIT_BRANCH == "azureDeployment" && $CI_PIPELINE_SOURCE == "merge_request_event"'
   dependencies:
     - build-backend
   script:
@@ -84,9 +76,9 @@ deploy_to_azure_dev:
   dependencies:
     - build-frontend
     - build-backend
-  only:
-    - sprint3
-    - sprint2
+  rules:
+      - if: '$CI_COMMIT_BRANCH == "sprint2" && $CI_PIPELINE_SOURCE == "merge_request_event"'
+      - if: '$CI_COMMIT_BRANCH == "sprint3" && $CI_PIPELINE_SOURCE == "merge_request_event"'
   before_script:
     - apk update
     - apk add zip
@@ -107,8 +99,8 @@ deploy_to_azure_prod:
   dependencies:
     - build-frontend
     - build-backend
-  only:
-    - azureDeployment
+  rules:
+      - if: '$CI_COMMIT_BRANCH == "azureDeployment" && $CI_PIPELINE_SOURCE == "merge_request_event"'
   before_script:
     - apk update
     - apk add zip
