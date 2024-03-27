@@ -1,4 +1,5 @@
 import ApartmentImages from './images.js';
+import LeaseMap from '../components/leaseMap/leaseMap.js';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Apartment.css';
@@ -71,22 +72,24 @@ export default function ApartmentPage() {
                         {apartment.furnishing} apartment located in {apartment.address}, {apartment.city}
                     </h3>
                     <h4>
-                        <br></br>
-                        <strong>Rent price:</strong> ${apartment.rentPrice}
-                        <br></br>
-                        <strong>Floor:</strong> {apartment.floor}
-                        <br></br>
-                        <strong>Size:</strong> {apartment.size} sq.ft.
-                        <br></br>
-                        <strong>Bedrooms:</strong> {apartment.bhk}
-                        <br></br>
-                        <strong>Bathrooms:</strong> {apartment.bathroom}
-                        <br></br>
-                        <strong>Furnishing:</strong> {apartment.furnishing}
-                        <br></br>
-                        <strong>Listing post date:</strong> {apartment.postedDate}
-                    </h4>
                     <br></br>
+                    <strong>Rent price:</strong> ${apartment.rentPrice}
+                    <br></br>
+                    <strong>Floor:</strong> {apartment.floor}
+                    <br></br>
+                    <strong>Size:</strong> {apartment.size} sq.ft.
+                    <br></br>
+                    <strong>Bedrooms:</strong> {apartment.bhk}
+                    <br></br>
+                    <strong>Bathrooms:</strong> {apartment.bathroom}
+                    <br></br>
+                    <strong>Furnishing:</strong> {apartment.furnishing}
+                    <br></br>
+                    <strong>Listing post date:</strong> {apartment.postedDate}
+                    </h4>
+                    <LeaseMap></LeaseMap>
+                    </div>
+                    <br></br>        
                     <h6>
                         For more information, click the button below to contact the lister.
                     </h6>
