@@ -72,24 +72,23 @@ export default function ApartmentPage() {
                         {apartment.furnishing} apartment located in {apartment.address}, {apartment.city}
                     </h3>
                     <h4>
-                    <br></br>
-                    <strong>Rent price:</strong> ${apartment.rentPrice}
-                    <br></br>
-                    <strong>Floor:</strong> {apartment.floor}
-                    <br></br>
-                    <strong>Size:</strong> {apartment.size} sq.ft.
-                    <br></br>
-                    <strong>Bedrooms:</strong> {apartment.bhk}
-                    <br></br>
-                    <strong>Bathrooms:</strong> {apartment.bathroom}
-                    <br></br>
-                    <strong>Furnishing:</strong> {apartment.furnishing}
-                    <br></br>
-                    <strong>Listing post date:</strong> {apartment.postedDate}
+                        <br></br>
+                        <strong>Rent price:</strong> ${apartment.rentPrice}
+                        <br></br>
+                        <strong>Floor:</strong> {apartment.floor}
+                        <br></br>
+                        <strong>Size:</strong> {apartment.size} sq.ft.
+                        <br></br>
+                        <strong>Bedrooms:</strong> {apartment.bhk}
+                        <br></br>
+                        <strong>Bathrooms:</strong> {apartment.bathroom}
+                        <br></br>
+                        <strong>Furnishing:</strong> {apartment.furnishing}
+                        <br></br>
+                        <strong>Listing post date:</strong> {apartment.postedDate}
                     </h4>
                     <LeaseMap></LeaseMap>
-                    </div>
-                    <br></br>        
+                    <br></br>
                     <h6>
                         For more information, click the button below to contact the lister.
                     </h6>
@@ -126,6 +125,7 @@ export default function ApartmentPage() {
         </div>
     )
 }
+
 
 async function removeRelease(id){
     try {
