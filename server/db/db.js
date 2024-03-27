@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({path:require('find-config')('.env')});
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
 const { leases, users } = require('./schemas');
