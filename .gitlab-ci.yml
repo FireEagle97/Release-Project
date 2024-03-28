@@ -10,9 +10,7 @@ stages:
   
 workflow:
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    # - if: $CI_COMMIT_TAG
-    # - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH 
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "sprint2"'
 
 build-frontend:
   stage: build
@@ -25,9 +23,6 @@ build-frontend:
       - 'client/node_modules/'
   script:
     - cd client && npm install && CI=false npm run build
-  only:
-    - azureDeployment
-    - sprint2
   artifacts:
     expire_in: 1 days
     when: on_success
@@ -46,10 +41,6 @@ build-backend:
       - 'server/node_modules/'
   script:
     - cd server && npm install
-  only: 
-    - sprint2
-    - sprint3
-    - azureDeployment
   artifacts:
     expire_in: 1 days
     when: on_success
@@ -58,9 +49,6 @@ build-backend:
 
 test:
   stage: test
-  only:
-    - azureDeployment
-    - sprint2
   dependencies:
     - build-backend
   script:
@@ -84,9 +72,6 @@ deploy_to_azure_dev:
   dependencies:
     - build-frontend
     - build-backend
-  only:
-    # - azureDeployment
-    - sprint2
   before_script:
     - apk update
     - apk add zip
