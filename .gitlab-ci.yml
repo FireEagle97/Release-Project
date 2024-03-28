@@ -114,6 +114,7 @@ deploy_to_azure_prod:
   before_script:
     - apk update
     - apk add zip
+    - echo $AZ_SP_ID_PROD
     - "az login --allow-no-subscriptions --service-principal -u $AZ_SP_ID_PROD -p $AZ_SP_SECRET_PROD --tenant $AZ_TENANT"
   script:
     - zip -r deploy.zip client/build server ./package.json
