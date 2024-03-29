@@ -12,6 +12,7 @@ export default function Profil() {
     const [name, setName] = useState('');
     // const [otherField, setOtherField] = useState('');
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    console.log(clientId);
     const [click, setClick] = useState(false);
 
 
