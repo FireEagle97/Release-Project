@@ -4,10 +4,8 @@ footer {
     padding: 30px 0; 
   }
   .top{
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
   }
   .image-footer{
     width: 50%;
@@ -18,6 +16,7 @@ footer {
   .left {
     flex: 1;
     padding-left: 20%;
+    padding-top:3rem;
   }
   .policy {
     text-align: center;
@@ -27,6 +26,7 @@ footer {
     flex: 1;
     text-align: left;
     padding-left: 20%;
+    padding-top:3rem;
   }
   
   .right p{
@@ -54,5 +54,24 @@ footer {
   
   .footer-links li a:hover {
     text-decoration: underline;
+    
+  }
+  @media screen and (max-width: 960px){
+    .top{
+      display: block;
+    }
+    .image-footer{
+      margin-left: 6rem;
+    }
+    .left{
+      padding-left:7rem;
+    }
+    .right{
+      padding-left:7rem;
+      padding-top:2rem;
+    }
+    .policy{
+      padding:1.5rem;
+    }
     
   }

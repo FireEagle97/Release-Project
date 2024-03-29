@@ -1,5 +1,5 @@
 #view-apartments-btn{
-    padding: 1% 2%;
+    padding: 1rem;
     margin-top: 3%;
     background-color: #484848;
     color: white;
@@ -74,9 +74,90 @@
     padding: 20% 5%;
     font-weight: bold;
   }
-  .city-text:hover {
-    color: #e8e8e8;
-    font-weight: lighter;
-    cursor: pointer;
+  .banner-mobile{
+    display:none;
+  }
+  .city-container-mobile{
+    display:none;
+  }
+  .city-image-container {
+    position: relative;
+    display: inline-block; /* or block depending on your layout */
   }
   
+  .city-image-button-mobile {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%);
+    display: none; /* Hide button by default */
+  }
+  .city-container:hover{
+    background-color: white;
+    opacity: 0.5;
+  }
+  @media screen and (max-width: 960px){
+    .banner{
+      display: none;
+    }
+    #view-apartments-btn:hover{
+      background-color: rgb(17, 43, 149);
+    }
+    .city-container-mobile{
+      display: block;
+      position: relative;
+      width: 70%;
+      margin: 2.5% auto;
+      height: 400px; 
+      overflow: hidden;
+      background-color: #233038;
+      display: flex;
+      flex-direction: row;
+      border-radius: 1%;
+    }
+    .city-container:hover{
+      background-color: white;
+      opacity: 0.5;
+    }
+    .city-container-mobile:hover{
+      background-color: white;
+      opacity: 0.5;
+    }
+    .city-image-container:hover .city-image-button-mobile {
+      display: block; /* Show button on hover */
+    }
+    .banner-mobile {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background-color: #272d28; 
+      display: flex;
+      justify-content: center;
+    }
+    
+    .background-image-mobile {
+      position: absolute;
+      top: 0;
+      right:15%;
+      width: auto; 
+      height: auto; 
+      max-width: 100%; 
+      max-height: 100%; 
+      object-fit: contain; 
+
+    }
+    .banner-content-mobile {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px; 
+    }
+    
+    .banner-content-mobile p {
+      margin: 0; 
+      color: white;
+      font-size: 35px; 
+      font-weight: lighter;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+  }

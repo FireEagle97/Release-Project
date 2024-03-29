@@ -51,6 +51,12 @@ export default function Home({navigateToApartments}) {
           <p>WELCOME TO</p>
         </div>
       </div>
+      <div class="banner-mobile">
+        {/* <div class="banner-content-mobile">
+            <p>WELCOME TO</p>
+        </div> */}
+        <picture><img src="/logo1.png" alt="Logo" class="background-image-mobile" /></picture>
+      </div>
 
       <button id='view-apartments-btn' type='button' onClick={navigateToApartments}>
         Start Searching
@@ -58,11 +64,10 @@ export default function Home({navigateToApartments}) {
 
       <div className='cities-container'>
         <div className="city-container">
-          <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
-          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
-            View Montreal Leases</p>
+            <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
+            <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
+              View Montreal Leases</p>
         </div>
-
         <div className="city-container">
           <img src={'/toronto.webp'} alt="Toronto" className="city-image" />
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Toronto")}>
@@ -74,6 +79,16 @@ export default function Home({navigateToApartments}) {
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Vancouver")}>
             View Vancouver Leases</p>
         </div>
+        {/* <div className="city-container-mobile">
+          <div className='city-image-container'>
+            <div className='white-overlay'>
+              <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
+              <button className='city-image-button-mobile' onClick={() => navigateToApartmentsWithCity("Montreal")}>View Montreal Leases</button>
+            </div>
+          </div> 
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
+            View Montreal Leases</p>
+        </div> */}
       </div>
       
     </>
