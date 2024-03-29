@@ -11,6 +11,7 @@ export default function Profil() {
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     // const [otherField, setOtherField] = useState('');
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const [click, setClick] = useState(false);
 
 
@@ -132,7 +133,10 @@ export default function Profil() {
             //   <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
             // </button>
             <div className="login-button">
-                <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
+                <GoogleLogin
+                  onSuccess={handleLogin}
+                  clientId={clientId}
+                  onError={() => console.log('Login failed')} />
             </div>
 
             )}
