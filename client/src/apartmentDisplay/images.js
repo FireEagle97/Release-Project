@@ -19,7 +19,7 @@ import './Slider.css';
  */
 function ApartmentImages({imagesLinks}) {
     return (
-        <div id="apartment-images-slider" style={{ width: '50%', margin: '0'}}>
+        <div id="apartment-images-slider">
             <Slide>
                 {imagesLinks.map((slideImage, index)=> (
                 // <div key={index} style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'grey'}}>

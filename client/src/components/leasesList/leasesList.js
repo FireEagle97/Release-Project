@@ -124,8 +124,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   }, [applyFilters, bathroomCount, bedroomCount, city, furnishing, rentValues]);
 
   return (
-    <section class="py-5">
-        <Filters
+    // <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-5">
+      <Filters
           sortOption={sortOption}
           setSortOption={setSortOption}
           searchQuery={searchQuery}
@@ -145,10 +146,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           clearFilters={clearFilters}
           setClearFilters={setClearFilters}
         />
-      <div class="container px-4 px-lg-5 mt-5">
         <div class="lease-list">
           {currentLeases.map((apartment) => (
-            <div key={apartment.id} class="mb-5">
+            <div key={apartment.id} class="mb-5 lease-card">
               <div class="card h-100">
                 {/* apartment image */}
                 <img className="card-image" src={apartment.images[0]} alt={apartment.bhk} />
@@ -204,7 +204,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           />
         </div>
       </div>
-    </section>
   );
 };
 
