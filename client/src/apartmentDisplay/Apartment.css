@@ -89,4 +89,19 @@
   #report-btn:hover{
     background-color: rgb(168, 26, 26);
   }
-  
+  @media screen and (max-width: 960px){
+    #apartment-images-slider{
+      width: auto;
+    }
+    #appartment-information{
+      display: block;
+    }
+    .apt-info{
+      width: auto;
+    }
+    #map-container{
+      height: 200px;
+      width: 250px;
+    }
+  }
+

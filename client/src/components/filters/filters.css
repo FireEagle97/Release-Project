@@ -1,6 +1,21 @@
    #order-title{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 1rem;
+    padding-left: 6rem;
+    padding-top:0.2rem;
+   }
+   .listings-filters{
+      display: grid;
+      grid-template-columns: 400px 200px 100px;
+      grid-column-gap: 10px;
+      margin-left: 14.5rem;
+   }
+   .order-filter{
+      padding: 1.5rem 0 1.5rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+   }
+   .search-filter{
+      padding-top: 1.5rem;
+   }
+   .filter-button-dropdown{
+      padding-top: 1.5rem;
    }

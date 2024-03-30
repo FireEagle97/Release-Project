@@ -125,7 +125,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
 
   return (
     <section class="py-5">
-      <div class="container px-4 px-lg-5 mt-5">
         <Filters
           sortOption={sortOption}
           setSortOption={setSortOption}
@@ -146,9 +145,10 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           clearFilters={clearFilters}
           setClearFilters={setClearFilters}
         />
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
+      <div class="container px-4 px-lg-5 mt-5">
+        <div class="lease-list">
           {currentLeases.map((apartment) => (
-            <div key={apartment.id} class="col mb-5">
+            <div key={apartment.id} class="mb-5">
               <div class="card h-100">
                 {/* apartment image */}
                 <img className="card-image" src={apartment.images[0]} alt={apartment.bhk} />
@@ -161,7 +161,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                       <img
                         className="card-icon"
                         src="double-bed.png"
-                        alt="Girl in a jacket"
+                        alt="double-bed"
                         width="15"
                         height="15"
                       />
@@ -171,7 +171,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                       <img
                         className="card-icon"
                         src="bathroom.png"
-                        alt="Girl in a jacket"
+                        alt="bathroom-icon"
                         width="15"
                         height="15"
                       />

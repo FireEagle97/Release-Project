@@ -93,10 +93,10 @@ const Filters = ({
     setClearFilters(!clearFilters)
   }
   return (
-    <section class="py-5">
-      <div className="mb-3" style={{ display: "flex" }}>
-        <div id="order-title">Order by:</div>
-        <div style={{ padding: "1rem" }}>
+    <section class="pt-5">
+      <div className="mb-3 listings-filters">
+        <div className="order-filter">
+          <span id="order-title">Order by:</span>
           <select
             id="filterOptions"
             className="form-select"
@@ -108,7 +108,7 @@ const Filters = ({
             <option value="highestPrice">Highest Price</option>
           </select>
         </div>
-        <div style={{ padding: "1rem" }}>
+        <div className="search-filter">
           <input
             type="text"
             class="form-control mt-0"
@@ -117,7 +117,7 @@ const Filters = ({
             onChange={handleSearchChange}
           />
         </div>
-        <div style={{ padding: "1rem" }}>
+        <div className="filter-button-dropdown">
           <button
             className="btn btn-secondary dropdown-toggle"
             onClick={handleClearFilters}

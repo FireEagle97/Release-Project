@@ -10,3 +10,8 @@
 .card-image{
     height: 280px;
 }
+.lease-list{
+    display:grid;
+    grid-template-columns: 400px 400px 400px;
+    grid-column-gap: 50px;
+}
