@@ -1,3 +1,12 @@
 #filter-label{
     padding-right:7rem;
 }
+.card-body{
+    text-align: start;
+}
+.card-icon{
+    margin-right: 10px;
+}
+.card-image{
+    height: 280px;
+}

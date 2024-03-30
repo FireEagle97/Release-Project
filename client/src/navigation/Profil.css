@@ -90,3 +90,8 @@
 .google-login-button:hover {
     background-color: #357ae8;
 }
+@media screen and (max-width: 960px){
+    .profil{
+        margin:1rem;
+    }
+}

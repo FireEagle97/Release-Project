@@ -92,10 +92,6 @@
     transform: translate(-50%, -50%);
     display: none; /* Hide button by default */
   }
-  .city-container:hover{
-    background-color: white;
-    opacity: 0.5;
-  }
   @media screen and (max-width: 960px){
     .banner{
       display: none;

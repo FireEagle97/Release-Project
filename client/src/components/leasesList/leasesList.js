@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import Pagination from "../pagination/pagination";
 import Filters from "../filters/filters";
 import "./leasesList.css";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 const LeasesList = ({ navigateToApartmentPage }) => {
   const location = useLocation();
   // let cityParam = location.state?.city;
@@ -15,7 +15,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const [city, setCity] = useState(location.state?.city || null);
   const [rentValues, setRentValues] = useState([0, 0]);
   const [bathroomCount, setBathroomCount] = useState(0);
-  const [bedroomCount,setBedroomCount] = useState(0);
+  const [bedroomCount, setBedroomCount] = useState(0);
   const [applyFilters, setApplyFilters] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
   const [furnishing, setFurnishing] = useState(null);
@@ -31,9 +31,8 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       if (searchQuery.trim() !== "") {
         const searchTerms = searchQuery.trim().toLowerCase().split(" ");
         filteredLeases = leases.filter((lease) => {
-          return searchTerms.some(
-            (term) =>
-              lease.address.toLowerCase().includes(term.toLowerCase()) 
+          return searchTerms.some((term) =>
+            lease.address.toLowerCase().includes(term.toLowerCase())
           );
         });
       }
@@ -57,7 +56,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       try {
         console.log(cityParam);
         let link = "/leases";
-        
+
         console.log(link);
         let response = await fetch(link);
         if (!response.ok) {
@@ -70,7 +69,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         console.error("Error fetching leases:", error);
       }
     }
-    if(!cityParam && !clearFilters){
+    if (!cityParam && !clearFilters) {
       fetchLeases();
     }
   }, [clearFilters]);
@@ -79,19 +78,25 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       try {
         let link = `/leases/`;
         console.log("city here " + city);
-        if(city != null){
+        if (city != null) {
           link = link.concat(`${city}?`);
         }
-        if(furnishing != null){
+        if (furnishing != null) {
           link = link.concat(`furnishing=${furnishing}&`);
         }
-        if(bedroomCount > 0){
+        if (bedroomCount > 0) {
           link = link.concat(`bedroom=${bedroomCount}`);
         }
-        if((rentValues[0] >= 0 && rentValues[1] > 0) && (rentValues[0] !== rentValues[1])){
-          link = link.concat(`rentMinimum=${rentValues[0]}&rentMaximum=${rentValues[1]}&`);
+        if (
+          rentValues[0] >= 0 &&
+          rentValues[1] > 0 &&
+          rentValues[0] !== rentValues[1]
+        ) {
+          link = link.concat(
+            `rentMinimum=${rentValues[0]}&rentMaximum=${rentValues[1]}&`
+          );
         }
-        if(bathroomCount > 0){
+        if (bathroomCount > 0) {
           link = link.concat(`bathroom=${bathroomCount}`);
         }
         let response = await fetch(link);
@@ -104,7 +109,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         console.error("Error fetching leases:", error);
       }
     }
-    if(cityParam) {
+    if (cityParam) {
       console.log("reached here");
       setCityParam(null);
       fetchLeasesWithFilters();
@@ -116,7 +121,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
       setApplyFilters(false);
       resetFiltersForm();
     }
-
   }, [applyFilters, bathroomCount, bedroomCount, city, furnishing, rentValues]);
 
   return (
@@ -147,16 +151,32 @@ const LeasesList = ({ navigateToApartmentPage }) => {
             <div key={apartment.id} class="col mb-5">
               <div class="card h-100">
                 {/* apartment image */}
-                <img src={apartment.images[0]} alt={apartment.bhk} />
+                <img className="card-image" src={apartment.images[0]} alt={apartment.bhk} />
                 {/* apartment detail */}
                 <div class="card-body p-4">
-                  <div class="text-center">
-                    {/* apartment title */}
-                    <h5 class="fw-bolder">
-                      {apartment.furnishing} apartment located in{" "}
-                      {apartment.address}
-                    </h5>
-                    {/* apartment rent */}${apartment.rentPrice}/month
+                  <h5 class="fw-bolder">${apartment.rentPrice}/month</h5>
+                  {apartment.address}
+                  <div className="row">
+                    <div className="col-2">
+                      <img
+                        className="card-icon"
+                        src="double-bed.png"
+                        alt="Girl in a jacket"
+                        width="15"
+                        height="15"
+                      />
+                      {apartment.bhk}
+                    </div>
+                    <div className="col-2">
+                      <img
+                        className="card-icon"
+                        src="bathroom.png"
+                        alt="Girl in a jacket"
+                        width="15"
+                        height="15"
+                      />
+                      {apartment.bathroom}
+                    </div>
                   </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
