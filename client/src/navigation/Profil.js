@@ -5,7 +5,7 @@ import './Profil.css';
 
 
 
-export default function Profil() {
+export default function Profil({navigateToPostListing}) {
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
@@ -30,7 +30,7 @@ export default function Profil() {
     
           if (res.ok) {
             const data = await res.json();
-            
+            console.log(data);
             // Update state with the login status and username
             setIsLoggedIn(true);
             // console.log('useremail', data.data.email);
@@ -139,9 +139,11 @@ export default function Profil() {
         </div>
             {isLoggedIn && (
             <div className="nav-item">
-              <Link to="/post-listing" className="nav-link" onClick={handleClick}>
+              <button className="nav-link" onClick={() => {
+                navigateToPostListing(username);
+                }}>
                 Post Listing
-              </Link>
+              </button>
             </div>
             )}
 

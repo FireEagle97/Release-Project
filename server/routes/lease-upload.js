@@ -8,7 +8,7 @@ const {getCurrentDate, validateProperty} = require('./utils/lease-upload-utils')
 // to do
 // erase title, make city and arealocality and preferredtentant, in client
 router.post('/', async (req, res) => {
-    const property = req.body;
+    const { email, ...property } = req.body;
 
     // validate property
     if (!validateProperty(property)) {
@@ -38,6 +38,16 @@ router.post('/', async (req, res) => {
         const db = new DB();
         await db.createManyLeases([leaseObject]);
         logger('data seeded', leaseObject);
+
+        // Update user's array of leases
+        const user = await db.findUser(email);
+        if (user) {
+            user.leases.push(leaseObject);
+            await user.save();
+        } else {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
         res.status(200).send({'respose':leaseObject});
     }catch (error) {
         res.status(500).json({ error: 'Internal server error' });

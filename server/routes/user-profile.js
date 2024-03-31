@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const {DB} = require('../db/db');
 
-router.get('/:userID', async (req, res) => {
+router.get('/:email', async (req, res) => {
     try{
         const db = new DB();
-        const data =  await db.getUserLeases();
-        res.json({'response':data});
+        const email = req.params.email;
+        const user =  await db.findUser(email);
+        res.json({'response':user});
       
     }catch(err){
         res.status(404).send({'error': 'User not found'});
@@ -15,5 +16,5 @@ router.get('/:userID', async (req, res) => {
 });
 
 module.exports = {
-    userLeaseDelete: router
+    userProfileRouter: router
 };
