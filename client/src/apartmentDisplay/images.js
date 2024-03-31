@@ -2,15 +2,6 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import './Slider.css';
 
-// const divStyle = {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     backgroundSize: 'cover',
-//     height: '500px'
-// }
-
-
 /**
  * ApartmentImages component for displaying apartment images.
  *
@@ -19,13 +10,9 @@ import './Slider.css';
  */
 function ApartmentImages({imagesLinks}) {
     return (
-        <div id="apartment-images-slider" style={{ width: '50%', margin: '0'}}>
+        <div id="apartment-images-slider" style={{ width: '50%', margin: '0', position: 'relative'}}>
             <Slide>
                 {imagesLinks.map((slideImage, index)=> (
-                // <div key={index} style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'grey'}}>
-                //     <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage})`, width: '80%', margin: '0' }}>
-                //     </div>
-                // </div>
                 <div key={index} className="slide-image">
                     <div
                         className="slide-image-inner"

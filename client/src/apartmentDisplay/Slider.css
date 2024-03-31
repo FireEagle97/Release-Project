@@ -18,6 +18,15 @@
     width: 80%;
     margin: 0;
   }
+
+  #apartment-images-slider button{
+    width: 35px; 
+    height: 35px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+  }
+
   
   #apartment-images-slider {
     width: 50%;
