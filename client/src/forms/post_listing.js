@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 export default function PostListing() {
   const location = useLocation();
   const email = location.state?.email;
-  console.log(email);
 
 
   const [rentPrice, setRentPrice] = useState('');
@@ -85,6 +84,7 @@ export default function PostListing() {
     event.preventDefault();
 
     const formData = new FormData();
+    formData.append('email', email);
     formData.append('city', city);
     formData.append('rentPrice', rentPrice);
     formData.append('address', address);
