@@ -78,7 +78,7 @@ router.get('/:city', async (req, res) => {
         res.json({'response':data});
       
     }catch(err){
-        res.status(400).send({err});
+        res.status(400).send({'error': err.message});
       
     }
 });
