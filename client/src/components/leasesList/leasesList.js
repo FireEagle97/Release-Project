@@ -125,7 +125,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
 
   return (
     // <section class="py-5">
-      <div class="container px-4 px-lg-5 mt-5">
+      <div class="container mt-5">
       <Filters
           sortOption={sortOption}
           setSortOption={setSortOption}
@@ -194,7 +194,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           ))}
         </div>
 
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+        <div 
+        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 pagination-div"
+        >
           <Pagination
             className="pagination-bar"
             currentPage={currentPage}

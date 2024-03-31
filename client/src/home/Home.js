@@ -65,17 +65,20 @@ export default function Home({navigateToApartments}) {
       <div className='cities-container'>
         <div className="city-container">
             <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
+            <button className="btn city-image-button" onClick={() => navigateToApartmentsWithCity("Montreal")}>View Montreal Leases</button>
             <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
               View Montreal Leases</p>
         </div>
         <div className="city-container">
           <img src={'/toronto.webp'} alt="Toronto" className="city-image" />
+          <button className="btn city-image-button" onClick={() => navigateToApartmentsWithCity("Toronto")}>View Toronto Leases</button>
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Toronto")}>
             View Toronto Leases</p>
         </div>
 
         <div className="city-container">
           <img src={'/vancouver.jpeg'} alt="Vancouver" className="city-image" />
+          <button className="btn city-image-button" onClick={() => navigateToApartmentsWithCity("Vancouver")}>View Vancouver Leases</button>
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Vancouver")}>
             View Vancouver Leases</p>
         </div>

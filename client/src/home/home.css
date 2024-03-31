@@ -47,6 +47,7 @@
 
   .cities-container{
     margin-top: 20px;
+    padding:2rem;
   }
   
   .city-container {
@@ -71,7 +72,7 @@
   .city-text {
     flex: 1;
     color: white;    
-    padding: 20% 5%;
+    padding-top:10rem;
     font-weight: bold;
   }
   .banner-mobile{
@@ -85,41 +86,44 @@
     display: inline-block; /* or block depending on your layout */
   }
   
-  .city-image-button-mobile {
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%);
-    display: none; /* Hide button by default */
+  .city-image-button{
+    display: none;
   }
   @media screen and (max-width: 960px){
+    .overlay{
+      display: block;
+      background-color: white;
+      opacity: 0.5;
+    }
+    .city-container{
+      position: relative;
+    }
+    .city-image-button{
+      position:absolute;
+      left:50%;
+      top:40%;
+      font-size: 22px;
+      font-weight: bold;
+      color:white;
+      cursor: pointer;
+      transform: translate(-50%,50%);
+    }
     .banner{
       display: none;
     }
     #view-apartments-btn:hover{
       background-color: rgb(17, 43, 149);
     }
-    .city-container-mobile{
-      display: block;
-      position: relative;
-      width: 70%;
-      margin: 2.5% auto;
-      height: 400px; 
-      overflow: hidden;
-      background-color: #233038;
-      display: flex;
-      flex-direction: row;
-      border-radius: 1%;
-    }
+
     .city-container:hover{
       background-color: white;
-      opacity: 0.5;
+      opacity: 0.7;
     }
-    .city-container-mobile:hover{
+    /* .city-container-mobile:hover{
       background-color: white;
       opacity: 0.5;
-    }
-    .city-image-container:hover .city-image-button-mobile {
+    } */ 
+    .city-container:hover .city-image-button{
       display: block; /* Show button on hover */
     }
     .banner-mobile {
