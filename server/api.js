@@ -13,7 +13,7 @@ const { filtersRouter } = require('./routes/filters.js');
 const { coordinatesRouter} = require('./routes/coordinates.js');
 const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
-const {userLeaseDelete} = require('./routes/user-leases.js');
+const {userLeasesRouter} = require('./routes/user-leases.js');
 
 
 //const users = [];

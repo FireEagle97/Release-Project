@@ -157,6 +157,21 @@ class DB{
         }
     }
 
+    async getUserLeases(userID) {
+        try{
+            await this.connect();
+            const user = users.findById(userID);
+            const leasesIDs = user.leasesIDs;
+            // Map lease fetching promises
+            const leasePromises = leasesIDs.map(leaseID => leases.findById(leaseID));
+            // Wait for all leases to be fetched
+            const userLeases = await Promise.all(leasePromises);
+            return userLeases;
+        } catch (error) {
+            console.error('An error occurred while retrieving leases:', error);
+        } 
+    }
+
     
     async findLeaseById(leaseId) {
         try {
