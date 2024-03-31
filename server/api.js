@@ -113,6 +113,7 @@ app.post('/login', async (req, res) => {
                 name: payload.name,
                 email: payload.email,
                 picture: payload.picture,
+                leases: null
             });
         } else {
             // If the user already exists, update their information

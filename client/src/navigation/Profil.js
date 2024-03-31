@@ -30,7 +30,7 @@ export default function Profil() {
     
           if (res.ok) {
             const data = await res.json();
-            
+            console.log(data);
             // Update state with the login status and username
             setIsLoggedIn(true);
             // console.log('useremail', data.data.email);
