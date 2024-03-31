@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const request = require('supertest');
 const {app} = require('../api');
 const {DB} = require('../db/db');
@@ -68,5 +69,18 @@ describe('GET /leases/Toronto?furnishing=Unfurnished&minRent=1000&maxRent=2000',
             get('/leases/Toronto?furnishing=Unfurnished&minRent=1000&maxRent=2000');
         expect(response.body.response).toEqual(mockResponse);
         expect(response.statusCode).toBe(200);
+    });
+
+    test('It should return a 400 error if invalid query parameters are provided', async () => {
+    
+        const errorValue = {'error': 'Bedrooms value must be a non-negative integer'};
+        jest.spyOn(DB.prototype, 'getLeasesByCityAndFilters').mockResolvedValue(new Error(errorValue.error));
+        // Making a request with invalid query parameters
+        const response = await request(app).
+            get('/leases/Toronto?bedroom=tt');
+
+        // Expecting a 400 response status
+        expect(response.statusCode).toBe(400);
+        expect(response.body.error).toEqual(errorValue.error);
     });
 });

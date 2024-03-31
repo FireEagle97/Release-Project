@@ -13,6 +13,8 @@ const { filtersRouter } = require('./routes/filters.js');
 const { coordinatesRouter} = require('./routes/coordinates.js');
 const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
+const {userProfileRouter} = require('./routes/user-profile.js');
+
 
 //const users = [];
 
@@ -61,6 +63,7 @@ app.use('/filters/', filtersRouter);
 app.use('/leaseUpload/', leaseUploadRouter);
 app.use('/leaseReport/', leaseReport);
 app.use('/leaseDelete/', leaseDelete);
+app.use('/userProfile/', userProfileRouter);
 
 
 // Add a POST API endpoint for login with token verification
