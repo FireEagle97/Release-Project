@@ -1,8 +1,14 @@
 import { React, useState } from 'react';
 import './post_listing.css';
 import AddressAutocompleteForm from './addressAutocomplete';
+import { useLocation } from 'react-router-dom';
 
 export default function PostListing() {
+  const location = useLocation();
+  const email = location.state?.email;
+  console.log(email);
+
+
   const [rentPrice, setRentPrice] = useState('');
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState([]);

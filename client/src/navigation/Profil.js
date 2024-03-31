@@ -5,7 +5,7 @@ import './Profil.css';
 
 
 
-export default function Profil() {
+export default function Profil({navigateToPostListing}) {
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
@@ -139,9 +139,11 @@ export default function Profil() {
         </div>
             {isLoggedIn && (
             <div className="nav-item">
-              <Link to="/post-listing" className="nav-link" onClick={handleClick}>
+              <button className="nav-link" onClick={() => {
+                navigateToPostListing(username);
+                }}>
                 Post Listing
-              </Link>
+              </button>
             </div>
             )}
 
