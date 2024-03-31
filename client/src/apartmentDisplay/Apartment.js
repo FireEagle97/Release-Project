@@ -53,11 +53,15 @@ export default function ApartmentPage() {
     const [isReported, setIsReported] = useState(false);
 
     const handleReport = async() => {
-        setIsReported(true);
-        if(apartment.reports > 3){
-            await removeRelease(apartment._id);
-        }else{
-            await reportRelease(apartment._id);
+        if (isLoggedIn) {
+            setIsReported(true);
+            if(apartment.reports > 3){
+                await removeRelease(apartment._id);
+            }else{
+                await reportRelease(apartment._id);
+            }
+        } else {
+            navigate('/profil', { replace: true });
         }
     };
     
