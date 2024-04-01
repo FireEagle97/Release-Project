@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
+import { SayButton } from 'react-say';
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
@@ -19,6 +20,7 @@ export default function ApartmentPage() {
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
+    const [content, setReadContent] = useState(false);
 
 
     useEffect(() => {
@@ -31,6 +33,20 @@ export default function ApartmentPage() {
             setIsLoggedIn(true);
         }
     }, []);
+
+   const getContext = () => {
+        let readText = '';
+        // Get information text container
+        const descriptionBlock = document.getElementsByClassName('apt-info');
+        descriptionBlock?.childNodes?.forEach(node => {
+            // Check if the node is a text node
+            if (node.nodeType === Node.TEXT_NODE) {
+                readText += node.textContent.trim() + ' ';
+            }
+            setReadContent(readText);
+        });
+        
+   };
 
     const location = useLocation();
     const apartment = location.state?.apartment;
@@ -64,7 +80,6 @@ export default function ApartmentPage() {
             navigate('/profil', { replace: true });
         }
     };
-    
 
     return (
         <div>
@@ -97,6 +112,13 @@ export default function ApartmentPage() {
                     <button onClick={handleInterestedClick}>Interested</button>   
                     <br/>
                     <br/>
+                    <SayButton
+                        className="speech-btn"
+                        onClick={()=>{getContext()}}
+                        speak={content}
+                    >
+                        Read Text
+                    </SayButton>
                     {!isReported ? (
                         <div id="report-space">
                             <p>Any problems in this posting?</p>
