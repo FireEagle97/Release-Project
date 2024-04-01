@@ -1,9 +1,23 @@
 const request = require('supertest');
 const {app} = require('../api');
 
+const mockUser = {
+    name: 'f',
+    email: 'f@gmail.com',
+    picture: null,
+    leases: [],
+    save: jest.fn()
+};
+const mockFindUser = jest.fn().mockImplementation((email) => {
+    if(email !== 'f@gmail.com'){
+        return null;
+    }
+    return Promise.resolve(mockUser);
+});
 jest.mock('../db/db', () => ({
     DB: jest.fn().mockImplementation(() => ({
-        createManyLeases: jest.fn()
+        createManyLeases: jest.fn(),
+        findUser: mockFindUser
     }))
 }));
 
@@ -19,6 +33,7 @@ describe('POST /leaseUpload/', () => {
         global.Date.now = jest.fn().mockReturnValue(mockDate.valueOf()); 
 
         const property = {
+            email: 'f@gmail.com',
             rentPrice: 1000,
             address: 'Mock Address',
             contactInfo: '123-456-7890',
@@ -59,6 +74,7 @@ describe('POST /leaseUpload/', () => {
     test('should return status 400 for invalid property', async () => {
 
         const property = {
+            email: 'f@gmail.com',
             rentPrice: 1000,
             address: 'Mock Address',
             contactInfo: '123-456-7890',
@@ -76,6 +92,33 @@ describe('POST /leaseUpload/', () => {
         expect(response.status).toBe(400);
         expect(response.body).toEqual({ 'error': 
         'Validation failed. Please provide valid property details.' });
+        
+        jest.restoreAllMocks();
+
+
+    });
+
+    test('should return status 404 for invalid email', async () => {
+
+        const property = {
+            email: '',
+            rentPrice: 1000,
+            address: 'Mock Address',
+            contactInfo: '123-456-7890',
+            size: 100,
+            bedrooms: 3,
+            bathrooms: 2,
+            floorNumber: 2,
+            furnishing: 'Furnished'
+        };
+
+        const response = await request(app).
+            post('/leaseUpload').
+            send(property);
+            
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({ 'error': 
+        'User not found.' });
         
         jest.restoreAllMocks();
 
