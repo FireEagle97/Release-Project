@@ -185,19 +185,16 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
         
         {isLoggedIn  && (
                 <div className="user-leases">
-                    <h2>Your Leases</h2>
+                    <h3>Your leases:</h3>
                     <ul>
                     {leases.map((lease, index) => (
-                      <li key={index}>
-                          <p>Lease ID: {lease._id}</p>
-                          <p>Posted Date: {lease.postedDate}</p>
-                          <p>BHK: {lease.bhk}</p>
-                          <p>Rent Price: {lease.rentPrice}</p>
-              
-
-                          {/* <Link to={`/apartment/${lease._id}`}>View Listing</Link> */}
-                          <button onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
-                      
+                      <li key={index} className="lease-item">
+                        <div className="lease-details">
+                          <p className="lease-info"><strong>Posted Date:</strong> {lease.postedDate}</p>
+                          <p className="lease-info"><strong>Address:</strong> {lease.address}</p>
+                          <p className="lease-info"><strong>Rent Price:</strong> {lease.rentPrice}</p>
+                        </div>
+                          <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
                       </li>
                   ))}
                     </ul>
