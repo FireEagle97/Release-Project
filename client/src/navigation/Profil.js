@@ -144,7 +144,26 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
     // const navigateToListing = (leaseid) => {
     //   navigate(`apartment/${leaseid}`);
     // }
-    
+    const deleteLease = async (leaseId) => {
+      try {
+          const response = await fetch(`/leaseDelete/${leaseId}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email: username }), // Pass the user's email
+          });
+          if (response.ok) {
+              // If deletion is successful, update the leases list
+              setLeases(leases.filter(lease => lease._id !== leaseId));
+          } else {
+              console.error('Failed to delete lease');
+          }
+      } catch (error) {
+          console.error('Error deleting lease:', error);
+      }
+  };
+  
     return(
         <div className="profil">
             <h1>Profil</h1>
@@ -195,6 +214,8 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
                           <p className="lease-info"><strong>Rent Price:</strong> ${lease.rentPrice}</p>
                         </div>
                           <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
+                          {/* Button to delete lease */}
+                          <button className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>Delete</button>
                       </li>
                   ))}
                     </ul>
