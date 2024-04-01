@@ -1,6 +1,21 @@
 const request = require('supertest');
 const {app} = require('../api');
 
+const modifiedProperty = {
+    rentPrice: 1000,
+    bhk: 3,
+    floor: 2,
+    address: 'Mock Address',
+    pointOfContact: '123-456-7890',
+    size: 100,
+    bathroom: 2,
+    furnishing: 'Furnished',
+    postedDate: '2024-10-14',
+    images:[
+        'mock-url-1',
+        'mock-url-2',
+    ],
+};
 const mockUser = {
     name: 'f',
     email: 'f@gmail.com',
@@ -16,7 +31,9 @@ const mockFindUser = jest.fn().mockImplementation((email) => {
 });
 jest.mock('../db/db', () => ({
     DB: jest.fn().mockImplementation(() => ({
-        createManyLeases: jest.fn(),
+        createManyLeases: jest.fn().mockImplementation(() => {
+            return Promise.resolve(modifiedProperty);
+        }),
         findUser: mockFindUser
     }))
 }));
@@ -44,21 +61,6 @@ describe('POST /leaseUpload/', () => {
             furnishing: 'Furnished'
         };
 
-        const modifiedProperty = {
-            rentPrice: 1000,
-            bhk: 3,
-            floor: 2,
-            address: 'Mock Address',
-            pointOfContact: '123-456-7890',
-            size: 100,
-            bathroom: 2,
-            furnishing: 'Furnished',
-            postedDate: '2024-10-14',
-            images:[
-                'mock-url-1',
-                'mock-url-2',
-            ],
-        };
         const response = await request(app).
             post('/leaseUpload').
             send(property);
