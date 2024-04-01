@@ -20,7 +20,7 @@ export default function ApartmentPage() {
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
-    const [content, setReadContent] = useState(false);
+    const [content, setReadContent] = useState('');
 
 
     useEffect(() => {
@@ -34,18 +34,24 @@ export default function ApartmentPage() {
         }
     }, []);
 
+    useEffect(() => {
+        // Get speech content
+        getContext(); 
+    }, []);
+
    const getContext = () => {
         let readText = '';
-        // Get information text container
-        const descriptionBlock = document.getElementsByClassName('apt-info');
-        descriptionBlock?.childNodes?.forEach(node => {
-            // Check if the node is a text node
-            if (node.nodeType === Node.TEXT_NODE) {
-                readText += node.textContent.trim() + ' ';
-            }
-            setReadContent(readText);
+        const descriptionBlocks = document.getElementsByClassName('apt-info');
+
+        // Loop through each description block
+        Array.from(descriptionBlocks).forEach(descriptionBlock => {
+            // Access the child nodes of each description block
+            Array.from(descriptionBlock.childNodes).forEach(childNode => {
+                readText += childNode.textContent.trim() + ' ';
+            });
         });
-        
+
+        setReadContent(readText);
    };
 
     const location = useLocation();
@@ -114,7 +120,6 @@ export default function ApartmentPage() {
                     <br/>
                     <SayButton
                         className="speech-btn"
-                        onClick={()=>{getContext()}}
                         speak={content}
                     >
                         Read Text
