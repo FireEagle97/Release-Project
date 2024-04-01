@@ -47,7 +47,9 @@ export default function ApartmentPage() {
         Array.from(descriptionBlocks).forEach(descriptionBlock => {
             // Access the child nodes of each description block
             Array.from(descriptionBlock.childNodes).forEach(childNode => {
-                readText += childNode.textContent.trim() + ' ';
+                if (childNode.textContent.trim() !== '') { // Check if textContent is not empty
+                    readText += childNode.textContent + ' ';
+                  }
             });
         });
 
@@ -109,7 +111,7 @@ export default function ApartmentPage() {
                         <br></br>
                         <strong>Furnishing:</strong> {apartment.furnishing}
                         <br></br>
-                        <strong>Listing post date:</strong> {apartment.postedDate}
+                        <strong>Listing post date:</strong> {apartment.postedDate}  
                     </h4>
                     <br></br>
                     <h6>
@@ -118,20 +120,22 @@ export default function ApartmentPage() {
                     <button onClick={handleInterestedClick}>Interested</button>   
                     <br/>
                     <br/>
-                    <SayButton
-                        className="speech-btn"
-                        speak={content}
-                    >
-                        Read Text
-                    </SayButton>
-                    {!isReported ? (
-                        <div id="report-space">
-                            <p>Any problems in this posting?</p>
-                            <button id="report-btn" onClick={handleReport}>report</button>
-                        </div>
-                    ) : (
-                        <p id="report-message">Thank you! You've submitted your report.</p>
-                    )}             
+                    <div id="service-tools">
+                        <SayButton
+                            class="speech-btn"
+                            speak={content}
+                        >
+                            Read Text
+                        </SayButton>
+                        {!isReported ? (
+                            <div id="report-space">
+                                <p>Any problems in this posting?</p>
+                                <button id="report-btn" onClick={handleReport}>report</button>
+                            </div>
+                        ) : (
+                            <p id="report-message">Thank you! You've submitted your report.</p>
+                        )}     
+                    </div>        
                 </div>
             </div>
             
