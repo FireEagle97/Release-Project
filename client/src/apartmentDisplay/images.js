@@ -18,6 +18,7 @@ import './Slider.css';
  * @returns {JSX.Element} Rendered ApartmentImages component.
  */
 function ApartmentImages({imagesLinks}) {
+
     return (
         <div id="apartment-images-slider" style={{ width: '50%', margin: '0'}}>
             <Slide>

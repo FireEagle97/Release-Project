@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 import './Profil.css';
 
 
 
-export default function Profil({navigateToPostListing}) {
+export default function Profil({navigateToPostListing, navigateToApartmentPage}) {
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     // const [otherField, setOtherField] = useState('');
     const [click, setClick] = useState(false);
+    const [leases, setLeases] = useState([]);
+    const navigate = useNavigate();
+
+
 
 
     const handleClick = () => setClick(!click);
@@ -76,27 +81,27 @@ export default function Profil({navigateToPostListing}) {
         let mounted = true;
     
         //fetch data from the restricted access API when component mounts
-        fetch('/restrictedAccess')
-          .then(response => {
-            //check if the component is still mounted before updating state
-            if (mounted) {
-              //check if the response status is 200
-              if (response.status === 200) {
-                //if the response status is 200, extract data and set state
-                return response.json().then(data => {
-                //   setOtherField(data.userId);
-                });
-              } else {
-                //if the response status is not 200, handle error
-                throw new Error('Unauthorized');
-              }
-            }
+        // fetch('/restrictedAccess')
+        //   .then(response => {
+        //     //check if the component is still mounted before updating state
+        //     if (mounted) {
+        //       //check if the response status is 200
+        //       if (response.status === 200) {
+        //         //if the response status is 200, extract data and set state
+        //         return response.json().then(data => {
+        //         //   setOtherField(data.userId);
+        //         });
+        //       } else {
+        //         //if the response status is not 200, handle error
+        //         throw new Error('Unauthorized');
+        //       }
+        //     }
     
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-            // setOtherField('');
-          });
+        //   })
+        //   .catch(error => {
+        //     console.error('Error fetching data:', error);
+        //     // setOtherField('');
+        //   });
     
         //cleanup to set mounted to false when the component unmounts
         return () => {
@@ -114,6 +119,31 @@ export default function Profil({navigateToPostListing}) {
           setIsLoggedIn(true);
         }
       }, []);
+
+      useEffect(() => {
+        if (isLoggedIn) {
+            // Fetch the user's leases
+            fetchUserLeases(username);
+        }
+    }, [isLoggedIn, username]);
+
+    const fetchUserLeases = async (username) => {
+        try {
+            const response = await fetch(`/userProfile/${username}`);
+            if (response.ok) {
+                const data = await response.json();
+                setLeases(data.response.leases);
+            } else {
+                console.error('Failed to fetch user leases');
+            }
+        } catch (error) {
+            console.error('Error fetching user leases:', error);
+        }
+    };
+
+    // const navigateToListing = (leaseid) => {
+    //   navigate(`apartment/${leaseid}`);
+    // }
     
     return(
         <div className="profil">
@@ -153,7 +183,26 @@ export default function Profil({navigateToPostListing}) {
             </div>
             )}
         
+        {isLoggedIn  && (
+                <div className="user-leases">
+                    <h2>Your Leases</h2>
+                    <ul>
+                    {leases.map((lease, index) => (
+                      <li key={index}>
+                          <p>Lease ID: {lease._id}</p>
+                          <p>Posted Date: {lease.postedDate}</p>
+                          <p>BHK: {lease.bhk}</p>
+                          <p>Rent Price: {lease.rentPrice}</p>
+              
 
+                          {/* <Link to={`/apartment/${lease._id}`}>View Listing</Link> */}
+                          <button onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
+                      
+                      </li>
+                  ))}
+                    </ul>
+                </div>
+            )}
 
         </div>
     );
