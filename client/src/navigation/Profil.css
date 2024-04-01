@@ -36,6 +36,8 @@
 .nav-link:hover {
     background-color: #ddd;
 }
+
+
   
 /* Logout button styles */
 .logout-button {
@@ -90,6 +92,19 @@
 .google-login-button:hover {
     background-color: #357ae8;
 }
+.post-listing-btn {
+    background-color: #78b01e; 
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .post-listing-btn:hover {
+    background-color: rgb(120, 173, 94);
+  }
 
 .user-leases {
     margin-top: 20px;

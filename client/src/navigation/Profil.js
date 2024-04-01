@@ -169,7 +169,7 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
         </div>
             {isLoggedIn && (
             <div className="nav-item">
-              <button className="nav-link" onClick={() => {
+              <button className="post-listing-btn" onClick={() => {
                 navigateToPostListing(username);
                 }}>
                 Post Listing
@@ -192,7 +192,7 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
                         <div className="lease-details">
                           <p className="lease-info"><strong>Posted Date:</strong> {lease.postedDate}</p>
                           <p className="lease-info"><strong>Address:</strong> {lease.address}</p>
-                          <p className="lease-info"><strong>Rent Price:</strong> {lease.rentPrice}</p>
+                          <p className="lease-info"><strong>Rent Price:</strong> ${lease.rentPrice}</p>
                         </div>
                           <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
                       </li>
