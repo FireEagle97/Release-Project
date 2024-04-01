@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import './Profil.css';
+import { FaEye, FaTrash } from 'react-icons/fa';
+
 
 
 
@@ -146,24 +148,26 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
     // }
     const deleteLease = async (leaseId) => {
       try {
-          const response = await fetch(`/leaseDelete/${leaseId}`, {
-              method: 'DELETE',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email: username }), // Pass the user's email
-          });
-          if (response.ok) {
-              // If deletion is successful, update the leases list
-              setLeases(leases.filter(lease => lease._id !== leaseId));
-          } else {
-              console.error('Failed to delete lease');
+          const confirmation = window.confirm('Are you sure you want to delete this listing?');
+          if (confirmation) {
+              const response = await fetch(`/leaseDelete/${leaseId}`, {
+                  method: 'DELETE',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ email: username }),
+              });
+              if (response.ok) {
+                  setLeases(leases.filter(lease => lease._id !== leaseId));
+              } else {
+                  console.error('Failed to delete lease');
+              }
           }
       } catch (error) {
           console.error('Error deleting lease:', error);
       }
   };
-  
+
     return(
         <div className="profil">
             <h1>Profil</h1>
@@ -213,9 +217,10 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
                           <p className="lease-info"><strong>Address:</strong> {lease.address}</p>
                           <p className="lease-info"><strong>Rent Price:</strong> ${lease.rentPrice}</p>
                         </div>
-                          <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
-                          {/* Button to delete lease */}
-                          <button className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>Delete</button>
+                        <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
+                        <i className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>
+                            <FaTrash />
+                        </i>
                       </li>
                   ))}
                     </ul>
@@ -225,3 +230,6 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
         </div>
     );
 }
+{/* <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
+                          {/* Button to delete lease */}
+                          // <button className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>Delete</button> */}
