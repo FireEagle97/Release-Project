@@ -36,13 +36,13 @@ router.post('/', async (req, res) => {
         };
 
         const db = new DB();
-        await db.createManyLeases([leaseObject]);
+        const result = await db.createManyLeases([leaseObject]);
         logger('data seeded', leaseObject);
 
         // Update user's array of leases
         const user = await db.findUser(email);
         if (user) {
-            user.leases.push(leaseObject);
+            user.leases.push(result[0]);
             await user.save();
         } else {
             return res.status(404).json({ error: 'User not found.' });
