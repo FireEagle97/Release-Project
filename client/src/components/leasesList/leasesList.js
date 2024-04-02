@@ -146,7 +146,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
             <div key={apartment.id} class="col mb-5">
               <div class="card h-100">
                 {/* apartment image */}
-                <img src={apartment.images[0]} alt={apartment.bhk} />
+                <img src={apartment.images[0]} alt={apartment.bhk} loading="lazy" />
                 {/* apartment detail */}
                 <div class="card-body p-4">
                   <div class="text-center">

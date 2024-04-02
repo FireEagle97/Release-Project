@@ -14,7 +14,7 @@ function Footer(){
           
             <div class="top">
               <div class="logo-footer">
-                <picture><img src="/logo1.png" alt="Logo" class="image-footer" /></picture>
+                <picture><img src="/logo1.png" alt="Logo" class="image-footer"  loading="lazy" /></picture>
               </div>
               <div class="left">
                 <p><strong>Credits for ReLease 2024:</strong></p>
