@@ -230,6 +230,3 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
         </div>
     );
 }
-{/* <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
-                          {/* Button to delete lease */}
-                          // <button className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>Delete</button> */}

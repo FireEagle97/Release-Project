@@ -11,7 +11,6 @@ function Footer(){
 
     return <>
         <footer>
-          
             <div class="top">
               <div class="logo-footer">
                 <picture><img src="/logo1.png" alt="Logo" class="image-footer" /></picture>

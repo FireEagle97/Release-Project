@@ -9,7 +9,6 @@ import Contact from './navigation/Contact';
 import About from './navigation/About';
 import Profil from './navigation/Profil';
 import Footer from './footer/FooterPlace';
-import LeaseMap from './components/leaseMap/leaseMap';
 
 function App() {
   const navigate = useNavigate();
@@ -74,7 +73,12 @@ function App() {
             }
           /> */}
 
-          <Route path="/post-listing" element={<PostListing />} />
+          <Route path="/post-listing" element={
+              <>
+              <Navigation />
+              <PostListing />
+            </>
+          } />
 
           <Route path='/contact' element={
             <>

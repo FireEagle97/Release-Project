@@ -44,19 +44,20 @@ const Pagination = props => {
         })}
         onClick={onPrevious}
       >
-        <div className="arrow left" />
+        {/* <i className="bi bi-caret-left-fill"></i> */}
+        <div className="arrow left-arrow" />
       </li>
       {paginationRange.map(pageNumber => {
          
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return <li className="pagination-item pagination-dots">&#8230;</li>;
         }
 		
         // Render our Page Pills
         return (
           <li
-            className={classnames('pagination-item', {
+            className={classnames('pagination-item pagination-nums', {
               selected: pageNumber === currentPage
             })}
             onClick={() => onPageChange(pageNumber)}
@@ -72,7 +73,8 @@ const Pagination = props => {
         })}
         onClick={onNext}
       >
-        <div className="arrow right" />
+        <div className="arrow right-arrow" />
+        {/* <i className="bi bi-caret-right-fill"></i> */}
       </li>
     </ul>
   );

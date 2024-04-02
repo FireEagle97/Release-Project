@@ -1,4 +1,5 @@
 import ApartmentImages from './images.js';
+import LeaseMap from '../components/leaseMap/leaseMap.js';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Apartment.css';
@@ -113,6 +114,7 @@ export default function ApartmentPage() {
                         <br></br>
                         <strong>Listing post date:</strong> {apartment.postedDate}  
                     </h4>
+                    <LeaseMap></LeaseMap>
                     <br></br>
                     <h6>
                         For more information, click the button below to contact the lister.
@@ -123,7 +125,7 @@ export default function ApartmentPage() {
                     <div id="service-tools">
                         {/* Button to translate text */}
                         <SayButton
-                            class="speech-btn"
+                            className="speech-btn"
                             speak={content}
                         >
                             Read Text
@@ -159,6 +161,7 @@ export default function ApartmentPage() {
         </div>
     )
 }
+
 
 async function removeRelease(id){
     try {

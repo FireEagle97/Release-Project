@@ -93,10 +93,10 @@ const Filters = ({
     setClearFilters(!clearFilters)
   }
   return (
-    <section class="py-5">
-      <div className="mb-3" style={{ display: "flex" }}>
-        <div id="order-title">Order by:</div>
-        <div style={{ padding: "1rem" }}>
+    <section class="pt-5">
+      <div className="mb-3 listings-filters">
+        <div className="order-filter">
+          <span id="order-title">Order by:</span>
           <select
             id="filterOptions"
             className="form-select"
@@ -108,7 +108,7 @@ const Filters = ({
             <option value="highestPrice">Highest Price</option>
           </select>
         </div>
-        <div style={{ padding: "1rem" }}>
+        <div className="search-filter">
           <input
             type="text"
             class="form-control mt-0"
@@ -117,7 +117,7 @@ const Filters = ({
             onChange={handleSearchChange}
           />
         </div>
-        <div style={{ padding: "1rem" }}>
+        <div className="filter-button-dropdown">
           <button
             className="btn btn-secondary dropdown-toggle"
             onClick={handleClearFilters}
@@ -126,7 +126,7 @@ const Filters = ({
           </button>
         </div>
         {clearFilters && (
-          <div style={{ padding: "1rem" }}>
+          <div className="clear-filters-button">
             <button
               className="btn btn-danger"
               onClick={handleFiltersDropdown}
@@ -138,16 +138,11 @@ const Filters = ({
       </div>
       {isOpen && (
         <div
-          className="mb-3"
-          style={{
-            backgroundColor: "white",
-            padding: "2rem",
-            borderRadius: "9px",
-          }}
+          className="mb-4 filters-div"
         >
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <div>
-              <div style={{ display: "flex" }}>*City</div>
+          <div className="filters-div-inner">
+            <div style={{marginBottom:"1rem"}}>
+              <div style={{textAlign:"start"}}>*City</div>
               <div
                 style={{
                   overflow: "scroll",
@@ -155,6 +150,7 @@ const Filters = ({
                   width: "120px",
                 }}
               >
+                
                 {cityList.map((city) => (
                   <div className="form-check">
                     <input
@@ -169,7 +165,7 @@ const Filters = ({
               </div>
             </div>
             <div>
-              <div style={{ display: "flex" }}>Furnishing</div>
+              <div style={{ textAlign: "start" }}>Furnishing</div>
               <div className="form-check" style={{ textAlign: "start" }}>
                 <input
                   type="radio"
@@ -193,7 +189,7 @@ const Filters = ({
             </div>
             <div style={{ margin: "50px" }}>
               <label htmlFor="rent">
-                Minimum Rent price: {rentValues[0]} | Maximum Rent price:{" "}
+                Minimum Rent price: {rentValues[0]} <br/> Maximum Rent price:{" "}
                 {rentValues[1]}
               </label>
               <Range
@@ -232,8 +228,8 @@ const Filters = ({
               />
             </div>
             <div>
-              <div style={{ display: "flex" }}>Bathrooms:</div>
-              <div className="input-group">
+              <div className="input-group num-filters">
+                <div style={{ textAlign: "start", paddingRight: "1rem" }}>Bathrooms:</div>
                 <span
                   className="input-group-btn"
                   style={{ paddingTop: "0.4rem" }}
@@ -270,8 +266,8 @@ const Filters = ({
                   </button>
                 </span>
               </div>
-              <div style={{ display: "flex" }}>Bedrooms:</div>
-              <div className="input-group">
+              <div className="input-group num-filters" style={{paddingTop:"1rem"}}>
+                <div style={{ textAlign: "start", paddingRight: "1rem" }}>Bedrooms:</div>
                 <span
                   className="input-group-btn"
                   style={{ paddingTop: "0.4rem" }}
@@ -309,9 +305,6 @@ const Filters = ({
                 </span>
               </div>
             </div>
-            {/* <div>
-            
-          </div> */}
           </div>
           <button
             type="button"

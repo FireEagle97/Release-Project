@@ -21,12 +21,12 @@ const {userProfileRouter} = require('./routes/user-profile.js');
   
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
-const _dirname = __dirname || path.dirname(_filename);
+// const _dirname = __dirname || path.dirname(_filename);
 
 
-const { config } = require('dotenv');
-const envPath = path.resolve(_dirname, '../.env');
-config({ path: envPath });
+// const { config } = require('dotenv');
+// const envPath = path.resolve(_dirname, '../.env');
+// config({ path: envPath });
 
 const app = express();
 
