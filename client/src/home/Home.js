@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import LeaseMap from '../components/leaseMap/leaseMap';
 import './home.css';
@@ -15,9 +15,15 @@ import lngs from '../languages';
  */
 export default function Home({navigateToApartments}) {
   const { t } = useTranslation();
-  
   const navigate = useNavigate();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   
+
+  // Function to handle language change
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+    i18n.changeLanguage(language);
+  }
   /**
    * useEffect hook to fetch data when there are changes in page or country.
    */
@@ -36,48 +42,26 @@ export default function Home({navigateToApartments}) {
     navigate(`/apartments/${city}`, { state: { city } });
   };
   
+
   return (
     <>
     
-      {/* <br></br> */}
-      {/* <h2>Welcome to ReLease!</h2> */}
-      {/* <p>Our platform serves as a bridge between tenants looking to vacate their current rental
-        properties and people searching for the perfect place to call home. Whether you want to relocate
-        for a job, upgrade to a larger space, or downsize to a cozier home, ReLease is here to make the
-        transition smooth and hassle-free.
-      </p>
-      <br></br>
-      <h3>Contact Information</h3>
-      <p>You can reach out to us at the following email:</p>
-      <p>release@info.com</p> */}
-      {/* <picture><img src="/logo1.png" alt="Logo" className="logo-image" /></picture>
-      <p>Looking for affordable rent?</p> */}
-      {/* <select
-          className="m-4 p-2 bg-blue-600 rounded"
-          onChange={() => i18n.changeLanguage(lng.code)}
-        >
-          {lngs.map((lng) => (
-            <option key={lng.code} value={lng.code}>
-              {lng.nativeName}
-            </option>
-          ))}
-        </select> */}
-        <div>
-          {lngs.map((lng) => {
-            console.log("lang changed to: ", lng);
-          return (
-            <button
-              className="m-4 p-2 bg-blue-600 rounded"
-              key={lng.code}
-              type="submit"
-              onClick={() => i18n.changeLanguage(lng.code)}
-              
-            >
-              {lng.nativeName}
-            </button>
-          );
-          })}
-        </div>
+    <div className="language-container">
+  <div className="language-dropdown">
+    <select
+      className="m-4 p-2 bg-blue-600 rounded"
+      value={selectedLanguage}
+      onChange={(e) => handleLanguageChange(e.target.value)}
+    >
+      {lngs.map((lng) => (
+        <option key={lng.code} value={lng.code}>
+          {lng.nativeName}
+        </option>
+      ))}
+    </select>
+  </div>
+</div>
+
 
       <div class="banner">
         <picture><img src="/logo1.png" alt="Logo" class="background-image" /></picture>

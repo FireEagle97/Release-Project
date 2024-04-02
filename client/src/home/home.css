@@ -80,3 +80,14 @@
     cursor: pointer;
   }
   
+
+  .language-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .language-dropdown {
+    margin-left: 10px;
+  }
+  
+  
