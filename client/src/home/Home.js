@@ -66,7 +66,8 @@ export default function Home({navigateToApartments}) {
       <div class="banner">
         <picture><img src="/logo1.png" alt="Logo" class="background-image" /></picture>
         <div class="banner-content">
-          <p>WELCOME TO</p>
+          {/* <p>WELCOME TO</p> */}
+          <p>{t('Home.welcome')}</p>
         </div>
       </div>
 
@@ -79,19 +80,19 @@ export default function Home({navigateToApartments}) {
         <div className="city-container">
           <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
-            View Montreal Leases</p>
+          {t('Home.montrealleases')}</p>
         </div>
 
         <div className="city-container">
           <img src={'/toronto.webp'} alt="Toronto" className="city-image" />
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Toronto")}>
-            View Toronto Leases</p>
+          {t('Home.torontoleases')}</p>
         </div>
 
         <div className="city-container">
           <img src={'/vancouver.jpeg'} alt="Vancouver" className="city-image" />
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Vancouver")}>
-            View Vancouver Leases</p>
+          {t('Home.vancouverlleases')}</p>
         </div>
       </div>
       

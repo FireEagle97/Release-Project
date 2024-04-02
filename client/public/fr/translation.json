@@ -1,7 +1,17 @@
 {
     "Home": {
-      "searchbtn": "Commencer la recherche"
+      "welcome": "BIENVENUE SUR",
+      "searchbtn": "Commencer la recherche",
+      "montrealleases": "Voir les locations à Montréal",
+      "torontoleases": "Voir les locations à Toronto",
+      "vancouverlleases": "Voir les locations à Vancouver"
     },
+    
+    
+    
+    
+    
+    
     "interpolation_pluralization": {
       "text_one": "Seulement 1 article",
       "text_other": "Il y a {{count}} articles"

@@ -1,7 +1,18 @@
 {
     "Home": {
-      "searchbtn": "Start Searching"
+      "welcome": "WELCOME TO",
+      "searchbtn": "Start Searching",
+      "montrealleases": "View Montreal Leases",
+      "torontoleases": "View Toronto Leases",
+      "vancouverlleases": "View Vancouver Leases"
     },
+    
+    
+    
+    
+    
+    
+    
     "interpolation_pluralization": {
       "text_one": "Seulement 1 article",
       "text_other": "Il y a {{count}} articles"
