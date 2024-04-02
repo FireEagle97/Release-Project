@@ -20,10 +20,5 @@
   "bugs": {
     "url": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project/issues"
   },
-  "homepage": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project#readme",
-  "dependencies": {
-    "@react-oauth/google": "^0.12.1",
-    "react-icons": "^5.0.1",
-    "react-modal": "^3.16.1"
-  }
+  "homepage": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project#readme"
 }
