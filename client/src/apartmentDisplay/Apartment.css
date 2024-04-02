@@ -99,7 +99,6 @@
   background-color: rgb(122, 5, 5);
   color: white;
   font-style: italic;
-  width: 40%;
 }
 
 #service-tools #report-btn:hover{
@@ -118,6 +117,9 @@
   #map-container{
     height: 200px;
     width: 250px;
+  }
+  .speech-button{
+    width:120px;
   }
 
 }

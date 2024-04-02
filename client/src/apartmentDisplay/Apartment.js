@@ -124,7 +124,7 @@ export default function ApartmentPage() {
                     <br/>
                     <div id="service-tools">
                         <SayButton
-                            class="speech-btn"
+                            className="speech-btn"
                             speak={content}
                         >
                             Read Text
