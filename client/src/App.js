@@ -10,6 +10,9 @@ import About from './navigation/About';
 import Profil from './navigation/Profil';
 import Footer from './footer/FooterPlace';
 import LeaseMap from './components/leaseMap/leaseMap';
+import { Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
+
 
 function App() {
   const navigate = useNavigate();
@@ -28,10 +31,14 @@ function App() {
     navigate(`/post-listing/`, { state: { email } });
   }
 
+  // const { t } = useTranslation();
+
   return (
     <>
       {/* <Navigation /> */}
       <div className="App">
+      <Suspense fallback="...is loading">
+
         <Routes>
           <Route path="/" element={
             <>
@@ -106,6 +113,7 @@ function App() {
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"
         ></script>
+        </Suspense>
       </div>
       <Footer/>
     </>

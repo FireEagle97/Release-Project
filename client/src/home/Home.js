@@ -38,7 +38,7 @@ export default function Home({navigateToApartments}) {
   
   return (
     <>
-    <Suspense fallback="...is loading">
+    
       {/* <br></br> */}
       {/* <h2>Welcome to ReLease!</h2> */}
       {/* <p>Our platform serves as a bridge between tenants looking to vacate their current rental
@@ -62,18 +62,22 @@ export default function Home({navigateToApartments}) {
             </option>
           ))}
         </select> */}
-        {lngs.map((lng) => {
-        return (
-          <button
-            className="m-4 p-2 bg-blue-600 rounded"
-            key={lng.code}
-            type="submit"
-            onClick={() => i18n.changeLanguage(lng.code)}
-          >
-            {lng.nativeName}
-          </button>
-        );
-      })}
+        <div>
+          {lngs.map((lng) => {
+            console.log("lang changed to: ", lng);
+          return (
+            <button
+              className="m-4 p-2 bg-blue-600 rounded"
+              key={lng.code}
+              type="submit"
+              onClick={() => i18n.changeLanguage(lng.code)}
+              
+            >
+              {lng.nativeName}
+            </button>
+          );
+          })}
+        </div>
 
       <div class="banner">
         <picture><img src="/logo1.png" alt="Logo" class="background-image" /></picture>
@@ -107,7 +111,6 @@ export default function Home({navigateToApartments}) {
         </div>
       </div>
       
-      </Suspense>
     </>
   );
   
