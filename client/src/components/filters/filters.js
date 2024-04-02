@@ -25,21 +25,33 @@ const Filters = ({
   const [cityList, setCityList] = useState([]);
   const furnishingList = ["Furnished", "Unfurnished", "Semi-Furnished"];
 
-  useEffect(() => {
-    async function fetchCities() {
-      try {
-        let response = await fetch("/filters/city");
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setCityList(data.response);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
+  const fetchCities = async () => {
+    try {
+      let response = await fetch("/filters/city");
+      if (!response.ok) {
+        throw new Error("Failed to fetch leases");
       }
+      const data = await response.json();
+      setCityList(data.response);
+    } catch (error) {
+      console.error("Error fetching leases:", error);
     }
-    fetchCities();
-  }, []);
+  };
+  // useEffect(() => {
+  //   async function fetchCities() {
+  //     try {
+  //       let response = await fetch("/filters/city");
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch leases");
+  //       }
+  //       const data = await response.json();
+  //       setCityList(data.response);
+  //     } catch (error) {
+  //       console.error("Error fetching leases:", error);
+  //     }
+  //   }
+  //   fetchCities();
+  // }, []);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -107,7 +119,11 @@ const Filters = ({
         <div style={{ padding: "1rem" }}>
           <button
             className="btn btn-secondary dropdown-toggle"
-            onClick={handleClearFilters}
+            onClick={ () => {
+              handleClearFilters();
+              fetchCities();
+            
+            }}
           >
             Filters
           </button>
