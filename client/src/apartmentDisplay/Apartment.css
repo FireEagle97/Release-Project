@@ -67,42 +67,57 @@
   box-shadow: 24px;
   padding: 16px;
 }
+ 
+#service-tools{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
 
-  #report-space{
-    margin-top: 4%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+#service-tools button{
+  background-color: rgb(22, 32, 167);
+  font-weight: bold;
+  height: 50%;
+}
+
+#service-tools button:hover{
+  background-color: rgb(12, 133, 208);
+}
+
+#report-space{
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#report-message{
+  color: rgb(101, 20, 20);
+}
+
+#service-tools #report-btn{
+  background-color: rgb(122, 5, 5);
+  color: white;
+  font-style: italic;
+  width: 40%;
+}
+
+#service-tools #report-btn:hover{
+  background-color: rgb(168, 26, 26);
+}
+@media screen and (max-width: 960px){
+  #apartment-images-slider{
+    width: auto;
+  }
+  #apartment-information{
+    display: block;
+  }
+  .apt-info{
+    width: auto;
+  }
+  #map-container{
+    height: 200px;
+    width: 250px;
   }
 
-  #report-message{
-    color: rgb(101, 20, 20);
-  }
-
-  #report-btn{
-    background-color: rgb(122, 5, 5);
-    color: white;
-    font-style: italic;
-    width: 25%;
-  }
-
-  #report-btn:hover{
-    background-color: rgb(168, 26, 26);
-  }
-  @media screen and (max-width: 960px){
-    #apartment-images-slider{
-      width: auto;
-    }
-    #apartment-information{
-      display: block;
-    }
-    .apt-info{
-      width: auto;
-    }
-    #map-container{
-      height: 200px;
-      width: 250px;
-    }
-
-  }
-
+}

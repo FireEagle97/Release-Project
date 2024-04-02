@@ -22,11 +22,11 @@ const leaseSchema = new mongoose.Schema({
 
 const lease = mongoose.model('lease', leaseSchema); 
 
-
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
     picture: String,
+    leases: Array
 });
 
 const user = mongoose.model('user', userSchema);

@@ -5,7 +5,6 @@ import "./leasesList.css";
 import { useLocation } from "react-router-dom";
 const LeasesList = ({ navigateToApartmentPage }) => {
   const location = useLocation();
-  // let cityParam = location.state?.city;
   const [cityParam, setCityParam] = useState(location.state?.city);
 
   const [leases, setLeases] = useState([]);

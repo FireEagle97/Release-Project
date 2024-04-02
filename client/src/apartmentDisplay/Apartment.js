@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
+import { SayButton } from 'react-say';
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
@@ -20,6 +21,7 @@ export default function ApartmentPage() {
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
+    const [content, setReadContent] = useState('');
 
 
     useEffect(() => {
@@ -32,6 +34,28 @@ export default function ApartmentPage() {
             setIsLoggedIn(true);
         }
     }, []);
+
+    useEffect(() => {
+        // Get speech content
+        getContext(); 
+    }, []);
+
+   const getContext = () => {
+        let readText = '';
+        const descriptionBlocks = document.getElementsByClassName('apt-info');
+
+        // Loop through each description block
+        Array.from(descriptionBlocks).forEach(descriptionBlock => {
+            // Access the child nodes of each description block
+            Array.from(descriptionBlock.childNodes).forEach(childNode => {
+                if (childNode.textContent.trim() !== '') { // Check if textContent is not empty
+                    readText += childNode.textContent + ' ';
+                  }
+            });
+        });
+
+        setReadContent(readText);
+   };
 
     const location = useLocation();
     const apartment = location.state?.apartment;
@@ -54,14 +78,17 @@ export default function ApartmentPage() {
     const [isReported, setIsReported] = useState(false);
 
     const handleReport = async() => {
-        setIsReported(true);
-        if(apartment.reports > 3){
-            await removeRelease(apartment._id);
-        }else{
-            await reportRelease(apartment._id);
+        if (isLoggedIn) {
+            setIsReported(true);
+            if(apartment.reports > 3){
+                await removeRelease(apartment._id);
+            }else{
+                await reportRelease(apartment._id);
+            }
+        } else {
+            navigate('/profil', { replace: true });
         }
     };
-    
 
     return (
         <div>
@@ -85,7 +112,7 @@ export default function ApartmentPage() {
                         <br></br>
                         <strong>Furnishing:</strong> {apartment.furnishing}
                         <br></br>
-                        <strong>Listing post date:</strong> {apartment.postedDate}
+                        <strong>Listing post date:</strong> {apartment.postedDate}  
                     </h4>
                     <LeaseMap></LeaseMap>
                     <br></br>
@@ -95,14 +122,22 @@ export default function ApartmentPage() {
                     <button onClick={handleInterestedClick}>Interested</button>   
                     <br/>
                     <br/>
-                    {!isReported ? (
-                        <div id="report-space">
-                            <p>Any problems in this posting?</p>
-                            <button id="report-btn" onClick={handleReport}>report</button>
-                        </div>
-                    ) : (
-                        <p id="report-message">Thank you! You've submitted your report.</p>
-                    )}             
+                    <div id="service-tools">
+                        <SayButton
+                            class="speech-btn"
+                            speak={content}
+                        >
+                            Read Text
+                        </SayButton>
+                        {!isReported ? (
+                            <div id="report-space">
+                                <p>Any problems in this posting?</p>
+                                <button id="report-btn" onClick={handleReport}>report</button>
+                            </div>
+                        ) : (
+                            <p id="report-message">Thank you! You've submitted your report.</p>
+                        )}     
+                    </div>        
                 </div>
             </div>
             

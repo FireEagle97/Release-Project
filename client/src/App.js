@@ -23,6 +23,10 @@ function App() {
     navigate(`/apartments`, {});
   };
 
+  const navigateToPostListing = (email) => {
+    navigate(`/post-listing/`, { state: { email } });
+  }
+
   return (
     <>
       {/* <Navigation /> */}
@@ -95,7 +99,7 @@ function App() {
             <>
               <Navigation />
               
-              <Profil />
+              <Profil navigateToPostListing={navigateToPostListing} navigateToApartmentPage={navigateToApartmentPage}/>
             </>
           } />
 
