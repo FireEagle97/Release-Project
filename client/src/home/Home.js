@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
+import { Suspense } from 'react';
 import LeaseMap from '../components/leaseMap/leaseMap';
 import './home.css';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import i18n from  'i18next';
+import lngs from '../languages';
 
 /**
  * Home component for displaying data related to a selected country.
@@ -10,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
  * @returns {JSX.Element} Rendered Home component.
  */
 export default function Home({navigateToApartments}) {
+  const { t } = useTranslation();
+  
   const navigate = useNavigate();
   
   /**
@@ -32,6 +38,7 @@ export default function Home({navigateToApartments}) {
   
   return (
     <>
+    <Suspense fallback="...is loading">
       {/* <br></br> */}
       {/* <h2>Welcome to ReLease!</h2> */}
       {/* <p>Our platform serves as a bridge between tenants looking to vacate their current rental
@@ -45,6 +52,29 @@ export default function Home({navigateToApartments}) {
       <p>release@info.com</p> */}
       {/* <picture><img src="/logo1.png" alt="Logo" className="logo-image" /></picture>
       <p>Looking for affordable rent?</p> */}
+      {/* <select
+          className="m-4 p-2 bg-blue-600 rounded"
+          onChange={() => i18n.changeLanguage(lng.code)}
+        >
+          {lngs.map((lng) => (
+            <option key={lng.code} value={lng.code}>
+              {lng.nativeName}
+            </option>
+          ))}
+        </select> */}
+        {lngs.map((lng) => {
+        return (
+          <button
+            className="m-4 p-2 bg-blue-600 rounded"
+            key={lng.code}
+            type="submit"
+            onClick={() => i18n.changeLanguage(lng.code)}
+          >
+            {lng.nativeName}
+          </button>
+        );
+      })}
+
       <div class="banner">
         <picture><img src="/logo1.png" alt="Logo" class="background-image" /></picture>
         <div class="banner-content">
@@ -53,7 +83,8 @@ export default function Home({navigateToApartments}) {
       </div>
 
       <button id='view-apartments-btn' type='button' onClick={navigateToApartments}>
-        Start Searching
+        {/* Start Searching */}
+        {t('Home.searchbtn')}
       </button>
 
       <div className='cities-container'>
@@ -76,6 +107,7 @@ export default function Home({navigateToApartments}) {
         </div>
       </div>
       
+      </Suspense>
     </>
   );
   
