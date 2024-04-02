@@ -120,8 +120,10 @@ const Filters = ({
           <button
             className="btn btn-secondary dropdown-toggle"
             onClick={ () => {
+              if(!isOpen){
+                fetchCities();
+              }
               handleClearFilters();
-              fetchCities();
             
             }}
           >
