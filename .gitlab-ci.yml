@@ -11,7 +11,6 @@ stages:
 workflow:
   rules:
   - if: '$CI_COMMIT_BRANCH == "sprint3"'
-  - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "sprint3"'
 
 build-frontend:
   stage: build
