@@ -36,6 +36,8 @@
 .nav-link:hover {
     background-color: #ddd;
 }
+
+
   
 /* Logout button styles */
 .logout-button {
@@ -89,4 +91,61 @@
   
 .google-login-button:hover {
     background-color: #357ae8;
+}
+.post-listing-btn {
+    background-color: #78b01e; 
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .post-listing-btn:hover {
+    background-color: rgb(120, 173, 94);
+  }
+
+.user-leases {
+    margin-top: 20px;
+}
+
+.lease-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lease-details {
+    flex: 1;
+}
+
+.lease-info {
+    margin: 5px 0;
+}
+
+.view-listing-btn {
+    background-color:  #272d29;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-listing-btn:hover {
+    background-color: #555;
+}
+
+h3 {
+    padding-top: 10px;
+}
+
+i {
+    padding-left: 5px;
 }

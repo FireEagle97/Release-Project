@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 import './Profil.css';
+import { FaEye, FaTrash } from 'react-icons/fa';
 
 
 
-export default function Profil({navigateToPostListing}) {
+
+export default function Profil({navigateToPostListing, navigateToApartmentPage}) {
     
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     // const [otherField, setOtherField] = useState('');
     const [click, setClick] = useState(false);
+    const [leases, setLeases] = useState([]);
+    const navigate = useNavigate();
+
+
 
 
     const handleClick = () => setClick(!click);
@@ -76,27 +83,27 @@ export default function Profil({navigateToPostListing}) {
         let mounted = true;
     
         //fetch data from the restricted access API when component mounts
-        fetch('/restrictedAccess')
-          .then(response => {
-            //check if the component is still mounted before updating state
-            if (mounted) {
-              //check if the response status is 200
-              if (response.status === 200) {
-                //if the response status is 200, extract data and set state
-                return response.json().then(data => {
-                //   setOtherField(data.userId);
-                });
-              } else {
-                //if the response status is not 200, handle error
-                throw new Error('Unauthorized');
-              }
-            }
+        // fetch('/restrictedAccess')
+        //   .then(response => {
+        //     //check if the component is still mounted before updating state
+        //     if (mounted) {
+        //       //check if the response status is 200
+        //       if (response.status === 200) {
+        //         //if the response status is 200, extract data and set state
+        //         return response.json().then(data => {
+        //         //   setOtherField(data.userId);
+        //         });
+        //       } else {
+        //         //if the response status is not 200, handle error
+        //         throw new Error('Unauthorized');
+        //       }
+        //     }
     
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-            // setOtherField('');
-          });
+        //   })
+        //   .catch(error => {
+        //     console.error('Error fetching data:', error);
+        //     // setOtherField('');
+        //   });
     
         //cleanup to set mounted to false when the component unmounts
         return () => {
@@ -114,7 +121,53 @@ export default function Profil({navigateToPostListing}) {
           setIsLoggedIn(true);
         }
       }, []);
-    
+
+      useEffect(() => {
+        if (isLoggedIn) {
+            // Fetch the user's leases
+            fetchUserLeases(username);
+        }
+    }, [isLoggedIn, username]);
+
+    const fetchUserLeases = async (username) => {
+        try {
+            const response = await fetch(`/userProfile/${username}`);
+            if (response.ok) {
+                const data = await response.json();
+                setLeases(data.response.leases);
+            } else {
+                console.error('Failed to fetch user leases');
+            }
+        } catch (error) {
+            console.error('Error fetching user leases:', error);
+        }
+    };
+
+    // const navigateToListing = (leaseid) => {
+    //   navigate(`apartment/${leaseid}`);
+    // }
+    const deleteLease = async (leaseId) => {
+      try {
+          const confirmation = window.confirm('Are you sure you want to delete this listing?');
+          if (confirmation) {
+              const response = await fetch(`/leaseDelete/${leaseId}`, {
+                  method: 'DELETE',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ email: username }),
+              });
+              if (response.ok) {
+                  setLeases(leases.filter(lease => lease._id !== leaseId));
+              } else {
+                  console.error('Failed to delete lease');
+              }
+          }
+      } catch (error) {
+          console.error('Error deleting lease:', error);
+      }
+  };
+
     return(
         <div className="profil">
             <h1>Profil</h1>
@@ -139,7 +192,7 @@ export default function Profil({navigateToPostListing}) {
         </div>
             {isLoggedIn && (
             <div className="nav-item">
-              <button className="nav-link" onClick={() => {
+              <button className="post-listing-btn" onClick={() => {
                 navigateToPostListing(username);
                 }}>
                 Post Listing
@@ -153,8 +206,30 @@ export default function Profil({navigateToPostListing}) {
             </div>
             )}
         
-
+        {isLoggedIn  && (
+                <div className="user-leases">
+                    <h3>Your leases:</h3>
+                    <ul>
+                    {leases.map((lease, index) => (
+                      <li key={index} className="lease-item">
+                        <div className="lease-details">
+                          <p className="lease-info"><strong>Posted Date:</strong> {lease.postedDate}</p>
+                          <p className="lease-info"><strong>Address:</strong> {lease.address}</p>
+                          <p className="lease-info"><strong>Rent Price:</strong> ${lease.rentPrice}</p>
+                        </div>
+                        <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
+                        <i className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>
+                            <FaTrash />
+                        </i>
+                      </li>
+                  ))}
+                    </ul>
+                </div>
+            )}
 
         </div>
     );
 }
+{/* <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
+                          {/* Button to delete lease */}
+                          // <button className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>Delete</button> */}

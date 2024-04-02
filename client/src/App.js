@@ -95,7 +95,7 @@ function App() {
             <>
               <Navigation />
               
-              <Profil navigateToPostListing={navigateToPostListing}/>
+              <Profil navigateToPostListing={navigateToPostListing} navigateToApartmentPage={navigateToApartmentPage}/>
             </>
           } />
 
