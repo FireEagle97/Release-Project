@@ -23,7 +23,7 @@ const Filters = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cityList, setCityList] = useState([]);
-  const [furnishingList, setFurnishingList] = useState([]);
+  const furnishingList = ["Furnished", "Unfurnished", "Semi-Furnished"];
 
   useEffect(() => {
     async function fetchCities() {
@@ -38,20 +38,7 @@ const Filters = ({
         console.error("Error fetching leases:", error);
       }
     }
-    async function fetchFurnishing() {
-      try {
-        let response = await fetch("/filters/furnishing");
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setFurnishingList(data.response);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
-      }
-    }
     fetchCities();
-    fetchFurnishing();
   }, []);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
