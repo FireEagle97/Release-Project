@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Range } from "react-range";
 import "./filters.css";
+import { useTranslation } from 'react-i18next';
+
 const Filters = ({
   sortOption,
   setSortOption,
@@ -24,6 +26,8 @@ const Filters = ({
   const [isOpen, setIsOpen] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [furnishingList, setFurnishingList] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function fetchCities() {
@@ -92,80 +96,84 @@ const Filters = ({
     setIsOpen(!isOpen);
     setClearFilters(!clearFilters)
   }
+
   return (
-    <section class="pt-5">
+    <section className="pt-5">
       <div className="mb-3 listings-filters">
         <div className="order-filter">
-          <span id="order-title">Order by:</span>
+          <span id="order-title">{t('Filter.order')}</span>
           <select
             id="filterOptions"
             className="form-select"
             value={sortOption}
             onChange={(e) => setSortOption(e.target.value)}
           >
-            <option value="">Select</option>
-            <option value="lowestPrice">Lowest Price</option>
-            <option value="highestPrice">Highest Price</option>
+            <option value="">{t('Filter.select')}</option>
+            <option value="lowestPrice">{t('Filter.lowest')}</option>
+            <option value="highestPrice">{t('Filter.highest')}</option>
           </select>
         </div>
         <div className="search-filter">
           <input
             type="text"
-            class="form-control mt-0"
-            placeholder="Search Leases..."
+            className="form-control mt-0"
+            placeholder={t('Filter.search')}
             value={searchQuery}
             onChange={handleSearchChange}
           />
         </div>
         <div className="filter-button-dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            onClick={handleClearFilters}
-          >
-            Filters
+          <button className="btn btn-secondary dropdown-toggle" onClick={handleClearFilters}>
+            {t('Filter.filters')}
           </button>
         </div>
         {clearFilters && (
           <div className="clear-filters-button">
-            <button
-              className="btn btn-danger"
-              onClick={handleFiltersDropdown}
-            >
-              Clear Filters
+            <button className="btn btn-danger" onClick={handleClearFilters}>
+              {t('Filter.clear')}
             </button>
           </div>
         )}
       </div>
-      {isOpen && (
-        <div
-          className="mb-4 filters-div"
-        >
-          <div className="filters-div-inner">
-            <div style={{marginBottom:"1rem"}}>
-              <div style={{textAlign:"start"}}>*City</div>
-              <div
-                style={{
-                  overflow: "scroll",
-                  height: "100px",
-                  width: "120px",
-                }}
-              >
-                
-                {cityList.map((city) => (
-                  <div className="form-check">
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      onChange={() => setCity(city)}
-                      name="city"
-                    />
-                    <label className="form-check-label">{city}</label>
-                  </div>
-                ))}
-              </div>
+      <div className="mb-4 filters-div">
+        {/* Your filter options */}
+        {/* City filter */}
+        <div className="filters-div-inner">
+          <div style={{ marginBottom: "1rem" }}>
+            <div style={{ textAlign: "start" }}>{t('Filter.city')}</div>
+            <div
+              style={{
+                overflow: "scroll",
+                height: "100px",
+                width: "120px",
+              }}
+            >
+              {cityList.map((city) => (
+                <div className="form-check">
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    onChange={() => setCity(city)}
+                    name="city"
+                  />
+                  <label className="form-check-label">{city}</label>
+                </div>
+              ))}
             </div>
-            <div>
-              <div style={{ textAlign: "start" }}>Furnishing</div>
+          </div>
+          {/* Furnishing filter */}
+          <div>
+            <div style={{ textAlign: "start" }}>{t('Filter.furnishing')}</div>
+            <div className="form-check" style={{ textAlign: "start" }}>
+              <input
+                type="radio"
+                className="form-check-input"
+                onChange={() => setFurnishing(null)}
+                name="furnishing"
+              />
+              <label className="form-check-label">{t('Filter.all')}</label>
+            </div>
+            {furnishingList.map((furnishing) => (
               <div className="form-check" style={{ textAlign: "start" }}>
                 <input
                   type="radio"
@@ -173,149 +181,130 @@ const Filters = ({
                   onChange={() => setFurnishing(furnishing)}
                   name="furnishing"
                 />
-                <label className="form-check-label">All</label>
+                <label className="form-check-label">{furnishing}</label>
               </div>
-              {furnishingList.map((furnishing) => (
-                <div className="form-check" style={{ textAlign: "start" }}>
-                  <input
-                    type="radio"
-                    className="form-check-input"
-                    onChange={() => setFurnishing(furnishing)}
-                    name="furnishing"
-                  />
-                  <label className="form-check-label">{furnishing}</label>
+            ))}
+          </div>
+          {/* Rent range filter */}
+          <div style={{ margin: "50px" }}>
+            <label htmlFor="rent">
+              {t('Filter.min')} {rentValues[0]} <br /> {t('Filter.max')}{" "}
+              {rentValues[1]}
+            </label>
+            <Range
+              step={50}
+              min={0}
+              max={8000}
+              values={rentValues}
+              onChange={(values) => setRentValues(values)}
+              renderTrack={({ props, children }) => (
+                <div
+                  {...props}
+                  style={{
+                    ...props.style,
+                    marginTop: "1.5rem",
+                    height: "6px",
+                    width: "100%",
+                    backgroundColor: "#ccc",
+                  }}
+                >
+                  {children}
                 </div>
-              ))}
+              )}
+              renderThumb={({ props }) => (
+                <div
+                  {...props}
+                  style={{
+                    ...props.style,
+                    height: "21px",
+                    width: "21px",
+                    backgroundColor: "#bfbfbf",
+                    borderRadius: "50%",
+                    border: "2px solid #999",
+                  }}
+                />
+              )}
+            />
+          </div>
+          {/* Bathroom count filter */}
+          <div>
+            <div className="input-group num-filters">
+              <div style={{ textAlign: "start", paddingRight: "1rem" }}>{t('Filter.baths')}</div>
+              <span className="input-group-btn" style={{ paddingTop: "0.4rem" }}>
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={decrementBathroomCount}
+                >
+                  -
+                </button>
+              </span>
+              <span className="input-group-btn col-sm-3">
+                <input
+                  className="form-control input-number"
+                  type="number"
+                  id="bathroomNmb"
+                  value={bathroomCount}
+                  min="0"
+                  max="5"
+                  onChange={(e) => setBathroomCount(e.target.value)}
+                />
+              </span>
+              <span className="input-group-btn" style={{ paddingTop: "0.4rem" }}>
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={incrementBathroomCount}
+                >
+                  +
+                </button>
+              </span>
             </div>
-            <div style={{ margin: "50px" }}>
-              <label htmlFor="rent">
-                Minimum Rent price: {rentValues[0]} <br/> Maximum Rent price:{" "}
-                {rentValues[1]}
-              </label>
-              <Range
-                step={50}
-                min={0}
-                max={8000}
-                values={rentValues}
-                onChange={(values) => setRentValues(values)}
-                renderTrack={({ props, children }) => (
-                  <div
-                    {...props}
-                    style={{
-                      ...props.style,
-                      marginTop: "1.5rem",
-                      height: "6px",
-                      width: "100%",
-                      backgroundColor: "#ccc",
-                    }}
-                  >
-                    {children}
-                  </div>
-                )}
-                renderThumb={({ props }) => (
-                  <div
-                    {...props}
-                    style={{
-                      ...props.style,
-                      height: "21px",
-                      width: "21px",
-                      backgroundColor: "#bfbfbf",
-                      borderRadius: "50%",
-                      border: "2px solid #999",
-                    }}
-                  />
-                )}
-              />
-            </div>
-            <div>
-              <div className="input-group num-filters">
-                <div style={{ textAlign: "start", paddingRight: "1rem" }}>Bathrooms:</div>
-                <span
-                  className="input-group-btn"
-                  style={{ paddingTop: "0.4rem" }}
+            {/* Bedroom count filter */}
+            <div className="input-group num-filters" style={{ paddingTop: "1rem" }}>
+              <div style={{ textAlign: "start", paddingRight: "1rem" }}>{t('Filter.beds')}</div>
+              <span className="input-group-btn" style={{ paddingTop: "0.4rem" }}>
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={decrementBedroomCount}
                 >
-                  <button
-                    className="btn btn-secondary"
-                    type="button"
-                    onClick={decrementBathroomCount}
-                  >
-                    -
-                  </button>
-                </span>
-                <span className="input-group-btn col-sm-3">
-                  <input
-                    className="form-control input-number"
-                    type="number"
-                    id="bathroomNmb"
-                    value={bathroomCount}
-                    min="0"
-                    max="5"
-                    onChange={() => setBathroomCount(bathroomCount)}
-                  />
-                </span>
-                <span
-                  className="input-group-btn"
-                  style={{ paddingTop: "0.4rem" }}
+                  -
+                </button>
+              </span>
+              <span className="input-group-btn col-sm-3">
+                <input
+                  className="form-control input-number"
+                  type="number"
+                  id="bedroomNmb"
+                  value={bedroomCount}
+                  min="0"
+                  max="5"
+                  onChange={(e) => setBedroomCount(e.target.value)}
+                />
+              </span>
+              <span className="input-group-btn" style={{ paddingTop: "0.4rem" }}>
+                <button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={incrementBedroomCount}
                 >
-                  <button
-                    className="btn btn-secondary"
-                    type="button"
-                    onClick={incrementBathroomCount}
-                  >
-                    +
-                  </button>
-                </span>
-              </div>
-              <div className="input-group num-filters" style={{paddingTop:"1rem"}}>
-                <div style={{ textAlign: "start", paddingRight: "1rem" }}>Bedrooms:</div>
-                <span
-                  className="input-group-btn"
-                  style={{ paddingTop: "0.4rem" }}
-                >
-                  <button
-                    className="btn btn-secondary"
-                    type="button"
-                    onClick={decrementBedroomCount}
-                  >
-                    -
-                  </button>
-                </span>
-                <span className="input-group-btn col-sm-3">
-                  <input
-                    className="form-control input-number"
-                    type="number"
-                    id="bathroomNmb"
-                    value={bedroomCount}
-                    min="0"
-                    max="5"
-                    onChange={() => setBedroomCount(bedroomCount)}
-                  />
-                </span>
-                <span
-                  className="input-group-btn"
-                  style={{ paddingTop: "0.4rem" }}
-                >
-                  <button
-                    className="btn btn-secondary"
-                    type="button"
-                    onClick={incrementBedroomCount}
-                  >
-                    +
-                  </button>
-                </span>
-              </div>
+                  +
+                </button>
+              </span>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => handleApplyFilters()}
-            className="btn btn-primary"
-            disabled={!city}
-          >
-            Apply
-          </button>
         </div>
-      )}
+        {/* Apply filters button */}
+        <button
+          type="button"
+          onClick={handleApplyFilters}
+          className="btn btn-primary"
+          disabled={!city}
+        >
+          {t('Filter.apply')}
+        </button>
+      </div>
     </section>
   );
 };

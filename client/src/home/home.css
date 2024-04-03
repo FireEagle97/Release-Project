@@ -81,9 +81,10 @@
   .city-container-mobile{
     display:none;
   }
+  
   .city-image-container {
     position: relative;
-    display: inline-block; /* or block depending on your layout */
+    display: inline-block;
   }
   
   .city-image-button{
@@ -161,3 +162,15 @@
       font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     }
   }
+
+
+.language-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.language-dropdown {
+  margin-right: 40px; 
+}
+
+
