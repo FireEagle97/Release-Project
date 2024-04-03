@@ -24,6 +24,17 @@
         "close": "Fermer",
         "menu": "Menu"
     },
+    "Profil": {
+        "welcome": "Bienvenue,",
+        "post": "Afficher une inscription",
+        "logout": "Déconnexion",
+        "yourleases": "Vos offres de location:",
+        "posteddate": "Date d'affichage:",
+        "address": "Adresse:",
+        "price": "Prix du loyer:",
+        "viewlisting": "Voir l'inscription:"
+  
+    },
     
     
     

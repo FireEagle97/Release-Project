@@ -24,6 +24,17 @@
       "close": "Close",
       "menu": "Menu"
     },
+    "Profil": {
+      "welcome": "Welcome,",
+      "post": "Post Listing",
+      "logout": "Logout",
+      "yourleases": "Your leases:",
+      "posteddate": "Posted Date:",
+      "address": "Address:",
+      "price": "Rent Price:",
+      "viewlisting": "View Listing"
+
+    },
     
     
     
