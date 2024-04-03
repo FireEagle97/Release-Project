@@ -33,7 +33,25 @@
       "address": "Address:",
       "price": "Rent Price:",
       "viewlisting": "View Listing"
-
+    },
+    "Post": {
+        "title": "Create Your Listing",
+        "rentprice": "Rent Price",
+        "address": "Address",
+        "city": "City",
+        "size": "Size (sq. ft.)",
+        "beds": "Number of Bedrooms",
+        "baths": "Number of Bathrooms",
+        "floor": "Floor Number",
+        "furnishing": "Furnishing",
+        "unfur": "Unfurnished",
+        "semifur": "Semi-Furnished",
+        "fur": "Furnished",
+        "tenants": "Preffered Tenants",
+        "desc": "Description",
+        "contact": "Contact Information",
+        "imgs": "Images",
+        "submit": "Submit"
     },
     
     

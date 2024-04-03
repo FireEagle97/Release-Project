@@ -33,7 +33,25 @@
         "address": "Adresse:",
         "price": "Prix du loyer:",
         "viewlisting": "Voir l'inscription:"
-  
+    },
+    "Post": {
+        "title": "Créer votre annonce",
+        "rentprice": "Prix du loyer",
+        "address": "Adresse",
+        "city": "Ville",
+        "size": "Surface (sq. ft.)",
+        "beds": "Nombre de chambres",
+        "baths": "Nombre de salles de bain",
+        "floor": "Étage",
+        "furnishing": "Ameublement",
+        "unfur": "Non meublé",
+        "semifur": "Semi-meublé",
+        "fur": "Meublé",
+        "tenants": "Locataires souhaités",
+        "desc": "Description",
+        "contact": "Information de contact",
+        "imgs": "Images",
+        "submit": "Soumettre"
     },
     
     
