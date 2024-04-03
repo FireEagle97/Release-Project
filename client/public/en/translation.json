@@ -95,4 +95,4 @@
     
 
     "date": "Today is {{date, DATE_HUGE}}"
-  }
+}

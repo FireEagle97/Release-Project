@@ -9,9 +9,7 @@ import Contact from './navigation/Contact';
 import About from './navigation/About';
 import Profil from './navigation/Profil';
 import Footer from './footer/FooterPlace';
-import LeaseMap from './components/leaseMap/leaseMap';
 import { Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
 
 
 function App() {
