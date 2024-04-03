@@ -39,7 +39,7 @@
         "rentprice": "Prix du loyer",
         "address": "Adresse",
         "city": "Ville",
-        "size": "Surface (sq. ft.)",
+        "size": "Surface (pi. ca.)",
         "beds": "Nombre de chambres",
         "baths": "Nombre de salles de bain",
         "floor": "Étage",
