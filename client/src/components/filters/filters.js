@@ -145,7 +145,7 @@ const Filters = ({
               <div style={{textAlign:"start"}}>*City</div>
               <div
                 style={{
-                  overflow: "scroll",
+                  overflowY: "scroll",
                   height: "100px",
                   width: "120px",
                 }}
