@@ -162,3 +162,15 @@
       font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     }
   }
+
+
+.language-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.language-dropdown {
+  margin-right: 40px; 
+}
+
+

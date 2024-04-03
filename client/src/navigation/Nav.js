@@ -54,6 +54,7 @@ export default function Navigation() {
                 {t('Nav.profil')}
               </Link>
             </li>
+            
           </ul>
 
           {/* Button to activate/deactivate the menu on smaller screens. */}

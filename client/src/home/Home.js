@@ -47,20 +47,20 @@ export default function Home({navigateToApartments}) {
     <>
     
     <div className="language-container">
-  <div className="language-dropdown">
-    <select
-      className="m-4 p-2 bg-blue-600 rounded"
-      value={selectedLanguage}
-      onChange={(e) => handleLanguageChange(e.target.value)}
-    >
-      {lngs.map((lng) => (
-        <option key={lng.code} value={lng.code}>
-          {lng.nativeName}
-        </option>
-      ))}
-    </select>
-  </div>
-</div>
+      <div className="language-dropdown">
+        <select
+          className="m-4 p-2 bg-blue-600 rounded"
+          value={selectedLanguage}
+          onChange={(e) => handleLanguageChange(e.target.value)}
+        >
+          {lngs.map((lng) => (
+            <option key={lng.code} value={lng.code}>
+              {lng.nativeName}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
 
 
       <div class="banner">
