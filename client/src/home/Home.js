@@ -70,6 +70,12 @@ export default function Home({navigateToApartments}) {
           <p>{t('Home.welcome')}</p>
         </div>
       </div>
+      <div class="banner-mobile">
+        {/* <div class="banner-content-mobile">
+            <p>WELCOME TO</p>
+        </div> */}
+        <picture><img src="/logo1.png" alt="Logo" class="background-image-mobile" /></picture>
+      </div>
 
       <button id='view-apartments-btn' type='button' onClick={navigateToApartments}>
         {/* Start Searching */}
@@ -78,22 +84,34 @@ export default function Home({navigateToApartments}) {
 
       <div className='cities-container'>
         <div className="city-container">
-          <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
-          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
-          {t('Home.montrealleases')}</p>
+            <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
+            <button className="btn city-image-button" onClick={() => navigateToApartmentsWithCity("Montreal")}>{t('Home.montrealleases')}</button>
+            <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
+            {t('Home.montrealleases')}</p>
         </div>
-
         <div className="city-container">
           <img src={'/toronto.webp'} alt="Toronto" className="city-image" />
+          <button className="btn city-image-button" onClick={() => navigateToApartmentsWithCity("Toronto")}>{t('Home.torontoleases')}</button>
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Toronto")}>
           {t('Home.torontoleases')}</p>
         </div>
 
         <div className="city-container">
           <img src={'/vancouver.jpeg'} alt="Vancouver" className="city-image" />
+          <button className="btn city-image-button" onClick={() => navigateToApartmentsWithCity("Vancouver")}>{t('Home.vancouverlleases')}</button>
           <p className="city-text" onClick={() => navigateToApartmentsWithCity("Vancouver")}>
           {t('Home.vancouverlleases')}</p>
         </div>
+        {/* <div className="city-container-mobile">
+          <div className='city-image-container'>
+            <div className='white-overlay'>
+              <img src={'/montreal.jpeg'} alt="Montreal" className="city-image" />
+              <button className='city-image-button-mobile' onClick={() => navigateToApartmentsWithCity("Montreal")}>View Montreal Leases</button>
+            </div>
+          </div> 
+          <p className="city-text" onClick={() => navigateToApartmentsWithCity("Montreal")}>
+            View Montreal Leases</p>
+        </div> */}
       </div>
       
     </>

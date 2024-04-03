@@ -2,12 +2,11 @@ footer {
     background-color: #272d28;
     color: white;
     padding: 30px 0; 
+    margin-top:-2rem;
   }
   .top{
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
   }
   .image-footer{
     width: 50%;
@@ -54,5 +53,24 @@ footer {
   
   .footer-links li a:hover {
     text-decoration: underline;
+    
+  }
+  @media screen and (max-width: 960px){
+    .top{
+      display: block;
+    }
+    .image-footer{
+      margin-left: 6rem;
+    }
+    .left{
+      padding-left:7rem;
+    }
+    .right{
+      padding-left:7rem;
+      padding-top:2rem;
+    }
+    .policy{
+      padding:1.5rem;
+    }
     
   }

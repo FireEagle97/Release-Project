@@ -11,7 +11,7 @@ import './Slider.css';
 function ApartmentImages({imagesLinks}) {
 
     return (
-        <div id="apartment-images-slider" style={{ width: '50%', margin: '0', position: 'relative'}}>
+        <div id="apartment-images-slider">
             <Slide>
                 {imagesLinks.map((slideImage, index)=> (
                 <div key={index} className="slide-image">

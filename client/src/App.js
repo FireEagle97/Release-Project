@@ -79,7 +79,12 @@ function App() {
             }
           /> */}
 
-          <Route path="/post-listing" element={<PostListing />} />
+          <Route path="/post-listing" element={
+              <>
+              <Navigation />
+              <PostListing />
+            </>
+          } />
 
           <Route path='/contact' element={
             <>
