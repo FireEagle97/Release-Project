@@ -79,7 +79,15 @@
         "baths": "Bathrooms:",
         "beds": "Bedrooms:",
         "apply": "Apply"
-
+    },
+    "Apt": {
+        "postdate": "Listing post date",
+        "moreinfo": "For more information, click the button below to contact the lister.",
+        "interested": "Interested",
+        "readtxt": "Read Text",
+        "problems": "Any problems in this posting?",
+        "report": "report",
+        "msg": "Thank you! You've submitted your report."
 
     },
 

@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
 import { SayButton } from 'react-say';
+import { useTranslation } from 'react-i18next';
+
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
@@ -21,6 +23,8 @@ export default function ApartmentPage() {
     const [name, setName] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
     const [content, setReadContent] = useState('');
+
+    const { t } = useTranslation();
 
 
     useEffect(() => {
@@ -95,29 +99,29 @@ export default function ApartmentPage() {
                 <ApartmentImages imagesLinks={apartment.images}/>
                 <div className='apt-info'>
                     <h3>
-                        {apartment.furnishing} apartment located in {apartment.address}, {apartment.city}
+                        {apartment.furnishing} {t('AptsList.aptlocation')} {apartment.address}, {apartment.city}
                     </h3>
                     <h4>
                         <br></br>
-                        <strong>Rent price:</strong> ${apartment.rentPrice}
+                        <strong>{t('Post.rentprice')}:</strong>{t('AptsList.price', { apartmentPrice: apartment.rentPrice })}
                         <br></br>
-                        <strong>Floor:</strong> {apartment.floor}
+                        <strong>{t('Post.floor')}:</strong> {apartment.floor}
                         <br></br>
-                        <strong>Size:</strong> {apartment.size} sq.ft.
+                        <strong>{t('Post.size')}:</strong> {apartment.size}
                         <br></br>
-                        <strong>Bedrooms:</strong> {apartment.bhk}
+                        <strong>{t('Post.beds')}:</strong> {apartment.bhk}
                         <br></br>
-                        <strong>Bathrooms:</strong> {apartment.bathroom}
+                        <strong>{t('Post.baths')}:</strong> {apartment.bathroom}
                         <br></br>
-                        <strong>Furnishing:</strong> {apartment.furnishing}
+                        <strong>{t('Post.furnishing')}:</strong> {apartment.furnishing}
                         <br></br>
-                        <strong>Listing post date:</strong> {apartment.postedDate}  
+                        <strong>{t('Apt.postdate')}:</strong> {apartment.postedDate}  
                     </h4>
                     <br></br>
                     <h6>
-                        For more information, click the button below to contact the lister.
+                    {t('Apt.moreinfo')}
                     </h6>
-                    <button onClick={handleInterestedClick}>Interested</button>   
+                    <button onClick={handleInterestedClick}>{t('Apt.interested')}</button>   
                     <br/>
                     <br/>
                     <div id="service-tools">
@@ -125,15 +129,15 @@ export default function ApartmentPage() {
                             class="speech-btn"
                             speak={content}
                         >
-                            Read Text
+                            {t('Apt.readtxt')}
                         </SayButton>
                         {!isReported ? (
                             <div id="report-space">
-                                <p>Any problems in this posting?</p>
-                                <button id="report-btn" onClick={handleReport}>report</button>
+                                <p>{t('Apt.problems')}</p>
+                                <button id="report-btn" onClick={handleReport}>{t('Apt.report')}</button>
                             </div>
                         ) : (
-                            <p id="report-message">Thank you! You've submitted your report.</p>
+                            <p id="report-message">{t('Apt.msg')}</p>
                         )}     
                     </div>        
                 </div>
@@ -148,7 +152,7 @@ export default function ApartmentPage() {
             >
                 <Box className='box'>
                 <Typography variant="h6" component="h2">
-                    Contact Information
+                    {t('Contact.contactinfo')}
                 </Typography>
                 <Typography sx={{ mt: 2 }}>
                      {apartment.pointOfContact}

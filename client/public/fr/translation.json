@@ -79,7 +79,15 @@
         "baths": "Salles de bain:",
         "beds": "Chambres:",
         "apply": "Appliquer"
-
+    },
+    "Apt": {
+        "postdate": "Date d'affichage",
+        "moreinfo": "Pour plus d'informations, cliquez sur le bouton ci-dessous pour contacter l'annonceur.",
+        "interested": "Intéressé",
+        "readtxt": "Lire le texte",
+        "problems": "Des problèmes liés à cette annonce?",
+        "report": "signaler",
+        "msg": "Merci! Vous avez transmis votre rapport."
 
     },
     
