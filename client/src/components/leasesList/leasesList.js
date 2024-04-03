@@ -3,7 +3,13 @@ import Pagination from "../pagination/pagination";
 import Filters from "../filters/filters";
 import "./leasesList.css";
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+
 const LeasesList = ({ navigateToApartmentPage }) => {
+
+  const { t } = useTranslation();
+
   const location = useLocation();
   const [cityParam, setCityParam] = useState(location.state?.city);
 
@@ -152,10 +158,12 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                   <div class="text-center">
                     {/* apartment title */}
                     <h5 class="fw-bolder">
-                      {apartment.furnishing} apartment located in{" "}
+                      {apartment.furnishing} {t('AptsList.aptlocation')}{" "}
                       {apartment.address}
                     </h5>
-                    {/* apartment rent */}${apartment.rentPrice}/month
+                    {/* apartment rent */}
+                    {/* ${apartment.rentPrice}/month */}
+                    {t('AptsList.price', { apartmentPrice: apartment.rentPrice })}
                   </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -164,7 +172,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                     onClick={() => handleApartmentClick(apartment)}
                   >
                     <button class="btn btn-outline-dark mt-auto">
-                      View listing
+                    {t('Profil.viewlisting')}
                     </button>
                   </div>
                 </div>

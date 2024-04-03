@@ -32,7 +32,7 @@
         "posteddate": "Date d'affichage:",
         "address": "Adresse:",
         "price": "Prix du loyer:",
-        "viewlisting": "Voir l'inscription:"
+        "viewlisting": "Voir l'inscription"
     },
     "Post": {
         "title": "Créer votre annonce",
@@ -59,6 +59,10 @@
         "viewapts": "Voir les appartements",
         "policy": "Politique : Nous ne sommes pas responsables des locations publiées par les utilisateurs. Si vous trouvez un affichage inapproprié, n'hésitez pas à le signaler."
     },
+    "AptsList": {
+        "aptlocation": "appartement situé au",
+        "price": "{{apartmentPrice}}$ par mois"
+      },
     
     
     

@@ -59,6 +59,12 @@
         "viewapts": "View Apartments",
         "policy": "Policy: We are not responsible for any leases posted by users. If you find a post inappropriate, feel free to report it."
     },
+    "AptsList": {
+      "aptlocation": "apartment located at",
+      "price": "${{apartmentPrice}}/month"
+    },
+
+
     
     
     
