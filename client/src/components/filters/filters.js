@@ -187,7 +187,7 @@ const Filters = ({
                 </div>
               ))}
             </div>
-            <div style={{ margin: "50px" }}>
+            <div style={{ margin: "20px" }}>
               <label htmlFor="rent">
                 Minimum Rent price: {rentValues[0]} <br/> Maximum Rent price:{" "}
                 {rentValues[1]}
