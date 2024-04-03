@@ -103,7 +103,7 @@ export default function ApartmentPage() {
                     </h3>
                     <h4>
                         <br></br>
-                        <strong>{t('Post.rentprice')}:</strong>{t('AptsList.price', { apartmentPrice: apartment.rentPrice })}
+                        <strong>{t('Post.rentprice')}:</strong> {t('AptsList.price', { apartmentPrice: apartment.rentPrice })}
                         <br></br>
                         <strong>{t('Post.floor')}:</strong> {apartment.floor}
                         <br></br>

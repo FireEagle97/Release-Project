@@ -93,15 +93,6 @@
 
 
     
-    
-    
-    
-    
-    
-    
-    "interpolation_pluralization": {
-      "text_one": "Seulement 1 article",
-      "text_other": "Il y a {{count}} articles"
-    },
+
     "date": "Today is {{date, DATE_HUGE}}"
   }
