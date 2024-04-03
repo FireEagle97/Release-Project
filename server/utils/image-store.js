@@ -89,7 +89,7 @@ async function uploadService(filePath, containerClient, file){
     try {
         const blobClient = containerClient.getBlockBlobClient(file);
         const fileData = fs.readFileSync(filePath);
-        const options = { blobHTTPHeaders: { blobContentType: 'image/jpeg' } };
+        const options = { blobHTTPHeaders: { blobContentType: 'image/webp' } };
         await blobClient.uploadData(fileData, options);
         return blobClient.url;
     } catch (error) {
