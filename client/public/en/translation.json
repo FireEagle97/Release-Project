@@ -10,6 +10,20 @@
       "aboutus": "About us",
       "text": "Our platform serves as a bridge between tenants looking to vacate their current rental properties and people searching for the perfect place to call home. Whether you want to relocate for a job, upgrade to a larger space, or downsize to a cozier home, ReLease is here to make the transition smooth and hassle-free."
     },
+    "Contact": {
+      "contactinfo": "Contact Information",
+      "text": "Thank you for your interest! Feel free to reach out to us if you have any questions or would like more information.",
+      "email": "Email:",
+      "phone": "Phone:"
+    },
+    "Nav": {
+      "home": "Home",
+      "about": "About",
+      "contact": "Contact",
+      "profil": "Profil",
+      "close": "Close",
+      "menu": "Menu"
+    },
     
     
     

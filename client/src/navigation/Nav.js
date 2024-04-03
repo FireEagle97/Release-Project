@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import './Nav.css';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 /**
@@ -15,6 +16,8 @@ export default function Navigation() {
 
   //function to handle menu click and toggle the click state.
   const handleClick = () => setClick(!click);
+  const { t } = useTranslation();
+
 
   return (
     <>
@@ -25,7 +28,6 @@ export default function Navigation() {
         <div className="nav-container">
           {/* Navigation header with a link to the home page. */}
           <a href="/" className="nav-header">
-            {/* <span>Re-lease</span> */}
             <picture><img src="/logo1.png" alt="Logo" className="logo-image" /></picture>
             <p>RE-LEASE</p>
           </a>
@@ -34,22 +36,22 @@ export default function Navigation() {
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           <li className="nav-item">
               <Link to="/" className="nav-link" onClick={handleClick}>
-                Home
+                {t('Nav.home')}
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/about" className="nav-link" onClick={handleClick}>
-                About
+                {t('Nav.about')}
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/contact" className="nav-link" onClick={handleClick}>
-                Contact
+                {t('Nav.contact')}
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/profil" className="nav-link" onClick={handleClick}>
-                Profil
+                {t('Nav.profil')}
               </Link>
             </li>
           </ul>
@@ -58,11 +60,11 @@ export default function Navigation() {
           <div className="nav-activate" onClick={handleClick}>
             {click ? 
               <span className="activate">
-                Close
+                {t('Nav.close')}
               </span>
               : 
               <span className="activate">
-                Menu
+                {t('Nav.menu')}
               </span>
             }
           </div>
