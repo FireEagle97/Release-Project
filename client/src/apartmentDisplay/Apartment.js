@@ -123,6 +123,7 @@ export default function ApartmentPage() {
                     <br/>
                     <br/>
                     <div id="service-tools">
+                        {/* Button to translate text */}
                         <SayButton
                             className="speech-btn"
                             speak={content}
