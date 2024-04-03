@@ -6,6 +6,13 @@ router.get('/', async (req, res) => {
     try{
         const db = new DB();
         const data =  await db.getAllLeases();
+        data.forEach(lease => {
+            // Cache for 30 days
+            const cacheControl = 'public, max-age=2592000'; 
+
+            // Set cache control header for this lease
+            res.setHeader(`Cache-Control-${lease.id}`, cacheControl);
+        });
         res.json({'response':data});
       
     }catch(err){
@@ -75,6 +82,14 @@ router.get('/:city', async (req, res) => {
 
         const data = await db.getLeasesByCityAndFilters(city, area, { rent, size,
             furnishing, bathrooms, bedrooms });
+        
+        data.forEach(lease => {
+            // Cache for 30 days
+            const cacheControl = 'public, max-age=2592000'; 
+
+            // Set cache control header for this lease
+            res.setHeader(`Cache-Control-${lease.id}`, cacheControl);
+        });
         res.json({'response':data});
       
     }catch(err){
