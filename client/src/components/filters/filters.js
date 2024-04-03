@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Range } from "react-range";
 import "./filters.css";
+import { useTranslation } from 'react-i18next';
+
 const Filters = ({
   sortOption,
   setSortOption,
@@ -24,6 +26,8 @@ const Filters = ({
   const [isOpen, setIsOpen] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [furnishingList, setFurnishingList] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function fetchCities() {
@@ -95,7 +99,7 @@ const Filters = ({
   return (
     <section class="py-5">
       <div className="mb-3" style={{ display: "flex" }}>
-        <div id="order-title">Order by:</div>
+        <div id="order-title">{t('Filter.order')}</div>
         <div style={{ padding: "1rem" }}>
           <select
             id="filterOptions"
@@ -103,16 +107,17 @@ const Filters = ({
             value={sortOption}
             onChange={(e) => setSortOption(e.target.value)}
           >
-            <option value="">Select</option>
-            <option value="lowestPrice">Lowest Price</option>
-            <option value="highestPrice">Highest Price</option>
+            <option value="">{t('Filter.select')}</option>
+            <option value="lowestPrice">{t('Filter.lowest')}</option>
+            <option value="highestPrice">{t('Filter.highest')}</option>
           </select>
         </div>
         <div style={{ padding: "1rem" }}>
           <input
             type="text"
             class="form-control mt-0"
-            placeholder="Search Leases..."
+            // placeholder="Search Leases..."
+            placeholder={t('Filter.search')}
             value={searchQuery}
             onChange={handleSearchChange}
           />
@@ -122,7 +127,7 @@ const Filters = ({
             className="btn btn-secondary dropdown-toggle"
             onClick={handleClearFilters}
           >
-            Filters
+            {t('Filter.filters')}
           </button>
         </div>
         {clearFilters && (
@@ -131,7 +136,7 @@ const Filters = ({
               className="btn btn-danger"
               onClick={handleFiltersDropdown}
             >
-              Clear Filters
+              {t('Filter.clear')}
             </button>
           </div>
         )}
@@ -147,7 +152,7 @@ const Filters = ({
         >
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <div>
-              <div style={{ display: "flex" }}>*City</div>
+              <div style={{ display: "flex" }}>{t('Filter.city')}</div>
               <div
                 style={{
                   overflow: "scroll",
@@ -169,7 +174,7 @@ const Filters = ({
               </div>
             </div>
             <div>
-              <div style={{ display: "flex" }}>Furnishing</div>
+              <div style={{ display: "flex" }}>{t('Filter.furnishing')}</div>
               <div className="form-check" style={{ textAlign: "start" }}>
                 <input
                   type="radio"
@@ -177,7 +182,7 @@ const Filters = ({
                   onChange={() => setFurnishing(furnishing)}
                   name="furnishing"
                 />
-                <label className="form-check-label">All</label>
+                <label className="form-check-label">{t('Filter.all')}</label>
               </div>
               {furnishingList.map((furnishing) => (
                 <div className="form-check" style={{ textAlign: "start" }}>
@@ -193,7 +198,7 @@ const Filters = ({
             </div>
             <div style={{ margin: "50px" }}>
               <label htmlFor="rent">
-                Minimum Rent price: {rentValues[0]} | Maximum Rent price:{" "}
+              {t('Filter.min')} {rentValues[0]} | {t('Filter.max')}{" "}
                 {rentValues[1]}
               </label>
               <Range
@@ -232,7 +237,7 @@ const Filters = ({
               />
             </div>
             <div>
-              <div style={{ display: "flex" }}>Bathrooms:</div>
+              <div style={{ display: "flex" }}>{t('Filter.baths')}</div>
               <div className="input-group">
                 <span
                   className="input-group-btn"
@@ -270,7 +275,7 @@ const Filters = ({
                   </button>
                 </span>
               </div>
-              <div style={{ display: "flex" }}>Bedrooms:</div>
+              <div style={{ display: "flex" }}>{t('Filter.beds')}</div>
               <div className="input-group">
                 <span
                   className="input-group-btn"
@@ -319,7 +324,7 @@ const Filters = ({
             className="btn btn-primary"
             disabled={!city}
           >
-            Apply
+            {t('Filter.apply')}
           </button>
         </div>
       )}

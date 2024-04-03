@@ -162,7 +162,6 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                       {apartment.address}
                     </h5>
                     {/* apartment rent */}
-                    {/* ${apartment.rentPrice}/month */}
                     {t('AptsList.price', { apartmentPrice: apartment.rentPrice })}
                   </div>
                 </div>

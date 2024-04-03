@@ -62,7 +62,26 @@
     "AptsList": {
         "aptlocation": "appartement situé au",
         "price": "{{apartmentPrice}}$ par mois"
-      },
+    },
+    "Filter": {
+        "order": "Trier par:",
+        "select": "Sélectionner",
+        "lowest": "Prix le plus bas",
+        "highest": "Prix le plus élevé",
+        "filters": "Filtres",
+        "search": "Rechercher...",
+        "clear": "Effacer les filtres",
+        "city": "*Ville",
+        "furnishing": "Ameublement",
+        "all": "Tous",
+        "min": "Prix minimum:",
+        "max": "Prix maximum:",
+        "baths": "Salles de bain:",
+        "beds": "Chambres:",
+        "apply": "Appliquer"
+
+
+    },
     
     
     
