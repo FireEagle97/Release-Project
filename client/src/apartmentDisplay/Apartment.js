@@ -93,13 +93,32 @@ export default function ApartmentPage() {
         }
     };
 
+    const translateFurnishing = (furnishing) => {
+        switch (furnishing) {
+            case 'Furnished':
+                return t('Post.fur');
+            case 'Semi-Furnished':
+                return t('Post.semifur');
+            case 'Unfurnished':
+                return t('Post.unfur');
+            default:
+                return furnishing;
+        }
+    };
+
     return (
         <div>
             <div id="apartment-information">
                 <ApartmentImages imagesLinks={apartment.images}/>
                 <div className='apt-info'>
                     <h3>
-                        {apartment.furnishing} {t('AptsList.aptlocation')} {apartment.address}, {apartment.city}
+                        {/* {translateFurnishing(apartment.furnishing)} {t('AptsList.aptlocation')} {apartment.address}, {apartment.city} */}
+                        {t('apartmentInfo', {
+                            furnishing: translateFurnishing(apartment.furnishing),
+                            aptLocation: t('AptsList.aptlocation'),
+                            address: apartment.address,
+                            city: apartment.city
+                        })}
                     </h3>
                     <h4>
                         <br></br>
@@ -113,7 +132,7 @@ export default function ApartmentPage() {
                         <br></br>
                         <strong>{t('Post.baths')}:</strong> {apartment.bathroom}
                         <br></br>
-                        <strong>{t('Post.furnishing')}:</strong> {apartment.furnishing}
+                        <strong>{t('Post.furnishing')}:</strong> {translateFurnishing(apartment.furnishing)}
                         <br></br>
                         <strong>{t('Apt.postdate')}:</strong> {apartment.postedDate}  
                     </h4>

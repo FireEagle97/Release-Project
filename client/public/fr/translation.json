@@ -91,6 +91,8 @@
 
     },
     
+    "apartmentInfo": "Appartement {{furnishing}} situé au {{address}}, {{city}}",
 
+      
     "date": "Today is {{date, DATE_HUGE}}"
   }

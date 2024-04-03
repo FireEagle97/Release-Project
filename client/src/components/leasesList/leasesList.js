@@ -124,6 +124,20 @@ const LeasesList = ({ navigateToApartmentPage }) => {
 
   }, [applyFilters, bathroomCount, bedroomCount, city, furnishing, rentValues]);
 
+  const translateFurnishing = (furnishing) => {
+    switch (furnishing) {
+        case 'Furnished':
+            return t('Post.fur');
+        case 'Semi-Furnished':
+            return t('Post.semifur');
+        case 'Unfurnished':
+            return t('Post.unfur');
+        default:
+            return furnishing;
+    }
+};
+
+
   return (
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
@@ -158,8 +172,14 @@ const LeasesList = ({ navigateToApartmentPage }) => {
                   <div class="text-center">
                     {/* apartment title */}
                     <h5 class="fw-bolder">
-                      {apartment.furnishing} {t('AptsList.aptlocation')}{" "}
-                      {apartment.address}
+                      {/* {translateFurnishing(apartment.furnishing)} {t('AptsList.aptlocation')}{" "}
+                      {apartment.address} */}
+                      {t('apartmentInfo', {
+                            furnishing: translateFurnishing(apartment.furnishing),
+                            aptLocation: t('AptsList.aptlocation'),
+                            address: apartment.address,
+                            city: apartment.city
+                        })}
                     </h5>
                     {/* apartment rent */}
                     {t('AptsList.price', { apartmentPrice: apartment.rentPrice })}
