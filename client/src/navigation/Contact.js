@@ -1,20 +1,22 @@
 import './Contact.css';
+import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
+    const { t } = useTranslation();
+
     return(
         <div className="contact">
-            <h1>Contact Information</h1>
+            <h1>{t('Contact.contactinfo')}</h1>
             <br></br>
             <p>
-                Thank you for your interest! Feel free to reach out to us if you have any questions
-                or would like more information.
+                {t('Contact.text')}
             </p>
             <div className="contact-info">
                 <div className="contact-item">
-                    <strong>Email:</strong> relaease@info.ca
+                    <strong>{t('Contact.email')}</strong> relaease@info.ca
                 </div>
                 <div className="contact-item">
-                    <strong>Phone:</strong> +x (xxx)xxx-xxxx
+                    <strong>{t('Contact.phone')}</strong> +x (xxx)xxx-xxxx
                 </div>
             </div>
         </div>
