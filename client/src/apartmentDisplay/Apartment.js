@@ -23,7 +23,6 @@ export default function ApartmentPage() {
     const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
     const [content, setReadContent] = useState('');
 
-
     useEffect(() => {
         //check if the user is logged in based on stored credentials
         const storedUsername = localStorage.getItem('username');
@@ -46,8 +45,13 @@ export default function ApartmentPage() {
 
         // Loop through each description block
         Array.from(descriptionBlocks).forEach(descriptionBlock => {
+        
             // Access the child nodes of each description block
             Array.from(descriptionBlock.childNodes).forEach(childNode => {
+                if (childNode.id === 'map-container') {
+                    // Skip processing if the child node has the id 'map-container'
+                    return;
+                }
                 if (childNode.tagName === 'BUTTON') { // Check if the childNode is a button element
                     readText += 'Click button ' + childNode.textContent + ' ';
                 } else {
@@ -128,7 +132,7 @@ export default function ApartmentPage() {
                         {/* Button to translate text */}
                         <SayButton
                             className="speech-btn"
-                            speak={content}
+                            text={content}
                         >
                             Read Text
                         </SayButton>
