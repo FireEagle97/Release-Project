@@ -7,7 +7,7 @@ paths:
   /leases/:
     get:
       summary: Retrieve all leases.
-        description: Displays all leases.
+      description: Displays all leases.
       responses:
         200:
             description: The list of apartments.
@@ -125,7 +125,7 @@ paths:
   /leases/{city}:
     get:
       summary: Retrieve filtered leases.
-        description: Displays leases filtered by city (mandatory) and other queries.
+      description: Displays leases filtered by city (mandatory) and other queries.
       parameters:
         - in: path
           name: city
@@ -278,7 +278,7 @@ paths:
   /userProfile/{email}:
     get:
       summary: Retreives a user profile object.
-        description: Display a user profile object if it is saved in the database and all the leases listed by this user.
+      description: Display a user profile object if it is saved in the database and all the leases listed by this user.
       parameters:
         - in: path
           name: email
@@ -448,6 +448,45 @@ paths:
                 properties:
                   error:
                     type: string
+  /filters/{filter}:
+    get:
+      summary: Retrieves a list of items based on a specified filter.
+      description: This endpoint allows clients to retrieve a list of items filtered according to the specified criteria. The filter criteria is passed as a path parameter.
+      parameters:
+        - in: path
+          name: filter
+          required: true
+          schema:
+            type: string
+          description: The filter criteria to apply when retrieving the list of items.
+      responses:
+        '200':
+          description: Successfully retrieved the filtered list.
+          content:
+            application/json:
+              example:
+                response:
+                  - "Furnished"
+                  - "Semi-Furnished"
+                  - "Unfurnished"
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: string
+                    description: The filtered list of items.
+        '400':
+          description: The request was malformed or the specified filter is not supported in the API.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message detailing why the request failed.
 components:
   schemas:
     LeaseObject:
