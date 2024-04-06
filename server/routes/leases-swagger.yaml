@@ -177,7 +177,6 @@ paths:
                 message:
                   type: string
                   description: specifies invalid input
-paths:
   /leaseDelete/{leaseId}:
     delete:
       summary: Delete a lease by a specific id.
