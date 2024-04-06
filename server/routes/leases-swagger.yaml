@@ -112,7 +112,7 @@ paths:
             application/json:
               example:
                 status: error
-                message: Rent values must be non-negative integers
+                message: 'not supported in api'
               schema:
               type: object
               properties:
