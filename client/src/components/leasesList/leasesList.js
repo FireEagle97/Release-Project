@@ -54,17 +54,24 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   useEffect(() => {
     async function fetchLeases() {
       try {
-        console.log(cityParam);
         let link = "/leases";
         
-        console.log(link);
+        // caching
+        const cachedLeases = localStorage.getItem('leases');
+        if (cachedLeases) {
+          setLeases(JSON.parse(cachedLeases));
+          return; 
+        }
+
         let response = await fetch(link);
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }
         const data = await response.json();
-        console.log(data.response);
         setLeases(data.response);
+        // caching
+        localStorage.setItem('leases', JSON.stringify(data.response));
+
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
@@ -77,7 +84,18 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     async function fetchLeasesWithFilters() {
       try {
         let link = `/leases/`;
-        console.log("city here " + city);
+
+        const cacheKey = `leases:${city || ''}:${furnishing || ''}:${bedroomCount}:${rentValues[0]}:${rentValues[1]}:${bathroomCount}`;
+
+        // caching
+        const cachedLeases = localStorage.getItem(cacheKey);
+        if (cachedLeases) {
+          console.log("caching happening")
+          setLeases(JSON.parse(cachedLeases));
+          return; 
+        }
+
+        console.log("fetching again");
         if(city != null){
           link = link.concat(`${city}?`);
         }
@@ -99,6 +117,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         }
         const data = await response.json();
         setLeases(data.response);
+
+        //caching
+        localStorage.setItem(cacheKey, JSON.stringify(data.response));
       } catch (error) {
         console.error("Error fetching leases:", error);
       }

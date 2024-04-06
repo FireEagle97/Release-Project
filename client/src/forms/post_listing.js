@@ -113,6 +113,14 @@ export default function PostListing() {
       });
 
       alert('Submitted successfully');
+
+      // remove cached data
+      localStorage.removeItem('leases');
+      const keysToRemove = Object.keys(localStorage).
+          filter(key => key.includes(`leases:${city}:`));
+      console.log(keysToRemove)
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+
       resetForm();
     } catch (error) {
       console.error('Error:', error);
