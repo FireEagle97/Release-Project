@@ -14,8 +14,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-//rent, size, furnishing
-
 router.get('/:city', async (req, res) => {
     try{
         const db = new DB();

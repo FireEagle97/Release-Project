@@ -1,0 +1,277 @@
+openapi: 3.1.0
+info:
+  title: Leases-server
+  version: 1.0.0
+  description: Leases API.
+paths:
+  /leases/:
+    get:
+      summary: Retrieve all leases.
+        description: Displays all leases.
+      responses:
+        200:
+            description: The list of apartments.
+            content:
+              application/json:
+                example:
+                  response:
+                    - _id: "65fb6e373a656543cdc07c29"
+                      postedDate: "2024-02-26"
+                      bhk: 2
+                      rentPrice: 1790
+                      size: 800
+                      floor: "1 out of 3"
+                      address: "191 Rouge Rd, Winnipeg, MB R3K 1J6"
+                      city: "Winnipeg"
+                      furnishing: "Semi-Furnished"
+                      preferredTentant: "Bachelors/Family"
+                      bathroom: 1
+                      pointOfContact: "Contact Owner"
+                      description: null
+                      images:
+                        - "https://azure2134398.blob.core.windows.net/test/537235380514029719.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/942702830658867919.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/3223505816210159731.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/718.jpg"
+                      reports: 1
+                    - _id: "65fb6e373a656543cdc07c2f"
+                      postedDate: "2024-01-15"
+                      bhk: 2
+                      rentPrice: 1730
+                      size: 900
+                      floor: "Ground out of 2"
+                      address: "314 Badgeley Ave, Ottawa, ON K2T 0A7"
+                      city: "Ottawa"
+                      furnishing: "Semi-Furnished"
+                      preferredTentant: "Bachelors"
+                      bathroom: 1
+                      pointOfContact: "Contact Owner"
+                      description: null
+                      images:
+                        - "https://azure2134398.blob.core.windows.net/test/558448978082769337.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/601714399261708336.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/717.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/3224815047740630133.jpg"
+                      reports: 0
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Unique identifier for the apartment
+                      postedDate:
+                        type: string
+                        format: date
+                        description: Date when the apartment was posted
+                      bhk:
+                        type: integer
+                        description: Number of bedrooms, hall, and kitchen
+                      rentPrice:
+                        type: integer
+                        description: Rent price of the apartment
+                      size:
+                        type: integer
+                        description: Size of the apartment in square feet
+                      floor:
+                        type: string
+                        description: Floor of the apartment in the building
+                      address:
+                        type: string
+                        description: Address of the apartment
+                      city:
+                        type: string
+                        description: City where the apartment is located
+                      furnishing:
+                        type: string
+                        description: Furnishing status of the apartment
+                      preferredTentant:
+                        type: string
+                        description: Preferred tenant type for the apartment
+                      bathroom:
+                        type: integer
+                        description: Number of bathrooms in the apartment
+                      pointOfContact:
+                        type: string
+                        description: Point of contact for the apartment
+                      description:
+                        type: string
+                        description: Description of the apartment
+                      images:
+                        type: array
+                        items:
+                          type: string
+                        description: URLs of images for the apartment
+                      reports:
+                        type: integer
+                        description: Number of reports for the apartment
+        400:
+          description: Invalid query paramater value input.
+          content:
+            application/json:
+              example:
+                status: error
+                message: 'not supported in api'
+              schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: rejected
+                message:
+                  type: string
+                  description: specifies invalid input
+  /leases/{city}:
+    get:
+      summary: Retrieve filtered leases.
+        description: Displays leases filtered by city (mandatory) and other queries.
+      parameters:
+        - in: path
+          name: city
+          required: true
+          description: The city location of the leases.
+          schema:
+            type: string
+        - in: path
+          name: furnishing
+          required: false
+          description: The furnishing description of the apartment
+          schema:
+            type: string
+        - in: path
+          name: area
+          required: false
+          description: The area location inside the city of the lease.
+          schema:
+            type: string
+        - in: path
+          name: bathroom
+          required: false
+          description: The number of the bathrooms in the apartment.
+          schema:
+            type: integer
+        - in: path
+          name: bedroom
+          required: false
+          description: The number of the bedrooms in the apartment.
+          schema:
+            type: integer
+        - in: path
+          name: rentMinimum
+          required: false
+          description: The minimum rent price of the apartment.
+          schema:
+            type: integer
+        - in: path
+          name: rentMaximum
+          required: false
+          description: The maximum rent price of the apartment.
+          schema:
+            type: integer
+          name: sizeMinimum
+          required: false
+          description: The minimum size of the apartment in squarefoot.
+          schema:
+            type: integer
+        - in: path
+          name: rentMaximum
+          required: false
+          description: The maximum size of the apartment in squarefoot.
+          schema:
+            type: integer
+      responses:
+        200:
+            description: The list of filtered apartments.
+            content:
+              application/json:
+                example:
+                  response:
+                    - _id: "65fb6e373a656543cdc07c29"
+                      postedDate: "2024-02-26"
+                      bhk: 2
+                      rentPrice: 1790
+                      size: 800
+                      floor: "1 out of 3"
+                      address: "191 Rouge Rd, Winnipeg, MB R3K 1J6"
+                      city: "Winnipeg"
+                      furnishing: "Semi-Furnished"
+                      preferredTentant: "Bachelors/Family"
+                      bathroom: 1
+                      pointOfContact: "Contact Owner"
+                      description: null
+                      images:
+                        - "https://azure2134398.blob.core.windows.net/test/537235380514029719.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/942702830658867919.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/3223505816210159731.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/718.jpg"
+                      reports: 1
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Unique identifier for the apartment
+                      postedDate:
+                        type: string
+                        format: date
+                        description: Date when the apartment was posted
+                      bhk:
+                        type: integer
+                        description: Number of bedrooms, hall, and kitchen
+                      rentPrice:
+                        type: integer
+                        description: Rent price of the apartment
+                      size:
+                        type: integer
+                        description: Size of the apartment in square feet
+                      floor:
+                        type: string
+                        description: Floor of the apartment in the building
+                      address:
+                        type: string
+                        description: Address of the apartment
+                      city:
+                        type: string
+                        description: City where the apartment is located
+                      furnishing:
+                        type: string
+                        description: Furnishing status of the apartment
+                      preferredTentant:
+                        type: string
+                        description: Preferred tenant type for the apartment
+                      bathroom:
+                        type: integer
+                        description: Number of bathrooms in the apartment
+                      pointOfContact:
+                        type: string
+                        description: Point of contact for the apartment
+                      description:
+                        type: string
+                        description: Description of the apartment
+                      images:
+                        type: array
+                        items:
+                          type: string
+                        description: URLs of images for the apartment
+                      reports:
+                        type: integer
+                        description: Number of reports for the apartment
+        400:
+          description: Invalid query paramater value input.
+          content:
+            application/json:
+              example:
+                status: error
+                message: Rent values must be non-negative integers
+              schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: rejected
+                message:
+                  type: string
+                  description: specifies invalid input

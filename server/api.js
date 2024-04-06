@@ -4,7 +4,6 @@ const compression = require('compression');
 const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const session = require('express-session');
-// const {users} = require('./db/schemas.js');
 const {DB} = require('./db/db.js');
 
 const { leasesRouter } = require('./routes/leases.js');
@@ -15,18 +14,10 @@ const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
 const {userProfileRouter} = require('./routes/user-profile.js');
 
-
-//const users = [];
-
   
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
-// const _dirname = __dirname || path.dirname(_filename);
 
-
-// const { config } = require('dotenv');
-// const envPath = path.resolve(_dirname, '../.env');
-// config({ path: envPath });
 
 const app = express();
 
@@ -66,16 +57,25 @@ app.use('/leaseDelete/', leaseDelete);
 app.use('/userProfile/', userProfileRouter);
 
 
+/**
+ * Swagger
+ */
+
+const YAML = require('yamljs');
+const swaggerUi = require('swagger-ui-express');
+
+// Swagger leases definition
+const swaggerLeasesDocument = YAML.load('./routes/leases-swagger.yaml');
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerLeasesDocument));
+
+
 // Add a POST API endpoint for login with token verification
 app.post('/login', async (req, res) => {
     const { idToken } = req.body;
   
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const client = new OAuth2Client(clientId);
-
-    // console.log('CLIENT ID->>', clientId);
-    // console.log('CLIENT->>', client);
-    // console.log('ID TOKEN->>', idToken);
   
     try {
         // Call the verifyIdToken to verify and decode the token
@@ -86,29 +86,10 @@ app.post('/login', async (req, res) => {
   
         // Get the JSON with all the user info
         const payload = ticket.getPayload();
-        // Check if the user already exists in the in-memory "database"
-        //const existsAlready = users.findIndex((user) => user.email === payload.email);
 
         const db = new DB();
 
         let user = await db.findUser(payload.email);
-
-        // if (existsAlready !== -1) {
-        //     // Update the existing user
-        //     users[existsAlready] = {
-        //         name: payload.name,
-        //         email: payload.email,
-        //         picture: payload.picture,
-        //     };
-        // } else {
-        //     // Create a new user and add to the in-memory "database"
-        //     const newUser = {
-        //         name: payload.name,
-        //         email: payload.email,
-        //         picture: payload.picture,
-        //     };
-        //     users.push(newUser);
-        // }
 
         if (!user) {
             // If the user doesn't exist, create a new user in the database
@@ -130,8 +111,6 @@ app.post('/login', async (req, res) => {
 
 
         res.status(201).json({ message: 'Login successful', data: payload });
-
-        //console.log('USERSSS->>', users);
 
     } catch (error) {
         console.error('Token verification failed:', error.message);
