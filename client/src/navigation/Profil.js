@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './Profil.css';
 import { FaTrash } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
+// import { useHistory } from 'react-router-dom';
 
 
 
@@ -21,6 +22,8 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
     const handleClick = () => setClick(!click);
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
+
 
 
     const handleLogin = async (response) => {
@@ -166,6 +169,17 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
       }
   };
 
+
+  const navigateToPost = () => {
+    if (isLoggedIn) {
+        console.log("logged in");
+        navigateToPostListing(username); //redirect to the post listing page
+    } else {
+        console.log("not logged in");
+        navigate('/profil'); //redirect to the login page if not logged in
+    }
+};
+
     return(
         <div className="profil">
             <h1>{t('Nav.profil')}</h1>
@@ -186,7 +200,8 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
             {isLoggedIn && (
             <div className="nav-item">
               <button className="post-listing-btn" onClick={() => {
-                navigateToPostListing(username);
+                // navigateToPostListing(username);
+                navigateToPost();
                 }}>
                 {t('Profil.post')}
               </button>

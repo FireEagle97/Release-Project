@@ -169,6 +169,7 @@ export default function PostListing() {
   return (
     <div className="post-listing-container">
       <h1 className="create-listing">{t('Post.title')}</h1>
+      {email ? ( 
       <form onSubmit={handleSubmit} style={{marginBottom:"3rem"}}>
         <div className="float-container">
         <div className="float-child">
@@ -250,6 +251,9 @@ export default function PostListing() {
         </div>
         <button type="submit" disabled={!isFormValid()}>{t('Post.submit')}</button>
       </form>
+      ) : (
+        <p>{t('Post.errmsg')}</p>
+      )}
     </div>
   );
 }
