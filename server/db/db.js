@@ -150,8 +150,7 @@ class DB{
     async findUser(email) {
         try {
             await this.connect();
-            const user = await users.findOne({email: email});
-            console.log('User found:', user);
+            const user = await users.findOne({email: email}).select('-__v');
             return user;
         } catch (error) {
             console.error('User could not be found:', error);
