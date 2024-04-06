@@ -42,11 +42,13 @@ const LeaseMap = ({ address }) => {
     }
     fetchCoordinate();
   }, [address]);
+
   useEffect(() => {
     if (leaseCoordinates.length > 0) {
       initializeMap();
     }
-  },)
+  }, [leaseCoordinates])
+
   return (
     <div id="map-container">
     </div>
