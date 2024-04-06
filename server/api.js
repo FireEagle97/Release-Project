@@ -64,10 +64,10 @@ app.use('/userProfile/', userProfileRouter);
 const YAML = require('yamljs');
 const swaggerUi = require('swagger-ui-express');
 
-// Swagger definition
-const swaggerDocument = YAML.load('./routes/leases-swagger.yaml');
+// Swagger leases definition
+const swaggerLeasesDocument = YAML.load('./routes/leases-swagger.yaml');
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerLeasesDocument));
 
 
 // Add a POST API endpoint for login with token verification

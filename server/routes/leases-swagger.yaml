@@ -8,63 +8,9 @@ paths:
     get:
       summary: Retrieve all leases.
         description: Displays all leases.
-      parameters:
-        - in: path
-          name: city
-          required: true
-          description: The city location of the leases.
-          schema:
-            type: string
-        - in: path
-          name: furnishing
-          required: false
-          description: The furnishing description of the apartment
-          schema:
-            type: string
-        - in: path
-          name: area
-          required: false
-          description: The area location inside the city of the lease.
-          schema:
-            type: string
-        - in: path
-          name: bathroom
-          required: false
-          description: The number of the bathrooms in the apartment.
-          schema:
-            type: integer
-        - in: path
-          name: bedroom
-          required: false
-          description: The number of the bedrooms in the apartment.
-          schema:
-            type: integer
-        - in: path
-          name: rentMinimum
-          required: false
-          description: The minimum rent price of the apartment.
-          schema:
-            type: integer
-        - in: path
-          name: rentMaximum
-          required: false
-          description: The maximum rent price of the apartment.
-          schema:
-            type: integer
-          name: sizeMinimum
-          required: false
-          description: The minimum size of the apartment in squarefoot.
-          schema:
-            type: integer
-        - in: path
-          name: rentMaximum
-          required: false
-          description: The maximum size of the apartment in squarefoot.
-          schema:
-            type: integer
       responses:
         200:
-            description: The list of filtered apartments.
+            description: The list of apartments.
             content:
               application/json:
                 example:
