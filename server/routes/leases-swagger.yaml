@@ -56,56 +56,7 @@ paths:
                 schema:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      _id:
-                        type: string
-                        description: Unique identifier for the apartment
-                      postedDate:
-                        type: string
-                        format: date
-                        description: Date when the apartment was posted
-                      bhk:
-                        type: integer
-                        description: Number of bedrooms, hall, and kitchen
-                      rentPrice:
-                        type: integer
-                        description: Rent price of the apartment
-                      size:
-                        type: integer
-                        description: Size of the apartment in square feet
-                      floor:
-                        type: string
-                        description: Floor of the apartment in the building
-                      address:
-                        type: string
-                        description: Address of the apartment
-                      city:
-                        type: string
-                        description: City where the apartment is located
-                      furnishing:
-                        type: string
-                        description: Furnishing status of the apartment
-                      preferredTentant:
-                        type: string
-                        description: Preferred tenant type for the apartment
-                      bathroom:
-                        type: integer
-                        description: Number of bathrooms in the apartment
-                      pointOfContact:
-                        type: string
-                        description: Point of contact for the apartment
-                      description:
-                        type: string
-                        description: Description of the apartment
-                      images:
-                        type: array
-                        items:
-                          type: string
-                        description: URLs of images for the apartment
-                      reports:
-                        type: integer
-                        description: Number of reports for the apartment
+                    $ref: '#/components/schemas/LeaseObject'
         400:
           description: Invalid query paramater value input.
           content:
@@ -209,56 +160,7 @@ paths:
                 schema:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      _id:
-                        type: string
-                        description: Unique identifier for the apartment
-                      postedDate:
-                        type: string
-                        format: date
-                        description: Date when the apartment was posted
-                      bhk:
-                        type: integer
-                        description: Number of bedrooms, hall, and kitchen
-                      rentPrice:
-                        type: integer
-                        description: Rent price of the apartment
-                      size:
-                        type: integer
-                        description: Size of the apartment in square feet
-                      floor:
-                        type: string
-                        description: Floor of the apartment in the building
-                      address:
-                        type: string
-                        description: Address of the apartment
-                      city:
-                        type: string
-                        description: City where the apartment is located
-                      furnishing:
-                        type: string
-                        description: Furnishing status of the apartment
-                      preferredTentant:
-                        type: string
-                        description: Preferred tenant type for the apartment
-                      bathroom:
-                        type: integer
-                        description: Number of bathrooms in the apartment
-                      pointOfContact:
-                        type: string
-                        description: Point of contact for the apartment
-                      description:
-                        type: string
-                        description: Description of the apartment
-                      images:
-                        type: array
-                        items:
-                          type: string
-                        description: URLs of images for the apartment
-                      reports:
-                        type: integer
-                        description: Number of reports for the apartment
+                    $ref: '#/components/schemas/LeaseObject'
         400:
           description: Invalid query paramater value input.
           content:
@@ -487,6 +389,42 @@ paths:
                   error:
                     type: string
                     description: Error message detailing why the request failed.
+  /coordinate/{address}:
+    get:
+      summary: Retrieves the geographical coordinates of a given address.
+      description: This endpoint queries an external geocoding service to fetch the geographical coordinates (latitude and longitude) for a specified address. The address is passed as a URL path parameter and must be properly encoded.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: The address for which to retrieve geographical coordinates. The address should be URL encoded.
+      responses:
+        '200':
+          description: Successfully retrieved the coordinates for the specified address.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  coordinates:
+                    type: array
+                    items:
+                      type: number
+                    description: An array containing the longitude and latitude of the specified address.
+                    example: [-74.0059413, 40.7127837]
+        '400':
+          description: The request was malformed, or the specified address's coordinates could not be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message detailing why the request failed or the address was not found.
+  
 components:
   schemas:
     LeaseObject:
