@@ -23,7 +23,16 @@ const app = express();
 
 // Add middleware to serve static files
 app.use(
-    express.static(path.join(path.dirname(_filename), '..', 'client', 'build'))
+    express.static(path.join(path.dirname(_filename), '..', 'client', 'build'), {
+        setHeaders: (res, path) => {
+            // Set cache control headers only for image files
+            if (path.endsWith('.webp') || 
+            path.endsWith('.jpeg') || path.endsWith('.png') || path.endsWith('.jpn')) {
+                // cache for 30 days
+                res.setHeader('Cache-Control', 'public, max-age=2592000'); 
+            }
+        }
+    })
 );
 
 // Middleware to parse JSON requests

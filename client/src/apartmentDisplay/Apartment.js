@@ -96,6 +96,14 @@ export default function ApartmentPage() {
             }else{
                 await reportRelease(apartment._id);
             }
+
+            // remove cached data
+            localStorage.removeItem('leases');
+            const keysToRemove = Object.keys(localStorage).
+                filter(key => key.includes(`leases:${apartment.city}:`));
+            console.log(keysToRemove)
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+
         } else {
             navigate('/profil', { replace: true });
         }

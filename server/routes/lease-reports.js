@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {DB} = require('../db/db');
+const cache = require('memory-cache');
 
 const idRegex = /^[a-f\d]{24}$|^\d{1,12}$|^(?:(?:[0-9a-fA-F]{2}){12})$/;
 
@@ -23,6 +24,14 @@ router.post('/:leaseId', async (req, res) => {
         lease.reports = (lease.reports || 0) + 1;
 
         await db.updateLease(leaseId, lease);
+
+
+        // cache control
+        cache.del(`leases`);
+        const cityCachePattern = `leases:${lease.city}:*`;
+        cache.keys(cityCachePattern).forEach(key => {
+            cache.del(key);
+        });
         res.status(200).json({ message: 'Reports field incremented successfully', lease });
 
     } catch (error) {

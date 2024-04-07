@@ -25,38 +25,36 @@ const Filters = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cityList, setCityList] = useState([]);
-  const [furnishingList, setFurnishingList] = useState([]);
+  const furnishingList = ["Furnished", "Unfurnished", "Semi-Furnished"];
 
   const { t } = useTranslation();
-
-  useEffect(() => {
-    async function fetchCities() {
-      try {
-        let response = await fetch("/filters/city");
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setCityList(data.response);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
+  const fetchCities = async () => {
+    try {
+      let response = await fetch("/filters/city");
+      if (!response.ok) {
+        throw new Error("Failed to fetch leases");
       }
+      const data = await response.json();
+      setCityList(data.response);
+    } catch (error) {
+      console.error("Error fetching leases:", error);
     }
-    async function fetchFurnishing() {
-      try {
-        let response = await fetch("/filters/furnishing");
-        if (!response.ok) {
-          throw new Error("Failed to fetch leases");
-        }
-        const data = await response.json();
-        setFurnishingList(data.response);
-      } catch (error) {
-        console.error("Error fetching leases:", error);
-      }
-    }
-    fetchCities();
-    fetchFurnishing();
-  }, []);
+  };
+  // useEffect(() => {
+  //   async function fetchCities() {
+  //     try {
+  //       let response = await fetch("/filters/city");
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch leases");
+  //       }
+  //       const data = await response.json();
+  //       setCityList(data.response);
+  //     } catch (error) {
+  //       console.error("Error fetching leases:", error);
+  //     }
+  //   }
+  //   fetchCities();
+  // }, []);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -122,8 +120,17 @@ const Filters = ({
             onChange={handleSearchChange}
           />
         </div>
-        <div className="filter-button-dropdown">
-          <button className="btn btn-secondary dropdown-toggle" onClick={handleClearFilters}>
+        <div style={{ padding: "1rem" }}>
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            onClick={ () => {
+              if(!isOpen){
+                fetchCities();
+              }
+              handleClearFilters();
+            
+            }}
+          >
             {t('Filter.filters')}
           </button>
         </div>
