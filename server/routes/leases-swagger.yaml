@@ -194,7 +194,6 @@ paths:
               application/json:
                 example:
                   response:
-                    - status: 200
                       message: Lease deleted successfully
         400:
             description: Invalid apartment post ID.
@@ -202,7 +201,6 @@ paths:
               application/json:
                 example:
                   response:
-                    - status: 400
                       error: Invalid ID format
         404:
             description: User not found.
@@ -210,7 +208,6 @@ paths:
               application/json:
                 example:
                   response:
-                    - status: 404
                       error: User not found
         500:
             description: Internal server error.
@@ -218,7 +215,6 @@ paths:
               application/json:
                 example:
                   response:
-                    - status: 500
                       error: Internal server error
   /userProfile/{email}:
     get:
