@@ -34,7 +34,7 @@ Author: Elissar Fadel
 
 In this champion, I addressed the issue of slow page loading in our application. The page load time was excessively slow, taking up to 4 seconds in some cases. This sluggish performance was particularly concerning given that our application does not handle a large dataset. To ensure a better user experience and improve user satisfaction, I focused on optimizing the page load time. In the next few paragraphs, I explain what features I used and show proof of optimization.
 
-## Features added for performance optimization:
+Features added for performance optimization:
 
 ### Frontend Caching: 
 Used local storage to store data from fetch responses, ensuring less repeated API calls and improving responsiveness of the app. I cached responses from requests of filters and all leases, and ensured to remove from local storage items that correlate to a lease being uploaded, removed or updated. 
