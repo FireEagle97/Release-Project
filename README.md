@@ -17,3 +17,13 @@ The button is a blue 'Read Text' button in the bottom-left of the apartment desc
 # Mobile version
 Author: Dany Makhoul
 I added css rules and modified the layout where necessary to be mobile friendly
+
+
+# Multi-language Feature
+Author: Monica Dimitrova
+
+I created a dropdown menu where a user can select their prefered language in which to browse our website.
+I implement the translation of our website using json files for each language, and i18next is the internationalization framework I used.
+
+![Multi-language](./report-imgs/multi-lang.png)
+
