@@ -129,12 +129,13 @@ const Filters = ({
         </div>
         {clearFilters && (
           <div className="clear-filters-button">
-            <button className="btn btn-danger" onClick={handleClearFilters}>
+            <button className="btn btn-danger" onClick={handleFiltersDropdown}>
               {t('Filter.clear')}
             </button>
           </div>
         )}
       </div>
+      {isOpen && (
       <div className="mb-4 filters-div">
         {/* Your filter options */}
         {/* City filter */}
@@ -305,6 +306,7 @@ const Filters = ({
           {t('Filter.apply')}
         </button>
       </div>
+      )}
     </section>
   );
 };
