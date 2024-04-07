@@ -144,7 +144,7 @@ export default function ApartmentPage() {
                         <br></br>
                         <strong>{t('Apt.postdate')}:</strong> {apartment.postedDate}  
                     </h4>
-                    <LeaseMap></LeaseMap>
+                    <LeaseMap address={apartment.address}></LeaseMap>
                     <br></br>
                     <h6>
                     {t('Apt.moreinfo')}

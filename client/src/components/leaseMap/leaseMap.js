@@ -6,7 +6,6 @@ import markerImage from "../../assets/marker-icon.png";
 
 const LeaseMap = ({ address }) => {
   const [leaseCoordinates, setLeaseCoordinates] = useState([]);
-  
   function initializeMap(){
     const map = L.map("map-container", {
       center: [leaseCoordinates[1],leaseCoordinates[0]],
@@ -43,13 +42,11 @@ const LeaseMap = ({ address }) => {
     }
     fetchCoordinate();
   }, [address]);
-
   useEffect(() => {
     if (leaseCoordinates.length > 0) {
-      initializeMap(leaseCoordinates);
+      initializeMap();
     }
-  }, )
-// [leaseCoordinates]
+  },)
   return (
     <div id="map-container">
     </div>
