@@ -13,6 +13,7 @@ const { coordinatesRouter} = require('./routes/coordinates.js');
 const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
 const {userProfileRouter} = require('./routes/user-profile.js');
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   
 const _filename = 
@@ -84,8 +85,6 @@ app.post('/login', async (req, res) => {
     const { idToken } = req.body;
   
     // console.log('Received token:', idToken);
-
-    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const client = new OAuth2Client(clientId);
   
     try {
