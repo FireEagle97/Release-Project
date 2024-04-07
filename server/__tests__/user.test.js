@@ -46,37 +46,37 @@ describe('GET /userProfile/:email & login/logout', () => {
 
 
 
-    // test('should log in successfully with valid token', async () => {
-    //     //mocking the OAuth2Client
-    //     const mockVerifyIdToken = jest.fn().mockResolvedValue({ 
-    //         getPayload: () => ({
-    //             email: 'test@example.com',
-    //             name: 'Test User',
-    //             picture: 'picture.jpg'
-    //             // Add other payload properties as needed
-    //         })
-    //     });
-    //     jest.spyOn(OAuth2Client.prototype, 'verifyIdToken')
-    //         .mockImplementation(mockVerifyIdToken);
+    test('should log in successfully with valid token', async () => {
+        //mocking the OAuth2Client
+        const mockVerifyIdToken = jest.fn().mockResolvedValue({ 
+            getPayload: () => ({
+                email: 'test@example.com',
+                name: 'Test User',
+                picture: 'picture.jpg'
+                // Add other payload properties as needed
+            })
+        });
+        jest.spyOn(OAuth2Client.prototype, 'verifyIdToken')
+            .mockImplementation(mockVerifyIdToken);
     
-    //     //mocking the DB methods
-    //     const mockFindUser = jest.fn().mockResolvedValue(null);
-    //     const mockCreateUser = jest.fn().mockResolvedValue({}); 
-    //     DB.prototype.findUser = mockFindUser;
-    //     DB.prototype.createUser = mockCreateUser;
+        //mocking the DB methods
+        const mockFindUser = jest.fn().mockResolvedValue(null);
+        const mockCreateUser = jest.fn().mockResolvedValue({}); 
+        DB.prototype.findUser = mockFindUser;
+        DB.prototype.createUser = mockCreateUser;
     
-    //     //setting up request body with a valid token
-    //     const token = 'valid_token';
-    //     const requestBody = { idToken: token };
+        //setting up request body with a valid token
+        const token = 'valid_token';
+        const requestBody = { idToken: token };
     
-    //     //sending a POST request to the login endpoint
-    //     const response = await request(app)
-    //         .post('/login')
-    //         .send(requestBody);
+        //sending a POST request to the login endpoint
+        const response = await request(app)
+            .post('/login')
+            .send(requestBody);
     
-    //     // Verify the response
-    //     expect(response.status).toBe(201);
-    // });
+        // Verify the response
+        expect(response.status).toBe(201);
+    });
 
 
     // test('should fail to log in with invalid token', async () => {
