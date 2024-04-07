@@ -143,12 +143,14 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
         }
     };
 
-
-    const deleteLease = async (leaseId) => {
+    // const navigateToListing = (leaseid) => {
+    //   navigate(`apartment/${leaseid}`);
+    // }
+    const deleteLease = async (leaseTodelete) => {
       try {
           const confirmation = window.confirm('Are you sure you want to delete this listing?');
           if (confirmation) {
-              const response = await fetch(`/leaseDelete/${leaseId}`, {
+              const response = await fetch(`/leaseDelete/${leaseTodelete._id}`, {
                   method: 'DELETE',
                   headers: {
                       'Content-Type': 'application/json',
@@ -156,7 +158,15 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
                   body: JSON.stringify({ email: username }),
               });
               if (response.ok) {
-                  setLeases(leases.filter(lease => lease._id !== leaseId));
+                  setLeases(leases.filter(lease => lease._id !== leaseTodelete._id));
+
+
+                  // remove cached data
+                  localStorage.removeItem('leases');
+                  const keysToRemove = Object.keys(localStorage).
+                      filter(key => key.includes(`leases:${leaseTodelete.city}:`));
+                  console.log(keysToRemove)
+                  keysToRemove.forEach(key => localStorage.removeItem(key));
               } else {
                   console.error('Failed to delete lease');
               }
@@ -210,8 +220,8 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
                           <p className="lease-info"><strong>{t('Profil.address')}</strong> {lease.address}</p>
                           <p className="lease-info"><strong>{t('Profil.price')}</strong> ${lease.rentPrice}</p>
                         </div>
-                        <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>{t('Profil.viewlisting')}</button>
-                        <i className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>
+                        <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
+                        <i className="delete-lease-btn" onClick={() => deleteLease(lease)}>
                             <FaTrash />
                         </i>
                       </li>

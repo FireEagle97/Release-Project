@@ -5,6 +5,7 @@ const debug = require('debug');
 const logger = debug('server:posting listing');
 const {getImageUrls} = require('./utils/image-upload');
 const {getCurrentDate, validateProperty} = require('./utils/lease-upload-utils');
+const cache = require('memory-cache');
 // to do
 // erase title, make city and arealocality and preferredtentant, in client
 router.post('/', async (req, res) => {
@@ -48,6 +49,12 @@ router.post('/', async (req, res) => {
             return res.status(404).json({ error: 'User not found.' });
         }
 
+        // cache control
+        cache.del(`leases`);
+        const cityCachePattern = `leases:${leaseObject.city}:*`;
+        cache.keys(cityCachePattern).forEach(key => {
+            cache.del(key);
+        });
         res.status(200).send({'respose':leaseObject});
     }catch (error) {
         res.status(500).json({ error: 'Internal server error' });

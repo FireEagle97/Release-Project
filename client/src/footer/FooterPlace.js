@@ -17,7 +17,7 @@ function Footer(){
         <footer>
             <div class="top">
               <div class="logo-footer">
-                <picture><img src="/logo1.png" alt="Logo" class="image-footer" /></picture>
+                <picture><img src="/logo1.png" alt="Logo" class="image-footer"  loading="lazy" /></picture>
               </div>
               <div class="left">
                 <p><strong>{t('Footer.credit')}</strong></p>
