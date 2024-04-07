@@ -27,15 +27,23 @@ jest.mock('../db/db', () => ({
 jest.mock('google-auth-library', () => ({
     OAuth2Client: jest.fn().mockImplementation(() => {
         return {
-            verifyIdToken: jest.fn().mockResolvedValue({ 
-                getPayload: () => { 
-                    return {
-                        email: 'test@example.com',
-                        name: 'Test User',
-                        picture: 'picture.jpg',
-                        save: jest.fn()
-                        // Add other payload properties as needed
-                    }; 
+            verifyIdToken: jest.fn().mockImplementation(async ({ idToken }) => {
+                if (idToken === 'valid_token') {
+                    // Return a payload representing a valid token
+                    return { 
+                        getPayload: () => { 
+                            return {
+                                email: 'test@example.com',
+                                name: 'Test User',
+                                picture: 'picture.jpg',
+                                save: jest.fn()
+                                // Add other payload properties as needed
+                            }; 
+                        }
+                    };
+                } else {
+                    // Return an error for invalid token
+                    throw new Error('Invalid token');
                 }
             })
         };
@@ -80,18 +88,18 @@ describe('GET /userProfile/:email & login/logout', () => {
         expect(response.status).toBe(201);
     });
 
-    // test('should fail to log in with invalid token', async () => {
-    //     const invalidToken = 'invalid_token';
-    //     const requestBody = { idToken: invalidToken };
+    test('should fail to log in with invalid token', async () => {
+        const invalidToken = 'invalid_token';
+        const requestBody = { idToken: invalidToken };
     
-    //     const response = await request(app).
-    //         post('/login').
-    //         send(requestBody);
+        const response = await request(app).
+            post('/login').
+            send(requestBody);
     
-    //     expect(response.status).toBe(401);
-    //     expect(response.body.message).toBe('Login failed');
+        expect(response.status).toBe(401);
+        expect(response.body.message).toBe('Login failed');
     
-    // });
+    });
     
     
 
