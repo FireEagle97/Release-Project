@@ -51,7 +51,8 @@
         "desc": "Description",
         "contact": "Contact Information",
         "imgs": "Images",
-        "submit": "Submit"
+        "submit": "Submit",
+        "errmsg": "Please navigate to this page through your profil page"
     },
     "Footer": {
         "credit": "Credits for ReLease 2024:",

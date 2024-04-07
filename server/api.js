@@ -87,7 +87,7 @@ app.post('/login', async (req, res) => {
     const client = new OAuth2Client(clientId);
   
     try {
-        // Call the verifyIdToken to verify and decode the token
+    // Call the verifyIdToken to verify and decode the token
         const ticket = await client.verifyIdToken({
             idToken: idToken,
             audience: clientId,
@@ -101,7 +101,7 @@ app.post('/login', async (req, res) => {
         let user = await db.findUser(payload.email);
 
         if (!user) {
-            // If the user doesn't exist, create a new user in the database
+        // If the user doesn't exist, create a new user in the database
             user = await db.createUser({
                 name: payload.name,
                 email: payload.email,
@@ -109,7 +109,7 @@ app.post('/login', async (req, res) => {
                 leases: null
             });
         } else {
-            // If the user already exists, update their information
+        // If the user already exists, update their information
             user.name = payload.name;
             user.picture = payload.picture;
             await user.save();
@@ -120,7 +120,7 @@ app.post('/login', async (req, res) => {
 
 
         res.status(201).json({ message: 'Login successful', data: payload });
-
+    
     } catch (error) {
         console.error('Token verification failed:', error.message);
         res.status(401).json({ message: 'Login failed', error: error.message });

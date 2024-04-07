@@ -51,7 +51,9 @@
         "desc": "Descripción",
         "contact": "Información de contacto",
         "imgs": "Imágenes",
-        "submit": "Enviar"
+        "submit": "Enviar",
+        "errmsg": "Acceda a esta página a través de su perfil"
+
     },
     "Footer": {
         "credit": "Créditos para ReLease 2024:",

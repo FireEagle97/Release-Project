@@ -14,7 +14,7 @@ router.get('/:email', async (req, res) => {
         }
 
     }catch(err){
-        res.status(404).send({'error': 'User not found'});
+        res.status(404).send({'error': 'An error occurred'});
       
     }
 });

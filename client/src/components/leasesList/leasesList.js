@@ -199,7 +199,9 @@ return (
                     city: apartment.city
                   })}
                 </h5>
-                <h5 class="fw-bolder">${apartment.rentPrice}/month</h5>
+                <h5 class="fw-bolder">{t('AptsList.price', { apartmentPrice: apartment.rentPrice })}</h5>
+                
+
                 <div className="row">
                   <div className="col-2">
                     <img
