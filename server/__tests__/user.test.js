@@ -52,8 +52,9 @@ describe('GET /userProfile/:email', () => {
         expect(response.body.response).toEqual(testUserData);
     });
 
+
     test('should respond with 404 if user does not exist', async () => {
-        const email = 'test@user.com';
+        const email = 'nonexisting@user.com';
         const response = await request(app).get(`/userProfile/${email}`);
 
         expect(response.status).toBe(404);
