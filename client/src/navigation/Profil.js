@@ -225,7 +225,7 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
                 <div className="user-leases">
                     <h3>{t('Profil.yourleases')}</h3>
                     <ul>
-                    {leases.map((lease, index) => (
+                    {leases && leases.map((lease, index) => (
                       <li key={index} className="lease-item">
                         <div className="lease-details">
                           <p className="lease-info"><strong>{t('Profil.posteddate')}</strong> {lease.postedDate}</p>
