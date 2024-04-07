@@ -177,6 +177,45 @@ paths:
                 message:
                   type: string
                   description: specifies invalid input
+  /leaseDelete/{leaseId}:
+    delete:
+      summary: Delete a lease by a specific id.
+      parameters:
+        - in: path
+          name: leaseId
+          required: true
+          description: The ID of the lease to delete.
+          schema:
+            type: string
+      responses:
+        200:
+            description: Delete succeeded.
+            content:
+              application/json:
+                example:
+                  response:
+                      message: Lease deleted successfully
+        400:
+            description: Invalid apartment post ID.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: Invalid ID format
+        404:
+            description: User not found.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: User not found
+        500:
+            description: Internal server error.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: Internal server error
   /userProfile/{email}:
     get:
       summary: Retreives a user profile object.
