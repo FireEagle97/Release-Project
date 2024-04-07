@@ -46,39 +46,35 @@ describe('GET /userProfile/:email & login/logout', () => {
 
 
     // test('should log in successfully with valid token', async () => {
-    //     // Mock the OAuth2Client and its methods
+    //     //mocking the OAuth2Client
     //     const mockVerifyIdToken = jest.fn().mockResolvedValue({ 
     //         getPayload: () => ({
     //             email: 'test@example.com',
     //             name: 'Test User',
-    //             picture: 'https://example.com/picture.jpg'
+    //             picture: 'picture.jpg'
     //             // Add other payload properties as needed
     //         })
     //     });
     //     jest.spyOn(OAuth2Client.prototype, 'verifyIdToken')
-    //        .mockImplementation(mockVerifyIdToken);
+    //         .mockImplementation(mockVerifyIdToken);
     
-    //     // Mock the DB methods
+    //     //mocking the DB methods
     //     const mockFindUser = jest.fn().mockResolvedValue(null);
     //     const mockCreateUser = jest.fn().mockResolvedValue({}); 
     //     DB.prototype.findUser = mockFindUser;
     //     DB.prototype.createUser = mockCreateUser;
     
-    //     // Set up request body with a valid token
+    //     //setting up request body with a valid token
     //     const token = 'valid_token';
     //     const requestBody = { idToken: token };
     
-    //     // Send a POST request to the login endpoint
+    //     //sending a POST request to the login endpoint
     //     const response = await request(app)
     //         .post('/login')
     //         .send(requestBody);
     
     //     // Verify the response
     //     expect(response.status).toBe(201);
-    //     expect(response.body.message).toBe('Login successful');
-    //     expect(mockVerifyIdToken).toHaveBeenCalled();
-    //     expect(mockFindUser).toHaveBeenCalled();
-    //     expect(mockCreateUser).toHaveBeenCalled();
     // });
 
 
