@@ -13,3 +13,7 @@ I created a read text button using SayButton component imported from say-react l
 The button is a blue 'Read Text' button in the bottom-left of the apartment description.
 
 ![Read-Buuton](./report-imgs/report-btn.png)
+
+# Mobile version
+Author: Dany Makhoul
+I added css rules and modified the layout where necessary to be mobile friendly
