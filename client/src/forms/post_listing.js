@@ -2,10 +2,13 @@ import { React, useState } from 'react';
 import './post_listing.css';
 import AddressAutocompleteForm from './addressAutocomplete';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function PostListing() {
   const location = useLocation();
   const email = location.state?.email;
+  const { t } = useTranslation();
+
 
 
   const [rentPrice, setRentPrice] = useState('');
@@ -173,69 +176,69 @@ export default function PostListing() {
 
   return (
     <div className="post-listing-container">
-      <h1 className="create-listing">Create Your Listing</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="create-listing">{t('Post.title')}</h1>
+      <form onSubmit={handleSubmit} style={{marginBottom:"3rem"}}>
         <div className="float-container">
         <div className="float-child">
 
-          <label htmlFor="rentPrice">Rent Price</label>
+          <label htmlFor="rentPrice">{t('Post.rentprice')}</label>
           <input type="number" id="rentPrice" name="rentPrice" value={rentPrice} onChange={handleChange} min="0" />
 
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">{t('Post.address')}</label>
           <AddressAutocompleteForm addresses={suggestions} readAddressInput={handleAddressChange} selectAddress={setAddress}/>  
 
-          <label htmlFor="city">City</label>
+          <label htmlFor="city">{t('Post.city')}</label>
           <input type="text" id="city" name="city" value={city} onChange={handleChange} />
 
-          <label htmlFor="size">Size (sq ft)</label>
+          <label htmlFor="size">{t('Post.size')}</label>
           <input type="number" id="size" name="size" value={size} onChange={handleChange} />
 
-          <label htmlFor="bedrooms">Number of Bedrooms</label>
+          <label htmlFor="bedrooms">{t('Post.beds')}</label>
           <input type="number" id="bedrooms" name="bedrooms" value={bedrooms} onChange={handleChange} min="0" />
 
-          <label htmlFor="bathrooms">Number of Bathrooms</label>
+          <label htmlFor="bathrooms">{t('Post.baths')}</label>
           <input type="number" id="bathrooms" name="bathrooms" value={bathrooms} onChange={handleChange} min="0" />
 
-          <label htmlFor="floorNumber">Floor Number</label>
+          <label htmlFor="floorNumber">{t('Post.floor')}</label>
           <input type="number" id="floorNumber" name="floorNumber" value={floorNumber} onChange={handleChange} min="0" />
 
-          <label htmlFor="furnishing">Furnishing</label>
+          <label htmlFor="furnishing">{t('Post.furnishing')}</label>
           <br></br>
 
           <div className="furnishing-options">
             <label>
               <input type="radio" id="unfurnished" name="furnishing" value="Unfurnished" checked={furnishing === 'Unfurnished'} onChange={handleChange}/>
-              <span className="radio-circle"></span> Unfurnished
+              <span className="radio-circle"></span> {t('Post.unfur')}
             </label>
 
             <label>
               <input
                 type="radio" id="semiFurnished" name="furnishing" value="Semi-Furnished" checked={furnishing === 'Semi-Furnished'} onChange={handleChange}/>
-              <span className="radio-circle"></span> Semi-Furnished
+              <span className="radio-circle"></span> {t('Post.semifur')}
             </label>
 
             <label>
               <input
                 type="radio" id="furnished" name="furnishing" value="Furnished" checked={furnishing === 'Furnished'} onChange={handleChange}/>
-              <span className="radio-circle"></span> Furnished
+              <span className="radio-circle"></span> {t('Post.fur')}
             </label>
           </div>
 
           <br></br>
 
-          <label htmlFor="preferredTentant">Preffered Tenants</label>
+          <label htmlFor="preferredTentant">{t('Post.tenants')}</label>
           <input type="text" id="preferredTentant" name="preferredTentant" value={preferredTentant} onChange={handleChange} />
 
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">{t('Post.desc')}</label>
           <textarea id="description" name="description" value={description} onChange={handleChange} />
 
-          <label htmlFor="contactInfo">Contact Information</label>
+          <label htmlFor="contactInfo">{t('Post.contact')}</label>
           <input type="text" id="contactInfo" name="contactInfo" value={contactInfo} onChange={handleChange} />
         </div>
 
         <div className="float-child">
           <div className="image-column">
-            <label htmlFor="images">Add images</label>
+            <label htmlFor="images">{t('Post.imgs')}</label>
             <input type="file" id="images" name="images" onChange={handleChange} multiple />
             
             <div className="image-preview">
@@ -253,8 +256,7 @@ export default function PostListing() {
           </div>
           </div>
         </div>
-
-        <button type="submit" disabled={!isFormValid()}>Submit</button>
+        <button type="submit" disabled={!isFormValid()}>{t('Post.submit')}</button>
       </form>
     </div>
   );

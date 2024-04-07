@@ -8,7 +8,11 @@
     justify-content: center;
     background-color: grey;
   }
-  
+  #apartment-images-slider{
+    width: '50%';
+    margin: '0';
+    padding-bottom: 10rem;
+  }
   .slide-image-inner {
     display: flex;
     align-items: center;
@@ -18,18 +22,9 @@
     width: 80%;
     margin: 0;
   }
-
-  #apartment-images-slider button{
-    width: 35px; 
-    height: 35px;
-    display: flex;
-    align-items: center;
-    background-color: white;
-  }
-
-  
-  #apartment-images-slider {
-    width: 50%;
+  @media screen and (max-width: 960px){
+    #apartment-images-slider{
+      width: auto;
+      padding-bottom: 0;
     }
-    
-  
+  }
