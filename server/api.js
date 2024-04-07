@@ -83,6 +83,8 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerLeasesDocument));
 app.post('/login', async (req, res) => {
     const { idToken } = req.body;
   
+    // console.log('Received token:', idToken);
+
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const client = new OAuth2Client(clientId);
   
@@ -122,7 +124,7 @@ app.post('/login', async (req, res) => {
         res.status(201).json({ message: 'Login successful', data: payload });
     
     } catch (error) {
-        console.error('Token verification failed:', error.message);
+        // console.error('Token verification failed:', error.message);
         res.status(401).json({ message: 'Login failed', error: error.message });
     }
 });

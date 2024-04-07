@@ -12,6 +12,8 @@ const testUserData = {
 
 };
 
+
+
 jest.mock('../db/db', () => ({
     DB: jest.fn().mockImplementation(() => ({
         findUser: jest.fn().mockImplementation((email) => {
@@ -81,14 +83,22 @@ describe('GET /userProfile/:email & login/logout', () => {
     test('should fail to log in with invalid token', async () => {
         const invalidToken = 'invalid_token';
         const requestBody = { idToken: invalidToken };
-
+    
         const response = await request(app)
             .post('/login')
             .send(requestBody);
-
+    
         expect(response.status).toBe(401);
         expect(response.body.message).toBe('Login failed');
+    
+        // Close the request
+        response.req.end();
     });
+    
+    
+    
+
+    
 
 
     test('should log out successfully', async () => {
@@ -97,6 +107,7 @@ describe('GET /userProfile/:email & login/logout', () => {
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('Logged out successfully');
     });
+    
 
 
 });
