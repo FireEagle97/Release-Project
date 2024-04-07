@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {DB} = require('../db/db');
+const cache = require('memory-cache');
 
 const idRegex = /^[a-f\d]{24}$|^\d{1,12}$|^(?:(?:[0-9a-fA-F]{2}){12})$/;
 
@@ -32,6 +33,13 @@ router.delete('/:leaseId', async (req, res) => {
         user.leases = user.leases.filter(lease => !lease._id.equals(leaseId));
         await user.save();
 
+
+        // cache control
+        cache.del(`leases`);
+        const cityCachePattern = `leases:${lease.city}:*`;
+        cache.keys(cityCachePattern).forEach(key => {
+            cache.del(key);
+        });
 
         res.status(200).json({ message: 'Lease deleted successfully' });
     } catch (error) {

@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
 import { SayButton } from 'react-say';
+import { useTranslation } from 'react-i18next';
+
 
 /**
  * ApartmentPage component for displaying information on a single apartment.
@@ -22,6 +24,8 @@ export default function ApartmentPage() {
     const [name, setName] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false); //state to control the modal
     const [content, setReadContent] = useState('');
+
+    const { t } = useTranslation();
 
 
     useEffect(() => {
@@ -46,11 +50,18 @@ export default function ApartmentPage() {
 
         // Loop through each description block
         Array.from(descriptionBlocks).forEach(descriptionBlock => {
+        
             // Access the child nodes of each description block
             Array.from(descriptionBlock.childNodes).forEach(childNode => {
-                if (childNode.textContent.trim() !== '') { // Check if textContent is not empty
+                if (childNode.id === 'map-container') {
+                    // Skip processing if the child node has the id 'map-container'
+                    return;
+                }
+                if (childNode.tagName === 'BUTTON') { // Check if the childNode is a button element
+                    readText += 'Click button ' + childNode.textContent + ' ';
+                } else {
                     readText += childNode.textContent + ' ';
-                  }
+                }
             });
         });
 
@@ -85,8 +96,29 @@ export default function ApartmentPage() {
             }else{
                 await reportRelease(apartment._id);
             }
+
+            // remove cached data
+            localStorage.removeItem('leases');
+            const keysToRemove = Object.keys(localStorage).
+                filter(key => key.includes(`leases:${apartment.city}:`));
+            console.log(keysToRemove)
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+
         } else {
             navigate('/profil', { replace: true });
+        }
+    };
+
+    const translateFurnishing = (furnishing) => {
+        switch (furnishing) {
+            case 'Furnished':
+                return t('Post.fur');
+            case 'Semi-Furnished':
+                return t('Post.semifur');
+            case 'Unfurnished':
+                return t('Post.unfur');
+            default:
+                return furnishing;
         }
     };
 
@@ -96,47 +128,53 @@ export default function ApartmentPage() {
                 <ApartmentImages imagesLinks={apartment.images}/>
                 <div className='apt-info'>
                     <h3>
-                        {apartment.furnishing} apartment located in {apartment.address}, {apartment.city}
+                        {/* {translateFurnishing(apartment.furnishing)} {t('AptsList.aptlocation')} {apartment.address}, {apartment.city} */}
+                        {t('apartmentInfo', {
+                            furnishing: translateFurnishing(apartment.furnishing),
+                            aptLocation: t('AptsList.aptlocation'),
+                            address: apartment.address,
+                            city: apartment.city
+                        })}
                     </h3>
                     <h4>
                         <br></br>
-                        <strong>Rent price:</strong> ${apartment.rentPrice}
+                        <strong>{t('Post.rentprice')}:</strong> {t('AptsList.price', { apartmentPrice: apartment.rentPrice })}
                         <br></br>
-                        <strong>Floor:</strong> {apartment.floor}
+                        <strong>{t('Post.floor')}:</strong> {apartment.floor}
                         <br></br>
-                        <strong>Size:</strong> {apartment.size} sq.ft.
+                        <strong>{t('Post.size')}:</strong> {apartment.size}
                         <br></br>
-                        <strong>Bedrooms:</strong> {apartment.bhk}
+                        <strong>{t('Post.beds')}:</strong> {apartment.bhk}
                         <br></br>
-                        <strong>Bathrooms:</strong> {apartment.bathroom}
+                        <strong>{t('Post.baths')}:</strong> {apartment.bathroom}
                         <br></br>
-                        <strong>Furnishing:</strong> {apartment.furnishing}
+                        <strong>{t('Post.furnishing')}:</strong> {translateFurnishing(apartment.furnishing)}
                         <br></br>
-                        <strong>Listing post date:</strong> {apartment.postedDate}  
+                        <strong>{t('Apt.postdate')}:</strong> {apartment.postedDate}  
                     </h4>
-                    <LeaseMap></LeaseMap>
+                    <LeaseMap address={apartment.address}></LeaseMap>
                     <br></br>
                     <h6>
-                        For more information, click the button below to contact the lister.
+                    {t('Apt.moreinfo')}
                     </h6>
-                    <button onClick={handleInterestedClick}>Interested</button>   
+                    <button onClick={handleInterestedClick}>{t('Apt.interested')}</button>   
                     <br/>
                     <br/>
                     <div id="service-tools">
                         {/* Button to translate text */}
                         <SayButton
                             className="speech-btn"
-                            speak={content}
+                            text={content}
                         >
-                            Read Text
+                            {t('Apt.readtxt')}
                         </SayButton>
                         {!isReported ? (
                             <div id="report-space">
-                                <p>Any problems in this posting?</p>
-                                <button id="report-btn" onClick={handleReport}>report</button>
+                                <p>{t('Apt.problems')}</p>
+                                <button id="report-btn" onClick={handleReport}>{t('Apt.report')}</button>
                             </div>
                         ) : (
-                            <p id="report-message">Thank you! You've submitted your report.</p>
+                            <p id="report-message">{t('Apt.msg')}</p>
                         )}     
                     </div>        
                 </div>
@@ -151,7 +189,7 @@ export default function ApartmentPage() {
             >
                 <Box className='box'>
                 <Typography variant="h6" component="h2">
-                    Contact Information
+                    {t('Contact.contactinfo')}
                 </Typography>
                 <Typography sx={{ mt: 2 }}>
                      {apartment.pointOfContact}

@@ -2,8 +2,13 @@ import React, { useEffect, useState, useMemo } from "react";
 import Pagination from "../pagination/pagination";
 import Filters from "../filters/filters";
 import "./leasesList.css";
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 const LeasesList = ({ navigateToApartmentPage }) => {
+
+  const { t } = useTranslation();
+
   const location = useLocation();
   const [cityParam, setCityParam] = useState(location.state?.city);
 
@@ -53,17 +58,24 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   useEffect(() => {
     async function fetchLeases() {
       try {
-        console.log(cityParam);
         let link = "/leases";
+        
+        // caching
+        const cachedLeases = localStorage.getItem('leases');
+        if (cachedLeases) {
+          setLeases(JSON.parse(cachedLeases));
+          return; 
+        }
 
-        console.log(link);
         let response = await fetch(link);
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }
         const data = await response.json();
-        console.log(data.response);
         setLeases(data.response);
+        // caching
+        localStorage.setItem('leases', JSON.stringify(data.response));
+
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
@@ -76,8 +88,19 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     async function fetchLeasesWithFilters() {
       try {
         let link = `/leases/`;
-        console.log("city here " + city);
-        if (city != null) {
+
+        const cacheKey = `leases:${city || ''}:${furnishing || ''}:${bedroomCount}:${rentValues[0]}:${rentValues[1]}:${bathroomCount}`;
+
+        // caching
+        const cachedLeases = localStorage.getItem(cacheKey);
+        if (cachedLeases) {
+          console.log("caching happening")
+          setLeases(JSON.parse(cachedLeases));
+          return; 
+        }
+
+        console.log("fetching again");
+        if(city != null){
           link = link.concat(`${city}?`);
         }
         if (furnishing != null) {
@@ -104,6 +127,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         }
         const data = await response.json();
         setLeases(data.response);
+
+        //caching
+        localStorage.setItem(cacheKey, JSON.stringify(data.response));
       } catch (error) {
         console.error("Error fetching leases:", error);
       }
@@ -122,90 +148,107 @@ const LeasesList = ({ navigateToApartmentPage }) => {
     }
   }, [applyFilters, bathroomCount, bedroomCount, city, furnishing, rentValues]);
 
-  return (
-    // <section class="py-5">
-      <div class="container mt-5">
-      <Filters
-          sortOption={sortOption}
-          setSortOption={setSortOption}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          city={city}
-          setCity={setCity}
-          setFurnishing={setFurnishing}
-          furnishing={furnishing}
-          rentValues={rentValues}
-          setRentValues={setRentValues}
-          setApplyFilters={setApplyFilters}
-          setBedroomCount={setBedroomCount}
-          bedroomCount={bedroomCount}
-          bathroomCount={bathroomCount}
-          setBathroomCount={setBathroomCount}
-          leases={leases}
-          clearFilters={clearFilters}
-          setClearFilters={setClearFilters}
-        />
-        <div class="lease-list">
-          {currentLeases.map((apartment) => (
-            <div key={apartment.id} class="mb-5 lease-card">
-              <div class="card h-100">
-                {/* apartment image */}
-                <img className="card-image" src={apartment.images[0]} alt={apartment.bhk} />
-                {/* apartment detail */}
-                <div class="card-body p-4">
-                  <h5 class="fw-bolder">${apartment.rentPrice}/month</h5>
-                  {apartment.address}
-                  <div className="row">
-                    <div className="col-2">
-                      <img
-                        className="card-icon"
-                        src="double-bed.png"
-                        alt="double-bed"
-                        width="15"
-                        height="15"
-                      />
-                      {apartment.bhk}
-                    </div>
-                    <div className="col-2">
-                      <img
-                        className="card-icon"
-                        src="bathroom.png"
-                        alt="bathroom-icon"
-                        width="15"
-                        height="15"
-                      />
-                      {apartment.bathroom}
-                    </div>
+  const translateFurnishing = (furnishing) => {
+    switch (furnishing) {
+        case 'Furnished':
+            return t('Post.fur');
+        case 'Semi-Furnished':
+            return t('Post.semifur');
+        case 'Unfurnished':
+            return t('Post.unfur');
+        default:
+            return furnishing;
+    }
+};
+
+
+return (
+  <div class="container mt-5">
+    <Filters
+      sortOption={sortOption}
+      setSortOption={setSortOption}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      city={city}
+      setCity={setCity}
+      setFurnishing={setFurnishing}
+      furnishing={furnishing}
+      rentValues={rentValues}
+      setRentValues={setRentValues}
+      setApplyFilters={setApplyFilters}
+      setBedroomCount={setBedroomCount}
+      bedroomCount={bedroomCount}
+      bathroomCount={bathroomCount}
+      setBathroomCount={setBathroomCount}
+      leases={leases}
+      clearFilters={clearFilters}
+      setClearFilters={setClearFilters}
+    />
+    <div class="lease-list">
+      {currentLeases.map((apartment) => (
+        <div key={apartment.id} class="mb-5 lease-card">
+          <div class="card h-100">
+            <img className="card-image" src={apartment.images[0]} alt={apartment.bhk} />
+            <div class="card-body p-4">
+              <div class="text-center">
+                <h5 class="fw-bolder">
+                  {t('apartmentInfo', {
+                    furnishing: translateFurnishing(apartment.furnishing),
+                    aptLocation: t('AptsList.aptlocation'),
+                    address: apartment.address,
+                    city: apartment.city
+                  })}
+                </h5>
+                <h5 class="fw-bolder">${apartment.rentPrice}/month</h5>
+                <div className="row">
+                  <div className="col-2">
+                    <img
+                      className="card-icon"
+                      src="double-bed.png"
+                      alt="double-bed"
+                      width="15"
+                      height="15"
+                    />
+                    {apartment.bhk}
                   </div>
-                </div>
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div
-                    class="text-center"
-                    onClick={() => handleApartmentClick(apartment)}
-                  >
-                    <button class="btn btn-outline-dark mt-auto">
-                      View listing
-                    </button>
+                  <div className="col-2">
+                    <img
+                      className="card-icon"
+                      src="bathroom.png"
+                      alt="bathroom-icon"
+                      width="15"
+                      height="15"
+                    />
+                    {apartment.bathroom}
                   </div>
                 </div>
               </div>
             </div>
-          ))}
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div
+                class="text-center"
+                onClick={() => handleApartmentClick(apartment)}
+              >
+                <button class="btn btn-outline-dark mt-auto">
+                  {t('Profil.viewlisting')}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div 
-        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 pagination-div"
-        >
-          <Pagination
-            className="pagination-bar"
-            currentPage={currentPage}
-            totalCount={leases.length}
-            pageSize={cardsPerPage}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
-        </div>
-      </div>
-  );
+      ))}
+    </div>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 pagination-div">
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={leases.length}
+        pageSize={cardsPerPage}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
+    </div>
+  </div>
+);
 };
 
 export default LeasesList;

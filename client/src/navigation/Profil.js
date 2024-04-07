@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import './Profil.css';
-import { FaEye, FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
+
 
 
 
@@ -16,12 +18,10 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
     // const [otherField, setOtherField] = useState('');
     const [click, setClick] = useState(false);
     const [leases, setLeases] = useState([]);
-    const navigate = useNavigate();
-
-
-
-
     const handleClick = () => setClick(!click);
+
+    const { t } = useTranslation();
+
 
     const handleLogin = async (response) => {
         try {
@@ -146,11 +146,11 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
     // const navigateToListing = (leaseid) => {
     //   navigate(`apartment/${leaseid}`);
     // }
-    const deleteLease = async (leaseId) => {
+    const deleteLease = async (leaseTodelete) => {
       try {
           const confirmation = window.confirm('Are you sure you want to delete this listing?');
           if (confirmation) {
-              const response = await fetch(`/leaseDelete/${leaseId}`, {
+              const response = await fetch(`/leaseDelete/${leaseTodelete._id}`, {
                   method: 'DELETE',
                   headers: {
                       'Content-Type': 'application/json',
@@ -158,7 +158,15 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
                   body: JSON.stringify({ email: username }),
               });
               if (response.ok) {
-                  setLeases(leases.filter(lease => lease._id !== leaseId));
+                  setLeases(leases.filter(lease => lease._id !== leaseTodelete._id));
+
+
+                  // remove cached data
+                  localStorage.removeItem('leases');
+                  const keysToRemove = Object.keys(localStorage).
+                      filter(key => key.includes(`leases:${leaseTodelete.city}:`));
+                  console.log(keysToRemove)
+                  keysToRemove.forEach(key => localStorage.removeItem(key));
               } else {
                   console.error('Failed to delete lease');
               }
@@ -170,20 +178,15 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
 
     return(
         <div className="profil">
-            <h1>Profil</h1>
+            <h1>{t('Nav.profil')}</h1>
             <br></br>
             <div>
             {isLoggedIn ? (
             <div className="user-info">
-                <p>Welcome, {name}!</p>
-                {/* <button onClick={handleLogout}>Logout</button> */}
+                <p>{t('Profil.welcome')} {name}!</p>
                 </div>
             ) : (
-            // Display content for not logged-in user
 
-            // <button>
-            //   <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
-            // </button>
             <div className="login-button">
                 <GoogleLogin onSuccess={handleLogin} onError={() => console.log('Login failed')} />
             </div>
@@ -195,30 +198,30 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
               <button className="post-listing-btn" onClick={() => {
                 navigateToPostListing(username);
                 }}>
-                Post Listing
+                {t('Profil.post')}
               </button>
             </div>
             )}
 
             {isLoggedIn && (
             <div className="nav-item">
-              <button className="logout-button" onClick={handleLogout}>Logout</button>
+              <button className="logout-button" onClick={handleLogout}>{t('Profil.logout')}</button>
             </div>
             )}
         
         {isLoggedIn  && (
                 <div className="user-leases">
-                    <h3>Your leases:</h3>
+                    <h3>{t('Profil.yourleases')}</h3>
                     <ul>
                     {leases.map((lease, index) => (
                       <li key={index} className="lease-item">
                         <div className="lease-details">
-                          <p className="lease-info"><strong>Posted Date:</strong> {lease.postedDate}</p>
-                          <p className="lease-info"><strong>Address:</strong> {lease.address}</p>
-                          <p className="lease-info"><strong>Rent Price:</strong> ${lease.rentPrice}</p>
+                          <p className="lease-info"><strong>{t('Profil.posteddate')}</strong> {lease.postedDate}</p>
+                          <p className="lease-info"><strong>{t('Profil.address')}</strong> {lease.address}</p>
+                          <p className="lease-info"><strong>{t('Profil.price')}</strong> ${lease.rentPrice}</p>
                         </div>
                         <button className="view-listing-btn"onClick={() => navigateToApartmentPage(lease)}>View Listing</button>
-                        <i className="delete-lease-btn" onClick={() => deleteLease(lease._id)}>
+                        <i className="delete-lease-btn" onClick={() => deleteLease(lease)}>
                             <FaTrash />
                         </i>
                       </li>

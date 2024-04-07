@@ -7,8 +7,12 @@ router.get('/:email', async (req, res) => {
         const db = new DB();
         const email = req.params.email;
         const user =  await db.findUser(email);
-        res.json({'response':user});
-      
+        if(user){
+            res.json({'response': user});
+        }else{
+            res.status(404).json({'error':'User not found'});
+        }
+
     }catch(err){
         res.status(404).send({'error': 'User not found'});
       
