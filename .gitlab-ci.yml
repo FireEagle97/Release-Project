@@ -4,7 +4,7 @@ image: node:latest
 
 stages:
   - build
-  # - test
+  - test
   - deployprod
   - deploydev
   
@@ -47,12 +47,12 @@ build-backend:
     paths:
       - server/node_modules
 
-# test:
-#   stage: test
-#   dependencies:
-#     - build-backend
-#   script:
-#     - cd server && npm run test
+test:
+  stage: test
+  dependencies:
+    - build-backend
+  script:
+    - cd server && npm run test
 
 
 # from M Frydrychowicz
@@ -63,7 +63,7 @@ build-backend:
 #     - main
 #   before_script:
 #     - npm install -g eslint
-#   script:dfdf
+#   script:
 #     - eslint --ext .js .
 
 deploy_to_azure_dev:
