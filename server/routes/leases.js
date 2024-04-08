@@ -21,7 +21,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:city', async (req, res) => {
     try{
-        const db = new DB();
         const city = req.params.city;
         const area = req.query.area;
         const bathrooms = req.query.bathroom;
@@ -80,6 +79,7 @@ router.get('/:city', async (req, res) => {
                 throw new Error('String values must be provided for optional parameters');
             }
 
+            const db = new DB();
 
             data = await db.getLeasesByCityAndFilters(city, area, { rent, size,
                 furnishing, bathrooms, bedrooms });
