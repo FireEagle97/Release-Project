@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
     }
     try{
         const imageUrls = await getImageUrls(req.files);
-        console.log('imagesUrls', imageUrls);
 
         const postedDate = getCurrentDate();
         const leaseObject = {

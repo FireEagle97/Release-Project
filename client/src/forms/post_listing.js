@@ -109,12 +109,23 @@ export default function PostListing() {
     }
 
     try {
-      await fetch('/leaseUpload', {
+      const response = await fetch('/leaseUpload', {
         method: 'POST',
         headers: {},
         body: formData,
       });
-
+      if (!response.ok) { // Check if the response status code is not in the range 200-299
+        throw new Error('Network response was not ok: ' + response.statusText);
+      }
+      if (response.ok) {
+        try {
+          const data = await response.json(); // Assuming server returns JSON
+          // Process data
+        } catch (error) {
+          throw new Error('Error parsing JSON: ' + error.message);
+        }
+      }
+      
       alert('Submitted successfully');
 
       // remove cached data
