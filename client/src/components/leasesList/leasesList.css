@@ -29,7 +29,7 @@
         display: block;
     }
     .pagination-div{
-        text-align: normal;
+        justify-content: unset;
         padding:1.5rem 1.5rem 2.5rem 1.5rem;
     }
 }
