@@ -120,7 +120,7 @@ const Filters = ({
             onChange={handleSearchChange}
           />
         </div>
-        <div style={{ padding: "1rem" }}>
+        <div className="filter-button-dropdown">
           <button
             className="btn btn-secondary dropdown-toggle"
             onClick={ () => {
