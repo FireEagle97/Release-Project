@@ -1,93 +1,68 @@
 # Release-Project
 
+Anastasia Bondarenko, Monica Dimitrova, Elissar Fadel, Dany Makhoul
 
 
-## Getting started
+## Champions
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+# Read Text Button Feature
+Author: Anastasia Bondarenko
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+I created a read text button using SayButton component imported from say-react library in apartment information display to read all the text in post description. Integrating a SayButton enables users with visual impairments to access the content more conveniently by listening to the description of the apartment by clicking a button. Also, users that prefer auditory learning or multitasking can benefit from the addition of a SayButton: instead of having to read through the entire description, they can listen to it while performing other tasks, thus improving the overall user experience and engagement with the platform.
 
-## Add your files
+The button is a blue 'Read Text' button in the bottom-left of the apartment description.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+![Read-Buuton](./report-imgs/report-btn.png)
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project.git
-git branch -M main
-git push -uf origin main
-```
+# Mobile version
+Author: Dany Makhoul
+I added css rules and modified the layout where necessary to be mobile friendly
 
-## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project/-/settings/integrations)
+# Multi-language Feature
+Author: Monica Dimitrova
 
-## Collaborate with your team
+I created a dropdown menu where a user can select their prefered language in which to browse our website.
+I implement the translation of our website using json files for each language, and i18next is the internationalization framework I used.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+![Multi-language](./report-imgs/multi-lang.png)
 
-## Test and Deploy
 
-Use the built-in continuous integration in GitLab.
+# Time performance optimization 
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Author: Elissar Fadel
 
-***
+In this champion, I addressed the issue of slow page loading in our application. The page load time was excessively slow, taking up to 4 seconds in some cases. This sluggish performance was particularly concerning given that our application does not handle a large dataset. To ensure a better user experience and improve user satisfaction, I focused on optimizing the page load time. In the next few paragraphs, I explain what features I used and show proof of optimization.
 
-# Editing this README
+Features added for performance optimization:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+### Frontend Caching: 
+Used local storage to store data from fetch responses, ensuring less repeated API calls and improving responsiveness of the app. I cached responses from requests of filters and all leases, and ensured to remove from local storage items that correlate to a lease being uploaded, removed or updated. 
 
-## Suggestions for a good README
+### Backend Caching: 
+Used memory caching to store database data, ensuring less time for calls from database. I did the same as frontend caching where I removed the caching when updating, removing or uploading.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Improved frontend fetching: 
+Having two fetches at the same time when lease list is initially created made the load twice as slow (took 4s to load). I seperated the fetches by making lease fetch in the beginning of the page load and the city fetch when the filter button is clicked. It hanced the fetching of the data by a signifacnt difference, taking only a few ms!
+Before: ![performance-fetching-before](./report-imgs/performance-fetching-before.png)
+After: ![performance-fetching-after](./report-imgs/performance-fetching-after.png)
 
-## Name
-Choose a self-explaining name for your project.
+### Images: 
+Having 100 images, there was an issue with the time of loading these resources. there are few optimization techniques I used for images:
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+- Lazy loading: used lazy loading on the images in the lease list as they were blocking the inital page load, this helped with reducing bandwidth usage.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+- Switched to WebP format: the images from the db were jpn, so I converted all of them to webP, which is more compressed and smaller file size compared to jpn. This reduced image load time and bandwidth consumption which improved the page rendering 
+Issue before: ![performance-images-webp](./report-imgs/performance-images-webp.png)
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- Controlled caching for static images: used control caching and defined 30 days for caching for image types in the static resources in order to reduce the load time of the home page of our website.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Remove unnecessary fetching: 
+The leases page was fetching filtering options, I removed the fetch request and hardcoded the options of the filtering, because there were only furnished, unfurnished and semi-furnished as options and even in post listing, you could only choose one of the three, so this was not needed and created more blocking time for the initial load of the page.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Overall, these features helped in improving the speed of the loading by twice as much and reducing the blocking time by 95.5% !!!
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### Lighthouse report
+Before: ![performance-lighthouse-before](./report-imgs/performance-lighthouse-before.png)
+![performance-lighthouse-before-2](./report-imgs/performance-lighthouse-before-2.png)
+After: ![performance-lighthouse-after](./report-imgs/performance-lighthouse-after.png)
