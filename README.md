@@ -1,7 +1,10 @@
 # Release-Project
 
+# Contributors
 Anastasia Bondarenko, Monica Dimitrova, Elissar Fadel, Dany Makhoul
 
+# Deployed App
+(https://release-your-apt.azurewebsites.net/)
 
 ## Champions
 
@@ -18,8 +21,6 @@ The button is a blue 'Read Text' button in the bottom-left of the apartment desc
 Author: Dany Makhoul
 I added css rules and modified the layout where necessary to be mobile friendly
 
-#Deployed App[
-(https://release-your-apt.azurewebsites.net/)
 # Multi-language Feature
 Author: Monica Dimitrova
 
